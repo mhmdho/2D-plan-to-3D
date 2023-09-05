@@ -1,6 +1,6 @@
 from sklearn.cluster import KMeans
-import numpy as np
 import ezdxf
+
 
 def recreate_entity_in_msp(entity, msp):
     """
@@ -23,68 +23,52 @@ def recreate_entity_in_msp(entity, msp):
 
 
 doc = ezdxf.readfile('inputDXF/1.dxf')
+msp = doc.modelspace()
 
-# Get all layers
-layers = doc.layers
+centroids = []
+entities_with_centroids = []
 
-# List all layer names
-layer_names = [layer.dxf.name for layer in layers]
-# layer_names = ["FP-Proposed Wall"]
-# print(layer_names)
+for entity in msp:
+    centroid = None
+    if entity.dxftype() == 'LINE':
+        x = (entity.dxf.start.x + entity.dxf.end.x) / 2
+        y = (entity.dxf.start.y + entity.dxf.end.y) / 2
+        centroid = (x, y)
+    elif entity.dxftype() in ['CIRCLE', 'ARC']:
+        centroid = (entity.dxf.center.x, entity.dxf.center.y)
+    elif entity.dxftype() in ['POLYLINE']:
+        points = [vertex.dxf.location for vertex in entity.vertices()]
+        centroid = (points[0].x, points[0].y)
 
-all_lines = []
-
-
-for layer_name in layer_names:
-    msp = doc.modelspace()
-    entities_on_layer = msp.query(f'LINE[layer=="{layer_name}"]')
-    # Process or save entities_on_layer as needed
-    new_doc = ezdxf.new()
-    msp = new_doc.modelspace()
-    for line in entities_on_layer:
-        start_point = line.dxf.start
-        end_point = line.dxf.end
-        all_lines.append((start_point, end_point))
+    if centroid:
+        centroids.append(centroid)
+        entities_with_centroids.append(entity)
 
 
-lines_array = np.array(all_lines)
-
-# Reshape the array to have a single dimension
-lines_array = lines_array.reshape((-1, 6))
-
-# num_clusters = 8  # Replace with the desired number of clusters
-# Determine the number of clusters
+# Number of plans/elevations you expect
 wcss = []
 max_clusters = 20  # Maximum number of clusters to try
 for n_clusters in range(1, max_clusters + 1):
     kmeans = KMeans(n_clusters=n_clusters)
-    kmeans.fit(lines_array)
+    kmeans.fit(centroids)
     wcss.append(kmeans.inertia_/1e11)
-    if kmeans.inertia_/1e11 < 0.1:
+    if kmeans.inertia_/1e11 < 0.05:
         num_clusters = n_clusters
         break
 
 
-# Apply K-means clustering
-kmeans = KMeans(n_clusters=num_clusters)
-kmeans.fit(lines_array)
+kmeans = KMeans(n_clusters=n_clusters)
+labels = kmeans.fit_predict(centroids)
 
-# Retrieve cluster labels for each line
-cluster_labels = kmeans.labels_
 
-# Separate lines into different groups based on cluster labels
-clusters = [[] for _ in range(num_clusters)]
-for i, label in enumerate(cluster_labels):
-    clusters[label].append(all_lines[i])
-
-# Print the clusters
-for i, cluster in enumerate(clusters):
-    print(f"Cluster {i+1}:")
+for i in range(n_clusters):
     new_doc = ezdxf.new()
     msp_new = new_doc.modelspace()
-    # for line in cluster:
-    #     msp.add_line(start=line[0], end=line[1])
-    entities_for_cluster = [entity for j, entity in enumerate(msp) if cluster_labels[j] == i]
+    
+    # Entities corresponding to current cluster
+    entities_for_cluster = [entity for j, entity in enumerate(entities_with_centroids) if labels[j] == i]
+    
     for entity in entities_for_cluster:
         recreate_entity_in_msp(entity, msp_new)
-    new_doc.saveas(f"decomposed/file{i}.dxf")
+    
+    new_doc.saveas(f"decomposed/cluster_{i}.dxf")
