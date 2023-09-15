@@ -25,3 +25,11 @@ def transform_point(point, insert, scale=True):
     y_rot += y0
 
     return x_rot, y_rot, z
+
+
+def radius_scale(arc, insert):
+    """Scale radius of circle based on the properties of an INSERT entity."""
+    radius = arc.dxf.radius
+    angle = math.radians(arc.dxf.end_angle)
+    return math.sqrt((radius*math.cos(angle)*insert.dxf.xscale)**2 +
+        (radius*math.sin(angle)*insert.dxf.yscale)**2)
