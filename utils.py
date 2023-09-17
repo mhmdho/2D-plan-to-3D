@@ -33,3 +33,25 @@ def radius_scale(arc, insert):
     angle = math.radians(arc.dxf.end_angle)
     return math.sqrt((radius*math.cos(angle)*insert.dxf.xscale)**2 +
         (radius*math.sin(angle)*insert.dxf.yscale)**2)
+
+
+def rotate_slice(arc, insert):
+    # Step 1: Determine the center of the circle
+    center = arc.dxf.center
+    rotate_point = insert.dxf.insert
+
+    # Step 2: Calculate the distance between the center and the rotation point
+    distance = math.sqrt((rotate_point.x - center.x) ** 2 + (rotate_point.y - center.y) ** 2)
+
+    # Step 3: Convert distance and angle to Cartesian coordinates
+    rotate_cartesian_x = distance * math.cos(math.radians(insert.dxf.rotation))
+    rotate_cartesian_y = distance * math.sin(math.radians(insert.dxf.rotation))
+
+    # Step 4: Apply rotation to the Cartesian coordinates
+    rotated_x = rotate_point.x + rotate_cartesian_x
+    rotated_y = rotate_point.y + rotate_cartesian_y
+
+    # Step 5: Convert the rotated coordinates back to polar coordinates
+    rotated_angle = math.degrees(math.atan2(rotated_y - center.y, rotated_x - center.x))
+
+    return rotated_angle
