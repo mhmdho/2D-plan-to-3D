@@ -1,5 +1,6 @@
 import math
 
+
 def transform_point(point, insert, scale=True):
     """Transforms a point based on the properties of an INSERT entity."""
     if len(point) == 2:
@@ -55,3 +56,15 @@ def rotate_slice(arc, insert):
     rotated_angle = math.degrees(math.atan2(rotated_y - center.y, rotated_x - center.x))
 
     return rotated_angle
+
+
+def rotate_arc(arc, insert):
+    rotate_point = insert.dxf.insert
+    center = arc.dxf.center
+    angle_points = math.degrees(math.atan2(center.y - rotate_point.y, center.x - rotate_point.x))
+    # start_angle = angle_points + arc.dxf.start_angle*math.cos(math.radians(arc.dxf.start_angle)) + arc.dxf.start_angle*math.sin(math.radians(arc.dxf.start_angle))
+    # end_angle = angle_points + arc.dxf.end_angle*math.cos(math.radians(arc.dxf.end_angle)) + arc.dxf.end_angle*math.sin(math.radians(arc.dxf.end_angle))
+    start_angle = angle_points + arc.dxf.start_angle + insert.dxf.rotation
+    end_angle = angle_points + arc.dxf.end_angle + insert.dxf.rotation
+
+    return start_angle, end_angle
