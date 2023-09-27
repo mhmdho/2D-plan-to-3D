@@ -29,3 +29,27 @@ for entity in msp:
         print(thefilter)
         print(entity.dxf.all_existing_dxf_attribs())
         mylist.remove(thefilter)
+
+
+# Save layers to a new file
+doc2 = ezdxf.new(dxfversion='R2018')
+msp2 = doc2.modelspace()
+i = 0
+omitlist = []
+for entity in msp:
+    # if entity.dxftype() in ['WIPEOUT', 'INSERT', 'MTEXT', 'DIMENSION']:
+    # if entity.dxftype() == 'HATCH':
+        try:
+            # print(entity.dxftype())
+            # print(entity.dxf.all_existing_dxf_attribs())
+            msp2.add_foreign_entity(entity)
+        except:
+            i += 1
+            # doc2.saveas(f"decomposed/clus{i}.dxf")
+            # print(vars(entity))
+            if entity.dxftype() not in omitlist:
+                omitlist.append(entity.dxftype())
+            # print(entity.text)
+
+print(i, omitlist)
+doc2.saveas(f"decomposed/new{i}.dxf")
