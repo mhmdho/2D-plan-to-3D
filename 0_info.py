@@ -53,3 +53,38 @@ for entity in msp:
 
 print(i, omitlist)
 doc2.saveas(f"decomposed/new{i}.dxf")
+
+
+# Get entities of a specific layer
+layer_name = 'FP-Window'
+for entity in msp:
+    # if entity.dxf.layer == layer_name:
+    if entity.dxftype() == 'INSERT' and entity.dxf.layer == layer_name:
+        x0 = entity.dxf.insert.x
+        y0 = entity.dxf.insert.y
+        z0 = entity.dxf.insert.z
+        a = (x0, y0, z0)
+        print(entity.dxftype())
+        print(vars(entity.doc.blocks[entity.dxf.name]))
+        block = entity.doc.blocks[entity.dxf.name]
+        for e in block:
+            if e.dxftype() == 'LINE':
+                print('LINE')
+            if e.dxftype() == 'LWPOLYLINE':
+                print('LWPOLYLINE')
+            if e.dxftype() == 'CIRCLE':
+                print('CIRCLE')
+            if e.dxftype() == 'INSERT':
+                print('INSERT')
+            print('-------------------------------------------')
+            print(vars(e.dxf))
+            break
+        # print(vars(entity.doc.tables))
+        # print('-------------------------------------------')
+        # print(vars(entity.doc.rootdict))
+        # print('-------------------------------------------')
+        # print(vars(entity.doc.header))
+        # print('-------------------------------------------')
+        # print(vars(entity.doc.classes))
+        print('-------------------------------------------')
+        break
