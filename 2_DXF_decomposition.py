@@ -16,10 +16,14 @@ def recreate_entity_in_msp(entity, msp):
         msp.add_text(entity.dxf.text, dxfattribs={'insert': entity.dxf.insert, 'height': entity.dxf.height})
     elif entity.dxftype() == 'MTEXT':
         msp.add_mtext(entity.dxf.text, dxfattribs={'insert': entity.dxf.insert})
-    elif entity.dxftype() == 'POLYLINE':
+    elif entity.dxftype() in ['LWPOLYLINE', 'POLYLINE']:
         # Recreating a basic 2D polyline. If your DWG contains 3D polylines or other variations, more handling would be required.
         points = [vertex.dxf.location for vertex in entity.vertices()]
         msp.add_lwpolyline(points)
+    elif entity.dxftype() == 'HATCH':
+        msp.add_hatch(extrusion=entity.dxf.extrusion, hatch_style=entity.dxf.hatch_style, pattern_type=entity.dxf.pattern_type, pattern_angle=entity.dxf.pattern_angle, pattern_scale=entity.dxf.pattern_scale)
+    # elif entity.dxftype() == 'DIMENSION':
+    #     msp.add_dimension(defpoint=entity.dxf.defpoint, text_midpoint=entity.dxf.text_midpoint, dimtype=entity.dxf.dimtype, attachment_point=entity.dxf.attachment_point, actual_measurement=entity.dxf.actual_measurement, defpoint2=entity.dxf.defpoint2, defpoint3=entity.dxf.defpoint3)
 
 
 doc = ezdxf.readfile('inputDXF/1.dxf')
