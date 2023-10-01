@@ -38,11 +38,18 @@ for entity in msp:
         x = (entity.dxf.start.x + entity.dxf.end.x) / 2
         y = (entity.dxf.start.y + entity.dxf.end.y) / 2
         centroid = (x, y)
-    elif entity.dxftype() in ['CIRCLE', 'ARC']:
+    elif entity.dxftype() in ['CIRCLE', 'ARC', 'ELLIPSE']:
         centroid = (entity.dxf.center.x, entity.dxf.center.y)
-    elif entity.dxftype() in ['POLYLINE']:
-        points = [vertex.dxf.location for vertex in entity.vertices()]
-        centroid = (points[0].x, points[0].y)
+    elif entity.dxftype() == ['HATCH', 'SPLINE']:
+        centroid = (entity.dxf.extrusion.x, entity.dxf.extrusion.y)
+    elif entity.dxftype() in ['TEXT', 'MTEXT', 'INSERT', 'WIPEOUT',]:
+        centroid = (entity.dxf.insert.x, entity.dxf.insert.y)
+    elif entity.dxftype() == 'DIMENSION':
+        centroid = (entity.dxf.defpoint.x, entity.dxf.defpoint.y)
+    elif entity.dxftype() in ['LWPOLYLINE', 'POLYLINE']:
+        # Recreating a basic 2D polyline. If your DWG contains 3D polylines or other variations, more handling would be required.
+        point = [vertex for vertex in entity.vertices()][0]
+        centroid = point
 
     if centroid:
         centroids.append(centroid)
