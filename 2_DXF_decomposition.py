@@ -78,8 +78,24 @@ for i in range(n_clusters):
     
     # Entities corresponding to current cluster
     entities_for_cluster = [entity for j, entity in enumerate(entities_with_centroids) if labels[j] == i]
-    
+    entities_layers = list({str(entity.dxf.layer).lower() for j, entity in enumerate(entities_with_centroids) if labels[j] == i})
+    txt_layer = ' '.join(entities_layers)
+    if len(entities_for_cluster) < 100:
+        continue
+
+    filename = f'other_{i}'
+    if 'roof' in txt_layer and 'door' not in txt_layer and 'window' not in txt_layer and 'foot' not in txt_layer:
+        filename = f'plan_{i}'
+    if 'furniture' in txt_layer:
+        filename = f'plan_{i}'
+    if 'foot' in txt_layer:
+        filename = f'elevation_{i}'
+        
     for entity in entities_for_cluster:
+        if entity.dxftype() in ['MTEXT']:
+            if 'room' in str(entity.text).lower():
+                filename = f'plan_{i}'
+
         recreate_entity_in_msp(entity, msp_new)
-    
-    new_doc.saveas(f"decomposed/cluster_{i}.dxf")
+
+    new_doc.saveas(f"decomposed/{filename}.dxf")
