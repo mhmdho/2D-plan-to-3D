@@ -1,3 +1,4 @@
+from utils import transform_point, radius_scale, rotate_arc
 from sklearn.cluster import KMeans
 import ezdxf
 
@@ -56,7 +57,7 @@ for entity in msp:
         entities_with_centroids.append(entity)
 
 
-# Number of plans/elevations you expect
+# Number of expected plans/elevations
 wcss = []
 max_clusters = 20  # Maximum number of clusters to try
 for n_clusters in range(1, max_clusters + 1):
@@ -96,6 +97,51 @@ for i in range(n_clusters):
             if 'room' in str(entity.text).lower():
                 filename = f'plan_{i}'
 
-        recreate_entity_in_msp(entity, msp_new)
+        if entity.dxftype() == 'INSERT':
+            layer = entity.dxf.layer
+            block = entity.doc.blocks[entity.dxf.name]
+            for e in block:
+                if e.dxf.invisible == 0:
+                    if e.dxftype() == 'LINE':
+                        start = transform_point(e.dxf.start, entity)
+                        end = transform_point(e.dxf.end, entity)
+                        msp_new.add_line(start=start, end=end, dxfattribs={"layer": layer})
+                    if e.dxftype() in ['LWPOLYLINE', 'POLYLINE']:                        
+                        points = [transform_point(vertex, entity) for vertex in e.vertices()]
+                        msp_new.add_lwpolyline(points, dxfattribs={"layer": layer})
+                    elif e.dxftype() == 'CIRCLE':
+                        center = transform_point(e.dxf.center, entity)
+                        radius_x=e.dxf.radius*entity.dxf.xscale
+                        radius_y=e.dxf.radius*entity.dxf.yscale
+                        msp_new.add_circle(center=center, radius=max(radius_y, radius_x), dxfattribs={"layer": layer})
+                    elif e.dxftype() == 'ARC':
+                        center = transform_point(e.dxf.center, entity)
+                        radius_x=e.dxf.radius*entity.dxf.xscale
+                        radius_y=e.dxf.radius*entity.dxf.yscale
+                        msp_new.add_arc(center=center, radius=radius_scale(e, entity), 
+                                        start_angle=e.dxf.start_angle+entity.dxf.rotation, 
+                                        end_angle=e.dxf.start_angle+entity.dxf.rotation,
+                                        dxfattribs={"layer": layer})
+                    elif e.dxftype() == 'INSERT':
+                        block2 = e.doc.blocks[e.dxf.name]
+                        for e2 in block2:
+                            if e2.dxf.invisible == 0:
+                                if e2.dxftype() == 'LINE':
+                                    start = transform_point(e2.dxf.start, e)
+                                    end = transform_point(e2.dxf.end, e)
+                                    msp_new.add_line(start=start, end=end, dxfattribs={"layer": layer})
+                                elif e2.dxftype() in ['LWPOLYLINE', 'POLYLINE']:
+                                    points = [transform_point(vertex, e) for vertex in e2.vertices()]
+                                    msp_new.add_lwpolyline(points, dxfattribs={"layer": layer})
+                                elif e2.dxftype() == 'CIRCLE':
+                                    center = transform_point(e2.dxf.center, e)
+                                    msp_new.add_circle(center=center, radius=e2.dxf.radius, dxfattribs={"layer": layer})
+
+        else:
+            if entity.dxftype() not in ['MTEXT', 'TEXT', 'DIMENSION', 'WIPEOUT']:
+                try:
+                    msp_new.add_foreign_entity(entity)
+                except:
+                    pass
 
     new_doc.saveas(f"decomposed/{filename}.dxf")
