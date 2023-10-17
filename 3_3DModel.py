@@ -174,18 +174,6 @@ for i, msp in enumerate(MSP):
 
 
 
-# plotter.enable_depth_peeling(number_of_peels=50, occlusion_ratio=0)
-camera = plotter.camera
-camera.position = (11368.489169071205, 4093.2579511056797, 2239.165230214689)
-camera.focal_point = (11332.366527666658, 4006.397461809341, 627.5624088506037)
-camera.view_up = (0, 1, 0)
-camera.clipping_range = (1790.0142033648085, 2825.4544759496184)
-camera.view_angle = 30
-camera.distance = 2859.9125435621586
-camera.azimuth = -30        
-camera.elevation = 0         
-camera.roll =  0           
-
 plotter.enable_depth_peeling()
 plotter.show()
-plotter.close()
+
