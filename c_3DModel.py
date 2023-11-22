@@ -1,12 +1,8 @@
 import ezdxf
 import numpy as np
 import pyvista as pv
-import vtkmodules.all as vtk
-from dxf_to_pyvista import dxf_to_pyvista_line, dxf_to_pyvista_hatch, dxf_to_pyvista_polyline
-from pyvista import wrap
-from concave_hull import concave_hull, concave_hull_indexes
-from roof_utilities import create_PolyData_Line, interpolate_AllLines, get_outline, sort_points_by_distance
-from roof_utilities import produce_gable_height, find_corner_points, produce_2Dsurface
+from dxf_to_pyvista import dxf_to_pyvista_line, dxf_to_pyvista_hatch
+from roof_utilities import extrude_as_gable
 
 WallHeight = 200
 
@@ -31,12 +27,29 @@ Door_Texture = pv.Texture('Textures/door.png')
 Roof_Texture = pv.Texture('Textures/roof.jpg')
 Stair_Texture = pv.Texture('Textures/stair.jpg')
 
-lightred = (.7, .4, .4)
 Layers = ['FP-Door', 'FP-Proposed Wall', 'FP-Roof', 'FP-Stair', 'FP-Window']
+
+# lightred = (.7, .4, .4)
 # Colors = [lightred, 'lightgrey'   , 'lightbrown', 'lightgreen', 'lightblue']
-Colors = ['#694b29', '#FFFFFF'   , '#454545', '#FFFFFF', '#357EC7']
-# Textures = [Door_Texture, Wall_Texture, Roof_Texture, Wall_Texture, Window_Texture]
+Colors = ['#694b29', '#FFFFFF'   , '#787878', '#FFFFFF', '#357EC7']
 Textures = [None, None, None, None, None]
+
+# Colors = ['#694b29', None, None, None, '#357EC7']
+# Textures = [None, Wall_Texture, Roof_Texture, Wall_Texture, None]
+
+# Colors = [None, None, None, None, None]
+# Textures = [Door_Texture, Wall_Texture, Roof_Texture, Wall_Texture, Window_Texture]
+
+Opacities = [1., 1., 1., 1., 1.]
+Texture_Scales = [2, 2, .3, 2, 4]
+
+Mesh_Doors = pv.MultiBlock()
+Mesh_Walls = pv.MultiBlock()
+Mesh_Stairs = pv.MultiBlock()
+Mesh_Windows = pv.MultiBlock() 
+Mesh_Outline_window = pv.MultiBlock()
+
+#######################################################################
 
 
 def dxf_to_pyvista_polyline2(polyline):
@@ -49,47 +62,63 @@ def dxf_to_pyvista_polyline2(polyline):
     return polyline_data
 
 
-def entity_to_mesh(plotter, msp, layers, colors, textures, translation_vector):
-    
-    # Create a dictionary to map each layer to its color
-    layer_to_color = dict(zip(layers, colors))
-    # layer_to_texture = dict(zip(layers, textures))
+def extract_window(mesh):
+    bounds = mesh.bounds
+    z_min, z_max = bounds[4], bounds[5]
+    total_height = z_max - z_min
+    h_window = total_height/2
+    h_walls = (total_height - h_window)/2
+    z1_window = z_min + h_walls
+    z2_window = z_max - h_walls
+    lower_wall = mesh.clip(normal=[0, 0, 1], origin=(0, 0, z1_window)) #Clip total mesh from z1_window upwards
+    window = mesh.clip(normal=[0, 0, 1], origin=(0, 0, z2_window)) #Clip total mesh from z2_window upwards
+    window = window.clip(normal=[0, 0, -1], origin=(0, 0, z1_window)) #Clip total mesh from z1_window downwards
+    upper_wall = mesh.clip(normal=[0, 0, -1], origin=(0, 0, z2_window)) #Clip total mesh from z2_window downwards
+    return lower_wall, window, upper_wall
 
+
+def update_layers(mesh, Layer_name):
+    if Layer_name == Layers[0]:
+        Mesh_Doors.append(mesh)
+    elif Layer_name == Layers[1]:
+        Mesh_Walls.append(mesh)
+    elif Layer_name == Layers[3]:
+        Mesh_Stairs.append(mesh)
+    elif Layer_name == Layers[4]:
+        lower_wall, window, upper_wall = extract_window(mesh)        
+        Mesh_Walls.append(lower_wall)
+        Mesh_Windows.append(window)
+        Mesh_Walls.append(upper_wall)
+        
+        outline_window = window.outline()
+        Mesh_Outline_window.append(outline_window)
+
+def entity_to_mesh(msp, translation_vector):
+    
     for entity in msp:
 
-        layer_color = layer_to_color.get(entity.dxf.layer)
-        # layer_texture = layer_to_texture.get(entity.dxf.layer)
-
-        if layer_color:
+        if entity.dxf.layer in Layers:
             # Set transparency for the "window" layer
-            opacity = 1 if entity.dxf.layer == "FP-Window" else 1.0
             height = WallHeight/2 if entity.dxf.layer == "FP-Stair" else WallHeight
 
             if entity.dxftype() == 'LINE':
                 line = dxf_to_pyvista_line(entity)
                 line.translate(translation_vector, inplace=True)
                 mesh = line.extrude([0, 0, height], capping=False)
-                mesh.point_data_to_cell_data()
-                mesh.texture_map_to_plane(inplace=True)
-                plotter.add_mesh(mesh, color=layer_color, line_width=2, opacity=opacity)
+                update_layers(mesh, entity.dxf.layer)
+                
             elif entity.dxftype() in ['POLYLINE', 'LWPOLYLINE']:
                 polyline = dxf_to_pyvista_polyline2(entity)
                 polyline.translate(translation_vector, inplace=True)
                 mesh = polyline.extrude([0, 0, height], capping=False)
-                mesh.point_data_to_cell_data()
-                mesh.texture_map_to_plane(inplace=True)
-                plotter.add_mesh(mesh, color=layer_color, line_width=2, point_size=.0001, opacity=opacity)
-                
+                update_layers(mesh, entity.dxf.layer)
+                            
             elif entity.dxftype() == 'HATCH':
                 all_hatch = dxf_to_pyvista_hatch(entity)
                 for hatch in all_hatch:
                     hatch.translate(translation_vector, inplace=True)
                     mesh = hatch.extrude([0, 0, height], capping=False)
-                    mesh.point_data_to_cell_data()
-                    mesh.texture_map_to_plane(inplace=True)
-                    plotter.add_mesh(mesh, color=layer_color, line_width=2, point_size=.0001, opacity=opacity)
-
-    return plotter
+                    update_layers(mesh, entity.dxf.layer)
 
 
 
@@ -105,6 +134,8 @@ def shell_delaunay_2d(mesh):
 
 
 def TextureScale(surface, scale_factor):
+    
+    surface0 = surface.copy()
 
     if 'Texture Coordinates' in surface.point_data:
         # Get the texture coordinates
@@ -115,129 +146,120 @@ def TextureScale(surface, scale_factor):
 
         # Set the adjusted texture coordinates back to the mesh
         surface.point_data['Texture Coordinates'] = tcoords
+        return surface
+    
     else:
-        print("The mesh does not have texture coordinates!")
+        return surface0
 
 
-def extrude_as_gable(msp, Base_H, Translation_Vector):
-    #Plotting the roof:  First, join all lines from the 'FP-Roof' layer into a single PolyData
-    all_lines = None
+def get_ScaleFactor_and_Translation(mesh, max_boundary=100):
 
-    for entity in msp:
-        if entity.dxftype() == 'LINE' and entity.dxf.layer == 'FP-Roof':
-            line = dxf_to_pyvista_line(entity)
-            line.translate(Translation_Vector, inplace=True)
-
-            if all_lines is None:
-                all_lines = line
-            else:
-                all_lines += line
-
-        elif entity.dxftype() in ['POLYLINE', 'LWPOLYLINE'] and entity.dxf.layer == 'FP-Roof':
-            lines = dxf_to_pyvista_polyline(entity)
-            for line in lines:
-                line.translate(Translation_Vector, inplace=True)
-                if all_lines is None:
-                    all_lines = line
-                else:
-                    all_lines += line
+    # If mesh is a MultiBlock, Convert into pv.PolyData()
+    if isinstance(mesh, pv.MultiBlock):
+        mesh = mesh.combine().extract_surface()
+        
+    center = mesh.center
+    mesh_centered = mesh.translate(-np.array(center))
+    # Calculate the scaling factor
+    bounds = mesh_centered.bounds
+    max_extent = max([bounds[1] - bounds[0], bounds[3] - bounds[2], bounds[5] - bounds[4]])
+    scale_factor = max_boundary / max_extent
+    return center, scale_factor
 
 
-    ##################################################################
+def prepare_for_3DViewers(mesh, center, scale_factor):
+    """
+    Centers a PyVista mesh to [0, 0, 0] and rescales it to fit within a maximum boundary.
 
-    densified_points = interpolate_AllLines(all_lines,21)
-    outline_points = get_outline(densified_points)
-    outline_points = np.array(outline_points)
-    outline_points = np.unique(outline_points, axis=0)
-    outline_points = sort_points_by_distance(outline_points)
-    outline_points3D = produce_gable_height(outline_points, base_height=Base_H)
+    :param mesh: PyVista mesh to be transformed.
+    :param max_boundary: Maximum size of the mesh's largest dimension after scaling.
+    :return: Transformed PyVista mesh.
+    """
+    
+    # If mesh is a MultiBlock, Convert into pv.PolyData()
+    if isinstance(mesh, pv.MultiBlock):
+        mesh = mesh.combine().extract_surface()
+    
+    # Translate the mesh center to [0, 0, 0]
+    mesh_centered = mesh.translate(-np.array(center))
 
-    ###################################################################
-    # Find the indices of the two points with the maximum z-values and Sort
-    max_z_indices = np.argsort(-outline_points3D[:, 2])[:2]
-    max_z_indices = np.sort(max_z_indices)[::-1]
+    # Rescale the mesh
+    mesh_scaled = mesh_centered.scale([scale_factor, scale_factor, scale_factor], inplace=False)
+    
+    # Copy the mesh to avoid modifying the original
+    transformed_mesh = mesh_scaled.copy()
 
-    outline_points3D = np.roll(outline_points3D, -max_z_indices[0], axis=0)
-    outline_points = np.roll(outline_points, -max_z_indices[0], axis=0)
+    # Swap Y and Z axes
+    # transformed_mesh.points = np.column_stack((transformed_mesh.points[:, 0],  # X
+                                            #    transformed_mesh.points[:, 2],  # Z
+                                            #    transformed_mesh.points[:, 1])) # Y
+    
+    transformed_mesh.points[:, [1, 2]] = transformed_mesh.points[:, [2, 1]]   #Alternatively use this line to swap Y and Z
+    # transformed_mesh = transformed_mesh.triangulate()
+    transformed_mesh.point_data_to_cell_data()
+    transformed_mesh.texture_map_to_plane(inplace=True)
+    transformed_mesh.compute_normals()
 
-    max_z_indices = np.argsort(-outline_points3D[:, 2])[:2]
-    max_z_indices = np.sort(max_z_indices)[::-1]
-
-    # Split the list of points into two parts
-    outline_points3D_1 = outline_points3D[:max_z_indices[0] + 1]
-    outline_points3D_2 = outline_points3D[max_z_indices[0] + 1:]
-
-    #####################################################################
-    outline_lines = create_PolyData_Line(outline_points)
-    outline_lines3D = create_PolyData_Line(outline_points3D)
-    outline_lines3D_1 = create_PolyData_Line(outline_points3D_1)
-    outline_lines3D_2 = create_PolyData_Line(outline_points3D_2)
-
-
-    # Creating Outline Lines with corner_points instead of all outline_points
-    corner_points = find_corner_points(outline_points, angle_threshold=10)  # Threshold angle in degrees
-    corner_points3D = produce_gable_height(corner_points, base_height=Base_H)
-
-    corner_lines = create_PolyData_Line(corner_points)
-    corner_lines3D = create_PolyData_Line(corner_points3D)
-
-    ##################################################################
-    surface2D = produce_2Dsurface(outline_lines)
-
-    surface3D_1 = produce_2Dsurface(outline_lines3D_1)
-    surface3D_2 = produce_2Dsurface(outline_lines3D_2)
-
-    points = np.array([outline_points3D[max_z_indices[0]], outline_points3D[max_z_indices[0]+1], 
-                    outline_points3D[max_z_indices[1]-1], outline_points3D[max_z_indices[1]]])
-
-    faces = np.hstack([[4], np.arange(4)])  # 4 points, followed by the indices 0, 1, 2, 3
-    surface3D_3 = pv.PolyData(points, faces)
-
-    surface3D = surface3D_1 + surface3D_2 + surface3D_3
-
-    ##################################################################
-    # plotting side surfaces of the gable
-
-    side_surface = pv.MultiBlock()
-
-    for i in range(len(outline_points) - 1):
-        p1, p2, p3, p4 = outline_points[i], outline_points[i + 1], outline_points3D[i + 1], outline_points3D[i]
-        points = np.array((p1, p2, p3, p4)).astype(np.float32)  # Explicitly cast to float32
-        faces = np.hstack([[4], np.arange(4)])  # 4 points, followed by the indices 0, 1, 2, 3
-        plane = pv.PolyData(points, faces)
-        side_surface.append(plane)
+    return transformed_mesh
 
 
-    #plotting the last plane:
-    p1, p2, p3, p4 = outline_points[-1], outline_points[0], outline_points3D[0], outline_points3D[-1]
-    points = np.array((p1, p2, p3, p4)).astype(np.float32)  # Explicitly cast to float32
-    faces = np.hstack([[4], np.arange(4)])  # 4 points, followed by the indices 0, 1, 2, 3
-    plane = pv.PolyData(points, faces)
-    side_surface.append(plane)
+def convert_tr_to_d(mtl_file_path):
+    # Read the original .mtl file
+    with open(mtl_file_path, 'r') as file:
+        lines = file.readlines()
 
-    Gable = surface2D + surface3D + side_surface
+    # Modify the lines with the Tr parameter
+    modified_lines = []
+    for line in lines:
+        if line.startswith('Tr'):
+            tr_value = float(line.split()[1])
+            # d_value = 1 - tr_value
+            d_value = tr_value
+            modified_line = f'd {d_value}\n'
+            modified_lines.append(modified_line)
+        else:
+            modified_lines.append(line)
 
-    return Gable
+    # Write the modified content back to the .mtl file
+    with open(mtl_file_path, 'w') as file:
+        file.writelines(modified_lines)
 
-
-
-plotter = pv.Plotter(notebook=False)
-plotter.set_background('#282828')  # Set the background color here
+######################################################################################
 
 for i, msp in enumerate(MSP):
 
     Translation_Vector = [x_translate[i], y_translate[i], z_translate[i]]
     
     if i < len(MSP)-1:
-        plotter = entity_to_mesh(plotter, msp, Layers, Colors, Textures, Translation_Vector)
+        entity_to_mesh(msp, Translation_Vector)
     else:
-        roof_surface = extrude_as_gable(msp, 280, Translation_Vector)
-        plotter.add_mesh(roof_surface, color=Colors[2])
+        Mesh_Roof = extrude_as_gable(msp, 280, Translation_Vector)
 
-        
 
-# plotter.enable_depth_peeling()
+All_mesh = pv.MultiBlock()
+meshes = [Mesh_Doors, Mesh_Walls, Mesh_Roof, Mesh_Stairs, Mesh_Windows]
+for mesh in meshes:
+    All_mesh.append(mesh)
 
-plotter.export_obj('outputOBJ/output.obj')  
+
+plotter = pv.Plotter(notebook=False)
+plotter.set_background('#282828')  # Set the background color here
+
+center, scale_factor = get_ScaleFactor_and_Translation(All_mesh, max_boundary=100)
+
+for i,mesh in enumerate(meshes):
+    mesh = prepare_for_3DViewers(mesh, center=center, scale_factor=scale_factor)
+    mesh = TextureScale(mesh, Texture_Scales[i])
+    plotter.add_mesh(mesh, color=Colors[i], texture=Textures[i], opacity=Opacities[i], line_width=0, point_size=0)
+
+Mesh_Outline_window = prepare_for_3DViewers(Mesh_Outline_window, center=center, scale_factor=scale_factor)
+# plotter.add_mesh(Mesh_Outline_window, color='blue', line_width=4, point_size=0)
+
+plotter.enable_depth_peeling()
+plotter.export_obj('outputOBJ/output.obj')
+plotter.add_axes()
 plotter.show()
 plotter.close()
+
+
+convert_tr_to_d('outputOBJ/output.mtl')
