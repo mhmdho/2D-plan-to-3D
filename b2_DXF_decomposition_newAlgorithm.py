@@ -1,9 +1,6 @@
 import ezdxf
 
 
-# doc = ezdxf.readfile("decomposed_1/frontlabeledapp2_22.dxf")
-# doc = ezdxf.readfile('decomposed_1/frontlabeledapp2.dxf')
-# doc = ezdxf.readfile('decomposed_cr/11.dxf')
 doc = ezdxf.readfile('inputDXF/1.dxf')
 msp = doc.modelspace()
 
@@ -78,4 +75,4 @@ for item in clustersX:
         msp_new = doc_new.modelspace()
         for e in item[2]:
             msp_new.add_foreign_entity(e)
-        doc_new.saveas(f"decomposed_cr/{j}{j}.dxf")
+        doc_new.saveas(f"decomposed/{j}{j}.dxf")
