@@ -3,6 +3,8 @@ from pyvista import wrap
 import numpy as np
 from concave_hull import concave_hull, concave_hull_indexes
 import vtkmodules.all as vtk
+from dxf_to_pyvista import dxf_to_pyvista_line, dxf_to_pyvista_polyline
+
 
 def create_PolyData_Line(vertices):
     outline_lines = pv.PolyData()
@@ -212,3 +214,106 @@ def triangulate_volume_new(points):
     # Convert the VTK PolyData to a PyVista mesh
     mesh = pv.wrap(triangulated_result)
     return mesh
+
+
+def extrude_as_gable(msp, Base_H, Translation_Vector):
+    #Plotting the roof:  First, join all lines from the 'FP-Roof' layer into a single PolyData
+    all_lines = None
+
+    for entity in msp:
+        if entity.dxftype() == 'LINE' and entity.dxf.layer == 'FP-Roof':
+            line = dxf_to_pyvista_line(entity)
+            line.translate(Translation_Vector, inplace=True)
+
+            if all_lines is None:
+                all_lines = line
+            else:
+                all_lines += line
+
+        elif entity.dxftype() in ['POLYLINE', 'LWPOLYLINE'] and entity.dxf.layer == 'FP-Roof':
+            lines = dxf_to_pyvista_polyline(entity)
+            for line in lines:
+                line.translate(Translation_Vector, inplace=True)
+                if all_lines is None:
+                    all_lines = line
+                else:
+                    all_lines += line
+
+    ##################################################################
+
+    densified_points = interpolate_AllLines(all_lines,21)
+    outline_points = get_outline(densified_points)
+    outline_points = np.array(outline_points)
+    outline_points = np.unique(outline_points, axis=0)
+    outline_points = sort_points_by_distance(outline_points)
+    outline_points3D = produce_gable_height(outline_points, base_height=Base_H)
+
+    ###################################################################
+    # Find the indices of the two points with the maximum z-values and Sort
+    max_z_indices = np.argsort(-outline_points3D[:, 2])[:2]
+    max_z_indices = np.sort(max_z_indices)[::-1]
+
+    outline_points3D = np.roll(outline_points3D, -max_z_indices[0], axis=0)
+    outline_points = np.roll(outline_points, -max_z_indices[0], axis=0)
+
+    max_z_indices = np.argsort(-outline_points3D[:, 2])[:2]
+    max_z_indices = np.sort(max_z_indices)[::-1]
+
+    # Split the list of points into two parts
+    outline_points3D_1 = outline_points3D[:max_z_indices[0] + 1]
+    outline_points3D_2 = outline_points3D[max_z_indices[0] + 1:]
+
+    #####################################################################
+    outline_lines = create_PolyData_Line(outline_points)
+    outline_lines3D = create_PolyData_Line(outline_points3D)
+    outline_lines3D_1 = create_PolyData_Line(outline_points3D_1)
+    outline_lines3D_2 = create_PolyData_Line(outline_points3D_2)
+
+
+    # Creating Outline Lines with corner_points instead of all outline_points
+    corner_points = find_corner_points(outline_points, angle_threshold=10)  # Threshold angle in degrees
+    corner_points3D = produce_gable_height(corner_points, base_height=Base_H)
+
+    corner_lines = create_PolyData_Line(corner_points)
+    corner_lines3D = create_PolyData_Line(corner_points3D)
+
+    ##################################################################
+    surface2D = produce_2Dsurface(outline_lines)
+
+    surface3D_1 = produce_2Dsurface(outline_lines3D_1)
+    surface3D_2 = produce_2Dsurface(outline_lines3D_2)
+
+    points = np.array([outline_points3D[max_z_indices[0]], outline_points3D[max_z_indices[0]+1], 
+                    outline_points3D[max_z_indices[1]-1], outline_points3D[max_z_indices[1]]])
+
+    faces = np.hstack([[4], np.arange(4)])  # 4 points, followed by the indices 0, 1, 2, 3
+    surface3D_3 = pv.PolyData(points, faces)
+
+    surface3D = surface3D_1 + surface3D_2 + surface3D_3
+
+    ##################################################################
+    # plotting side surfaces of the gable
+
+    side_surface = pv.MultiBlock()
+
+    for i in range(len(outline_points) - 1):
+        p1, p2, p3, p4 = outline_points[i], outline_points[i + 1], outline_points3D[i + 1], outline_points3D[i]
+        points = np.array((p1, p2, p3, p4)).astype(np.float32)  # Explicitly cast to float32
+        faces = np.hstack([[4], np.arange(4)])  # 4 points, followed by the indices 0, 1, 2, 3
+        plane = pv.PolyData(points, faces)
+        side_surface.append(plane)
+
+
+    #plotting the last plane:
+    p1, p2, p3, p4 = outline_points[-1], outline_points[0], outline_points3D[0], outline_points3D[-1]
+    points = np.array((p1, p2, p3, p4)).astype(np.float32)  # Explicitly cast to float32
+    faces = np.hstack([[4], np.arange(4)])  # 4 points, followed by the indices 0, 1, 2, 3
+    plane = pv.PolyData(points, faces)
+    side_surface.append(plane)
+
+    Gable = pv.MultiBlock()
+    Gable_Surface = [surface2D, surface3D, side_surface]
+    for poly in Gable_Surface:
+        Gable.append(poly)
+    
+    return Gable        
