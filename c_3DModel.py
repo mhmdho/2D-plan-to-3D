@@ -195,7 +195,7 @@ def prepare_for_3DViewers(mesh, center, scale_factor):
                                             #    transformed_mesh.points[:, 1])) # Y
     
     transformed_mesh.points[:, [1, 2]] = transformed_mesh.points[:, [2, 1]]   #Alternatively use this line to swap Y and Z
-    # transformed_mesh = transformed_mesh.triangulate()
+    transformed_mesh = transformed_mesh.triangulate()
     transformed_mesh.point_data_to_cell_data()
     transformed_mesh.texture_map_to_plane(inplace=True)
     transformed_mesh.compute_normals()
@@ -233,7 +233,7 @@ for i, msp in enumerate(MSP):
     if i < len(MSP)-1:
         entity_to_mesh(msp, Translation_Vector)
     else:
-        Mesh_Roof = extrude_as_gable(msp, 280, Translation_Vector)
+        Mesh_Roof = extrude_as_gable(msp, Base_H=280, Translation_Vector=Translation_Vector)
 
 
 All_mesh = pv.MultiBlock()
