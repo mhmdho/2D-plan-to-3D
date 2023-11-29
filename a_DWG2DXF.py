@@ -10,7 +10,7 @@ import subprocess
 # Audit each file: 0, 1
 # (Optional) Input files filter: *.DWG, *.DXF
 
-TEIGHA_PATH = "C:/Program Files/ODA/ODAFileConverter 24.7.0/ODAFileConverter"
+TEIGHA_PATH = "C:/Program Files/ODA/ODAFileConverter 24.10.0/ODAFileConverter"
 INPUT_FOLDER = r"inputDWG"
 OUTPUT_FOLDER = r"inputDXF"
 OUTVER = "ACAD2018"
