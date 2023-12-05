@@ -221,7 +221,7 @@ def extrude_as_gable(msp, Base_H, Translation_Vector):
     all_lines = None
 
     for entity in msp:
-        if entity.dxftype() == 'LINE' and entity.dxf.layer == 'FP-Roof':
+        if entity.dxftype() == 'LINE':
             line = dxf_to_pyvista_line(entity)
             line.translate(Translation_Vector, inplace=True)
 
@@ -230,7 +230,7 @@ def extrude_as_gable(msp, Base_H, Translation_Vector):
             else:
                 all_lines += line
 
-        elif entity.dxftype() in ['POLYLINE', 'LWPOLYLINE'] and entity.dxf.layer == 'FP-Roof':
+        elif entity.dxftype() in ['POLYLINE', 'LWPOLYLINE']:
             lines = dxf_to_pyvista_polyline(entity)
             for line in lines:
                 line.translate(Translation_Vector, inplace=True)

@@ -6,8 +6,8 @@ from roof_utilities import extrude_as_gable
 
 WallHeight = 200
 
-x_translate = [0, 19, 0]
-y_translate = [0, 1890, 5920]
+x_translate = [0, 0, 0]
+y_translate = [0, 0, 0]
 z_translate = [0, WallHeight, 2*WallHeight]
 
 doc1 = ezdxf.readfile("decomposed/plan_1.dxf")
@@ -41,7 +41,7 @@ Textures = [None, None, None, None, None]
 # Textures = [Door_Texture, Wall_Texture, Roof_Texture, Wall_Texture, Window_Texture]
 
 Opacities = [1., 1., 1., 1., 1.]
-Texture_Scales = [2, 2, .3, 2, 4]
+Texture_Scales = [2, 2, 2, 2, 2]
 
 Mesh_Doors = pv.MultiBlock()
 Mesh_Walls = pv.MultiBlock()
@@ -137,19 +137,19 @@ def TextureScale(surface, scale_factor):
     
     surface0 = surface.copy()
 
-    if 'Texture Coordinates' in surface.point_data:
+    if 'Texture Coordinates' in surface0.point_data:
         # Get the texture coordinates
-        tcoords = surface.point_data['Texture Coordinates']
+        tcoords = surface0.point_data['Texture Coordinates']
 
         # Scale the texture coordinates to zoom out
         tcoords *= scale_factor
 
         # Set the adjusted texture coordinates back to the mesh
-        surface.point_data['Texture Coordinates'] = tcoords
-        return surface
+        surface0.point_data['Texture Coordinates'] = tcoords
+        return surface0
     
     else:
-        return surface0
+        return surface
 
 
 def get_ScaleFactor_and_Translation(mesh, max_boundary=100):
@@ -158,8 +158,9 @@ def get_ScaleFactor_and_Translation(mesh, max_boundary=100):
     if isinstance(mesh, pv.MultiBlock):
         mesh = mesh.combine().extract_surface()
         
-    center = mesh.center
-    mesh_centered = mesh.translate(-np.array(center))
+    mesh0 = mesh.copy()
+    center = mesh0.center
+    mesh_centered = mesh0.translate(-np.array(center))
     # Calculate the scaling factor
     bounds = mesh_centered.bounds
     max_extent = max([bounds[1] - bounds[0], bounds[3] - bounds[2], bounds[5] - bounds[4]])
@@ -179,16 +180,15 @@ def prepare_for_3DViewers(mesh, center, scale_factor):
     # If mesh is a MultiBlock, Convert into pv.PolyData()
     if isinstance(mesh, pv.MultiBlock):
         mesh = mesh.combine().extract_surface()
+
+    mesh0 = mesh.copy()
     
     # Translate the mesh center to [0, 0, 0]
-    mesh_centered = mesh.translate(-np.array(center))
+    mesh_centered = mesh0.translate(-np.array(center))
 
     # Rescale the mesh
-    mesh_scaled = mesh_centered.scale([scale_factor, scale_factor, scale_factor], inplace=False)
+    transformed_mesh = mesh_centered.scale([scale_factor, scale_factor, scale_factor], inplace=False)
     
-    # Copy the mesh to avoid modifying the original
-    transformed_mesh = mesh_scaled.copy()
-
     # Swap Y and Z axes
     # transformed_mesh.points = np.column_stack((transformed_mesh.points[:, 0],  # X
                                             #    transformed_mesh.points[:, 2],  # Z
@@ -249,8 +249,8 @@ center, scale_factor = get_ScaleFactor_and_Translation(All_mesh, max_boundary=10
 
 for i,mesh in enumerate(meshes):
     mesh = prepare_for_3DViewers(mesh, center=center, scale_factor=scale_factor)
-    mesh = TextureScale(mesh, Texture_Scales[i])
-    plotter.add_mesh(mesh, color=Colors[i], texture=Textures[i], opacity=Opacities[i], line_width=0, point_size=0)
+    # mesh = TextureScale(mesh, Texture_Scales[i])
+    plotter.add_mesh(mesh, color=Colors[i], texture=Textures[i], opacity=Opacities[i], line_width=2, point_size=0)
 
 Mesh_Outline_window = prepare_for_3DViewers(Mesh_Outline_window, center=center, scale_factor=scale_factor)
 # plotter.add_mesh(Mesh_Outline_window, color='blue', line_width=4, point_size=0)
