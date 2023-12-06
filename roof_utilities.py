@@ -89,21 +89,32 @@ def sort_points_by_distance(points):
     return np.array(sorted_points)
 
 
-def produce_gable_height(points, base_height=280):
 
-    lines = create_PolyData_Line(points)
+def produce_gable_height(points, max_height):
+    # Determine the center and width of the gable
+    min_x = min(points, key=lambda p: p[0])[0]
+    max_x = max(points, key=lambda p: p[0])[0]
+    center_x = (min_x + max_x) / 2
+    width = max_x - min_x
+
+    # Calculate the angle required to achieve the maximum height
+    angle = np.degrees(np.arctan(max_height / (width / 2)))
+
+    # Copy points to avoid modifying the original data
     outline_points3D = points.copy()
+
     for point in outline_points3D:
-        # Adjust the base 
-        point[2] += base_height
+        # Calculate the distance from the center
+        distance_from_center = abs(point[0] - center_x)
 
-        # Calculate the gable deformation
-        height_offset = np.tan(np.radians(20)) * ( -abs(point[0] - lines.center[0]))
+        # Calculate the height adjustment based on the distance
+        height_offset = np.tan(np.radians(angle)) * (width / 2) - np.tan(np.radians(angle)) * distance_from_center
 
-        # Apply the gable deformation
+        # Apply the height adjustment
         point[2] += height_offset
 
     return outline_points3D
+
 
 
 def find_corner_points(points, angle_threshold=10):
@@ -216,12 +227,12 @@ def triangulate_volume_new(points):
     return mesh
 
 
-def extrude_as_gable(msp, Base_H, Translation_Vector):
-    #Plotting the roof:  First, join all lines from the 'FP-Roof' layer into a single PolyData
+def extrude_as_gable(msp, max_height, Translation_Vector, LayerName=None):
+    #Plotting the roof:  First, join all lines from the desired layer into a single PolyData
     all_lines = None
 
     for entity in msp:
-        if entity.dxftype() == 'LINE':
+        if entity.dxftype() == 'LINE' and (entity.dxf.layer == LayerName or LayerName is None):
             line = dxf_to_pyvista_line(entity)
             line.translate(Translation_Vector, inplace=True)
 
@@ -230,7 +241,7 @@ def extrude_as_gable(msp, Base_H, Translation_Vector):
             else:
                 all_lines += line
 
-        elif entity.dxftype() in ['POLYLINE', 'LWPOLYLINE']:
+        elif entity.dxftype() in ['POLYLINE', 'LWPOLYLINE'] and (entity.dxf.layer == LayerName or LayerName is None):
             lines = dxf_to_pyvista_polyline(entity)
             for line in lines:
                 line.translate(Translation_Vector, inplace=True)
@@ -246,7 +257,7 @@ def extrude_as_gable(msp, Base_H, Translation_Vector):
     outline_points = np.array(outline_points)
     outline_points = np.unique(outline_points, axis=0)
     outline_points = sort_points_by_distance(outline_points)
-    outline_points3D = produce_gable_height(outline_points, base_height=Base_H)
+    outline_points3D = produce_gable_height(outline_points, max_height)
 
     ###################################################################
     # Find the indices of the two points with the maximum z-values and Sort
@@ -272,7 +283,7 @@ def extrude_as_gable(msp, Base_H, Translation_Vector):
 
     # Creating Outline Lines with corner_points instead of all outline_points
     corner_points = find_corner_points(outline_points, angle_threshold=10)  # Threshold angle in degrees
-    corner_points3D = produce_gable_height(corner_points, base_height=Base_H)
+    corner_points3D = produce_gable_height(corner_points, max_height)
 
     corner_lines = create_PolyData_Line(corner_points)
     corner_lines3D = create_PolyData_Line(corner_points3D)

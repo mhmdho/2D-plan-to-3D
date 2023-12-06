@@ -233,7 +233,7 @@ for i, msp in enumerate(MSP):
     if i < len(MSP)-1:
         entity_to_mesh(msp, Translation_Vector)
     else:
-        Mesh_Roof = extrude_as_gable(msp, Base_H=280, Translation_Vector=Translation_Vector)
+        Mesh_Roof = extrude_as_gable(msp, max_height=WallHeight, Translation_Vector=Translation_Vector, LayerName='FP-Roof')
 
 
 All_mesh = pv.MultiBlock()
