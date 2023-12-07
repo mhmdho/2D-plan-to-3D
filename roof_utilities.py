@@ -228,27 +228,32 @@ def triangulate_volume_new(points):
 
 
 def extrude_as_gable(msp, max_height, Translation_Vector, LayerName=None):
-    #Plotting the roof:  First, join all lines from the desired layer into a single PolyData
     all_lines = None
 
+    # Function to process a line entity
+    def add_lines(line, Translation_Vector):
+        nonlocal all_lines
+        line.translate(Translation_Vector, inplace=True)
+        all_lines = line if all_lines is None else all_lines + line
+
+    # Check if LayerName is in the list of layers or if it's None
+    layers = {entity.dxf.layer for entity in msp if entity.dxftype() in ['LINE', 'POLYLINE', 'LWPOLYLINE']}
+    if LayerName not in layers and LayerName is not None:
+        LayerName = None
+
     for entity in msp:
-        if entity.dxftype() == 'LINE' and (entity.dxf.layer == LayerName or LayerName is None):
-            line = dxf_to_pyvista_line(entity)
-            line.translate(Translation_Vector, inplace=True)
 
-            if all_lines is None:
-                all_lines = line
-            else:
-                all_lines += line
+        if (entity.dxf.layer == LayerName or LayerName is None):
 
-        elif entity.dxftype() in ['POLYLINE', 'LWPOLYLINE'] and (entity.dxf.layer == LayerName or LayerName is None):
-            lines = dxf_to_pyvista_polyline(entity)
-            for line in lines:
-                line.translate(Translation_Vector, inplace=True)
-                if all_lines is None:
-                    all_lines = line
-                else:
-                    all_lines += line
+            if entity.dxftype() == 'LINE':
+                line = dxf_to_pyvista_line(entity)
+                add_lines(line, Translation_Vector)
+
+            elif entity.dxftype() in ['POLYLINE', 'LWPOLYLINE']:
+                lines = dxf_to_pyvista_polyline(entity)
+                for line in lines:
+                    add_lines(line, Translation_Vector)
+
 
     ##################################################################
 
