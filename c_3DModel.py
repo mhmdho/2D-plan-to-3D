@@ -1,7 +1,7 @@
 import ezdxf
 import numpy as np
 import pyvista as pv
-from dxf_to_pyvista import dxf_to_pyvista_line, dxf_to_pyvista_hatch
+from dxf_to_pyvista import dxf_to_pyvista_line, dxf_to_pyvista_polyline2, dxf_to_pyvista_hatch
 from roof_utilities import extrude_as_gable
 
 WallHeight = 200
@@ -18,7 +18,6 @@ msp1 = doc1.modelspace()
 msp2 = doc2.modelspace()
 msp_roof = doc3.modelspace()
 MSP = [msp1, msp2, msp_roof]
-
 
 # Wall_Texture = pv.Texture('Red_brick_wall_texture.jpg')
 Wall_Texture = pv.Texture('Textures/wall.jpg')
@@ -51,17 +50,6 @@ Mesh_Outline_window = pv.MultiBlock()
 
 #######################################################################
 
-
-def dxf_to_pyvista_polyline2(polyline):
-    """Convert DXF POLYLINE or LWPOLYLINE to pyvista PolyData."""
-    vertices = [vertex+(0,) for vertex in polyline.vertices()]
-    if polyline.is_closed:
-        vertices = vertices + [vertices[0]]
-    polyline_data = pv.PolyData(vertices)
-    polyline_data.lines = [len(vertices)] + list(range(len(vertices)))
-    return polyline_data
-
-
 def extract_window(mesh):
     bounds = mesh.bounds
     z_min, z_max = bounds[4], bounds[5]
@@ -93,6 +81,7 @@ def update_layers(mesh, Layer_name):
         outline_window = window.outline()
         Mesh_Outline_window.append(outline_window)
 
+
 def entity_to_mesh(msp, translation_vector):
     
     for entity in msp:
@@ -119,7 +108,6 @@ def entity_to_mesh(msp, translation_vector):
                     hatch.translate(translation_vector, inplace=True)
                     mesh = hatch.extrude([0, 0, height], capping=False)
                     update_layers(mesh, entity.dxf.layer)
-
 
 
 def shell_delaunay_2d(mesh):
@@ -169,12 +157,9 @@ def get_ScaleFactor_and_Translation(mesh, max_boundary=100):
 
 
 def prepare_for_3DViewers(mesh, center, scale_factor):
+    
     """
     Centers a PyVista mesh to [0, 0, 0] and rescales it to fit within a maximum boundary.
-
-    :param mesh: PyVista mesh to be transformed.
-    :param max_boundary: Maximum size of the mesh's largest dimension after scaling.
-    :return: Transformed PyVista mesh.
     """
     
     # If mesh is a MultiBlock, Convert into pv.PolyData()
