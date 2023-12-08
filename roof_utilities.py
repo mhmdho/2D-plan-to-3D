@@ -238,12 +238,18 @@ def extrude_as_gable(msp, max_height, Translation_Vector, LayerName=None):
 
     # Check if LayerName is in the list of layers or if it's None
     layers = {entity.dxf.layer for entity in msp if entity.dxftype() in ['LINE', 'POLYLINE', 'LWPOLYLINE']}
-    if LayerName not in layers and LayerName is not None:
-        LayerName = None
+    if LayerName is not None:
+        if isinstance(LayerName, list):
+            if all(name not in layers for name in LayerName):
+                LayerName = None
+        else:
+            if LayerName not in layers:
+                LayerName = None
+
 
     for entity in msp:
 
-        if (entity.dxf.layer == LayerName or LayerName is None):
+        if LayerName is None or (isinstance(LayerName, list) and entity.dxf.layer in LayerName) or entity.dxf.layer == LayerName:
 
             if entity.dxftype() == 'LINE':
                 line = dxf_to_pyvista_line(entity)
