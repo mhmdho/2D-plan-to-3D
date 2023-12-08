@@ -1,23 +1,30 @@
+import os
 import ezdxf
 import numpy as np
 import pyvista as pv
 from dxf_to_pyvista import dxf_to_pyvista_line, dxf_to_pyvista_polyline2, dxf_to_pyvista_hatch
 from roof_utilities import extrude_as_gable
 
-WallHeight = 200
+###############################################################
 
-x_translate = [0, 0, 0]
-y_translate = [0, 0, 0]
-z_translate = [0, WallHeight, 2*WallHeight]
+folder_path = "decomposed"      # Path to the decomposed folder
+WallHeight = 200                               # Height of each floor
 
-doc1 = ezdxf.readfile("decomposed/plan_1.dxf")
-doc2 = ezdxf.readfile("decomposed/plan_2.dxf")
-doc3 = ezdxf.readfile("decomposed/plan_roof.dxf")
+dxf_files = [file for file in os.listdir(folder_path) if file.endswith('.dxf')]    # List all DXF files in the folder
+dxf_files.sort()
+N = len(dxf_files)                             # Number of files (floors + roof)
 
-msp1 = doc1.modelspace()
-msp2 = doc2.modelspace()
-msp_roof = doc3.modelspace()
-MSP = [msp1, msp2, msp_roof]
+MSP = []
+for file_name in dxf_files:
+    doc = ezdxf.readfile(os.path.join(folder_path, file_name))
+    msp = doc.modelspace()
+    MSP.append(msp)
+
+x_translate = np.zeros(N)
+y_translate = np.zeros(N)
+z_translate = [n * WallHeight for n in range(N)]
+
+####################################################################
 
 # Wall_Texture = pv.Texture('Red_brick_wall_texture.jpg')
 Wall_Texture = pv.Texture('Textures/wall.jpg')
@@ -26,7 +33,8 @@ Door_Texture = pv.Texture('Textures/door.png')
 Roof_Texture = pv.Texture('Textures/roof.jpg')
 Stair_Texture = pv.Texture('Textures/stair.jpg')
 
-Layers = ['FP-Door', 'FP-Proposed Wall', 'FP-Roof', 'FP-Stair', 'FP-Window']
+Layers = ['FP-Door', 'FP-Proposed Wall', 'FP-Roof', 'FP-Stair', 'FP-Window']         # list of Layers to be extruded 
+RoofLayers = Layers                                                                  # list of Layers related to the roof 
 
 # lightred = (.7, .4, .4)
 # Colors = [lightred, 'lightgrey'   , 'lightbrown', 'lightgreen', 'lightblue']
@@ -218,7 +226,7 @@ for i, msp in enumerate(MSP):
     if i < len(MSP)-1:
         entity_to_mesh(msp, Translation_Vector)
     else:
-        Mesh_Roof = extrude_as_gable(msp, max_height=WallHeight, Translation_Vector=Translation_Vector, LayerName='FP-Roof')
+        Mesh_Roof = extrude_as_gable(msp, max_height=WallHeight, Translation_Vector=Translation_Vector, LayerName=RoofLayers)
 
 
 All_mesh = pv.MultiBlock()
