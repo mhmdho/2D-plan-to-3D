@@ -7,11 +7,11 @@ from roof_utilities import extrude_as_gable
 
 ###############################################################
 
-folder_path = "decomposed"      # Path to the decomposed folder
+folder_path = "decomposed"                     # Path to the decomposed folder
 WallHeight = 200                               # Height of each floor
 
-dxf_files = [file for file in os.listdir(folder_path) if file.endswith('.dxf')]    # List all DXF files in the folder
-dxf_files.sort()
+dxf_files = [file for file in os.listdir(folder_path) if file.endswith('.dxf') and file.startswith('plan')]  # List all plan files in the folder
+dxf_files.sort(reverse=False)
 N = len(dxf_files)                             # Number of files (floors + roof)
 
 MSP = []
@@ -225,9 +225,10 @@ for i, msp in enumerate(MSP):
     
     if i < len(MSP)-1:
         entity_to_mesh(msp, Translation_Vector)
+        print(f'Floor {i} completed')
     else:
         Mesh_Roof = extrude_as_gable(msp, max_height=WallHeight, Translation_Vector=Translation_Vector, LayerName=RoofLayers)
-
+        print('Roof completed')
 
 All_mesh = pv.MultiBlock()
 meshes = [Mesh_Doors, Mesh_Walls, Mesh_Roof, Mesh_Stairs, Mesh_Windows]
@@ -241,12 +242,14 @@ plotter.set_background('#282828')  # Set the background color here
 center, scale_factor = get_ScaleFactor_and_Translation(All_mesh, max_boundary=100)
 
 for i,mesh in enumerate(meshes):
-    mesh = prepare_for_3DViewers(mesh, center=center, scale_factor=scale_factor)
-    # mesh = TextureScale(mesh, Texture_Scales[i])
-    plotter.add_mesh(mesh, color=Colors[i], texture=Textures[i], opacity=Opacities[i], line_width=2, point_size=0)
+    if mesh is not None and len(mesh) > 0:
+        mesh = prepare_for_3DViewers(mesh, center=center, scale_factor=scale_factor)
+        # mesh = TextureScale(mesh, Texture_Scales[i])
+        plotter.add_mesh(mesh, color=Colors[i], texture=Textures[i], opacity=Opacities[i], line_width=2, point_size=0)
 
-Mesh_Outline_window = prepare_for_3DViewers(Mesh_Outline_window, center=center, scale_factor=scale_factor)
-# plotter.add_mesh(Mesh_Outline_window, color='blue', line_width=4, point_size=0)
+if Mesh_Outline_window is not None and len(Mesh_Outline_window) > 0:
+    Mesh_Outline_window = prepare_for_3DViewers(Mesh_Outline_window, center=center, scale_factor=scale_factor)
+    # plotter.add_mesh(Mesh_Outline_window, color='blue', line_width=4, point_size=0)
 
 plotter.enable_depth_peeling()
 plotter.export_obj('outputOBJ/output.obj')
