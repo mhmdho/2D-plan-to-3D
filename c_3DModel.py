@@ -33,8 +33,8 @@ Door_Texture = pv.Texture('Textures/door.png')
 Roof_Texture = pv.Texture('Textures/roof.jpg')
 Stair_Texture = pv.Texture('Textures/stair.jpg')
 
-Layers = ['FP-Door', 'FP-Proposed Wall', 'FP-Roof', 'FP-Stair', 'FP-Window']         # list of Layers to be extruded 
-RoofLayers = Layers                                                                  # list of Layers related to the roof 
+Layers = ['Door', 'Wall', 'Roof', 'Stair', 'Window']         # Order of Layers 
+Layer_Roof = ['FP-Door', 'FP-Proposed Wall', 'FP-Roof', 'FP-Stair', 'FP-Window']      # list of Layers related to the roof 
 
 # lightred = (.7, .4, .4)
 # Colors = [lightred, 'lightgrey'   , 'lightbrown', 'lightgreen', 'lightblue']
@@ -74,13 +74,13 @@ def extract_window(mesh):
 
 
 def update_layers(mesh, Layer_name):
-    if Layer_name == Layers[0]:
+    if 'door' in Layer_name.lower() or 'در' in Layer_name:
         Mesh_Doors.append(mesh)
-    elif Layer_name == Layers[1]:
+    elif 'wal' in Layer_name.lower() or 'دیوار' in Layer_name:
         Mesh_Walls.append(mesh)
-    elif Layer_name == Layers[3]:
+    elif 'stair' in Layer_name.lower() or 'پله' in Layer_name:
         Mesh_Stairs.append(mesh)
-    elif Layer_name == Layers[4]:
+    elif 'win' in Layer_name.lower() or 'پنجره' in Layer_name:
         lower_wall, window, upper_wall = extract_window(mesh)        
         Mesh_Walls.append(lower_wall)
         Mesh_Windows.append(window)
@@ -94,9 +94,8 @@ def entity_to_mesh(msp, translation_vector):
     
     for entity in msp:
 
-        if entity.dxf.layer in Layers:
-            # Set transparency for the "window" layer
-            height = WallHeight/2 if entity.dxf.layer == "FP-Stair" else WallHeight
+        # if entity.dxf.layer in Layers:
+            height = WallHeight/2 if 'stair' in entity.dxf.layer.lower() or 'پله' in entity.dxf.layer else WallHeight
 
             if entity.dxftype() == 'LINE':
                 line = dxf_to_pyvista_line(entity)
@@ -156,6 +155,7 @@ def get_ScaleFactor_and_Translation(mesh, max_boundary=100):
         
     mesh0 = mesh.copy()
     center = mesh0.center
+    center[-1] = 0
     mesh_centered = mesh0.translate(-np.array(center))
     # Calculate the scaling factor
     bounds = mesh_centered.bounds
@@ -227,7 +227,7 @@ for i, msp in enumerate(MSP):
         entity_to_mesh(msp, Translation_Vector)
         print(f'Floor {i} completed')
     else:
-        Mesh_Roof = extrude_as_gable(msp, max_height=WallHeight, Translation_Vector=Translation_Vector, LayerName=RoofLayers)
+        Mesh_Roof = extrude_as_gable(msp, max_height=WallHeight, Translation_Vector=Translation_Vector, LayerName=Layer_Roof)
         print('Roof completed')
 
 All_mesh = pv.MultiBlock()
