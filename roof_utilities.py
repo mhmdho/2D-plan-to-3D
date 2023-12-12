@@ -17,7 +17,7 @@ def create_PolyData_Line(vertices):
     return outline_lines
 
 
-def interpolate_AllLines(all_lines,PPU=31):
+def interpolate_AllLines(all_lines,PPU=30):
 
     def interpolate_line_points(start, end, points_per_unit=PPU):
         # Calculate the distance between the start and end points
@@ -66,6 +66,38 @@ def get_outline(points, L_threshold=.5):
     return outline_points
 
 
+def find_max_z_indices(outline_points3D):
+    # Step 1: Find the index of the maximum z-value
+    max_z_index = np.argmax(outline_points3D[:, 2])
+
+    # Step 2: Sort the points by z-value in descending order, getting their indices
+    sorted_indices = np.argsort(-outline_points3D[:, 2])
+
+    # Initialize the second maximum index as None
+    second_max_z_index = None
+
+    # Step 3: Find the next highest point that is not adjacent to the previous points in the sequence
+    temp_index = max_z_index
+    for index in sorted_indices:
+        if abs(index - temp_index) > 1:  # Check if the point is not adjacent in the sequence
+            second_max_z_index = index
+            break
+        temp_index = index  # Update temp_index to the current index
+
+    # Handle the case where no non-adjacent second maximum is found
+    if second_max_z_index is None:
+        raise ValueError("A second non-sequential maximum z-value could not be found.")
+
+    # Prepare the final array of indices
+    max_z_indices = np.array([max_z_index, second_max_z_index])
+
+    # Sort these two indices in descending order
+    max_z_indices = np.sort(max_z_indices)[::-1]
+
+    # Return the indices of the two non-adjacent maximum z-values
+    return max_z_indices
+
+
 def sort_points_by_distance(points):
     # Create a copy of the points to avoid modifying the original array
     remaining_points = points.copy()
@@ -87,7 +119,6 @@ def sort_points_by_distance(points):
         remaining_points = np.delete(remaining_points, closest_point_idx, axis=0)
     
     return np.array(sorted_points)
-
 
 
 def produce_gable_height(points, max_height):
@@ -114,7 +145,6 @@ def produce_gable_height(points, max_height):
         point[2] += height_offset
 
     return outline_points3D
-
 
 
 def find_corner_points(points, angle_threshold=10):
@@ -259,7 +289,7 @@ def extrude_as_gable(msp, max_height, Translation_Vector):
 
     ##################################################################
 
-    densified_points = interpolate_AllLines(all_lines,PPU=31)
+    densified_points = interpolate_AllLines(all_lines,PPU=30)
     outline_points = get_outline(densified_points)
     outline_points = np.array(outline_points)
     outline_points = np.unique(outline_points, axis=0)
@@ -268,14 +298,12 @@ def extrude_as_gable(msp, max_height, Translation_Vector):
 
     ###################################################################
     # Find the indices of the two points with the maximum z-values and Sort
-    max_z_indices = np.argsort(-outline_points3D[:, 2])[:2]
-    max_z_indices = np.sort(max_z_indices)[::-1]
+    max_z_indices = find_max_z_indices(outline_points3D)
 
     outline_points3D = np.roll(outline_points3D, -max_z_indices[0], axis=0)
     outline_points = np.roll(outline_points, -max_z_indices[0], axis=0)
 
-    max_z_indices = np.argsort(-outline_points3D[:, 2])[:2]
-    max_z_indices = np.sort(max_z_indices)[::-1]
+    max_z_indices = find_max_z_indices(outline_points3D)
 
     # Split the list of points into two parts
     outline_points3D_1 = outline_points3D[:max_z_indices[0] + 1]
@@ -286,7 +314,6 @@ def extrude_as_gable(msp, max_height, Translation_Vector):
     outline_lines3D = create_PolyData_Line(outline_points3D)
     outline_lines3D_1 = create_PolyData_Line(outline_points3D_1)
     outline_lines3D_2 = create_PolyData_Line(outline_points3D_2)
-
 
     # Creating Outline Lines with corner_points instead of all outline_points
     corner_points = find_corner_points(outline_points, angle_threshold=10)  # Threshold angle in degrees
@@ -320,7 +347,6 @@ def extrude_as_gable(msp, max_height, Translation_Vector):
         faces = np.hstack([[4], np.arange(4)])  # 4 points, followed by the indices 0, 1, 2, 3
         plane = pv.PolyData(points, faces)
         side_surface.append(plane)
-
 
     #plotting the last plane:
     p1, p2, p3, p4 = outline_points[-1], outline_points[0], outline_points3D[0], outline_points3D[-1]

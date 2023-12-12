@@ -5,7 +5,7 @@ import pyvista as pv
 from dxf_to_pyvista import dxf_to_pyvista_line, dxf_to_pyvista_polyline2, dxf_to_pyvista_hatch
 from roof_utilities import extrude_as_gable
 
-###############################################################
+##########################################################################################################
 
 folder_path = "decomposed"                     # Path to the decomposed folder
 WallHeight = 200                               # Height of each floor
@@ -24,7 +24,7 @@ x_translate = np.zeros(N)
 y_translate = np.zeros(N)
 z_translate = [n * WallHeight for n in range(N)]
 
-####################################################################
+##########################################################################################################
 
 # Wall_Texture = pv.Texture('Red_brick_wall_texture.jpg')
 Wall_Texture = pv.Texture('Textures/wall.jpg')
@@ -55,7 +55,7 @@ Mesh_Stairs = pv.MultiBlock()
 Mesh_Windows = pv.MultiBlock() 
 Mesh_Outline_window = pv.MultiBlock()
 
-#######################################################################
+##########################################################################################################
 
 def extract_window(mesh):
     bounds = mesh.bounds
@@ -125,7 +125,6 @@ def update_layers(msp, translation_vector):
             
             outline_window = window.outline()
             Mesh_Outline_window.append(outline_window)
-
 
 
 def shell_delaunay_2d(mesh):
@@ -228,7 +227,7 @@ def convert_tr_to_d(mtl_file_path):
     with open(mtl_file_path, 'w') as file:
         file.writelines(modified_lines)
 
-######################################################################################
+##########################################################################################################
 
 for i, msp in enumerate(MSP):
 
@@ -267,6 +266,5 @@ plotter.export_obj('outputOBJ/output.obj')
 plotter.add_axes()
 plotter.show()
 plotter.close()
-
 
 convert_tr_to_d('outputOBJ/output.mtl')
