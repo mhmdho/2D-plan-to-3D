@@ -1,3 +1,6 @@
 import a_DWG2DXF
-import b_DXF_decomposition
+import b1_clustering_preProcessing
+import b2_DXF_decomposition_newAlgorithm
+import b3_translationOfPlans
+import b4_matchingPlans
 import c_3DModel
