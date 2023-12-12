@@ -17,9 +17,9 @@ def create_PolyData_Line(vertices):
     return outline_lines
 
 
-def interpolate_AllLines(all_lines,PPU=10):
+def interpolate_AllLines(all_lines,PPU=31):
 
-    def interpolate_line_points(start, end, points_per_unit=10):
+    def interpolate_line_points(start, end, points_per_unit=PPU):
         # Calculate the distance between the start and end points
         distance = np.linalg.norm(np.array(end) - np.array(start))
         
@@ -41,7 +41,7 @@ def interpolate_AllLines(all_lines,PPU=10):
         start_point = all_lines.points[idx_pair[0]]
         end_point = all_lines.points[idx_pair[1]]
         
-        interpolated_points = interpolate_line_points(start_point, end_point, points_per_unit=PPU)
+        interpolated_points = interpolate_line_points(start_point, end_point, PPU)
         
         # Append to the densified_points list
         densified_points.extend(interpolated_points)
@@ -227,7 +227,7 @@ def triangulate_volume_new(points):
     return mesh
 
 
-def extrude_as_gable(msp, max_height, Translation_Vector, LayerName=None):
+def extrude_as_gable(msp, max_height, Translation_Vector):
     all_lines = None
 
     # Function to process a line entity
@@ -236,20 +236,16 @@ def extrude_as_gable(msp, max_height, Translation_Vector, LayerName=None):
         line.translate(Translation_Vector, inplace=True)
         all_lines = line if all_lines is None else all_lines + line
 
-    # Check if LayerName is in the list of layers or if it's None
-    layers = {entity.dxf.layer for entity in msp if entity.dxftype() in ['LINE', 'POLYLINE', 'LWPOLYLINE']}
-    if LayerName is not None:
-        if isinstance(LayerName, list):
-            if all(name not in layers for name in LayerName):
-                LayerName = None
-        else:
-            if LayerName not in layers:
-                LayerName = None
-
-
     for entity in msp:
 
-        if LayerName is None or (isinstance(LayerName, list) and entity.dxf.layer in LayerName) or entity.dxf.layer == LayerName:
+        if ('roof' in entity.dxf.layer.lower() or
+            'gable' in entity.dxf.layer.lower() or
+            'شیروانی' in entity.dxf.layer or
+            'سقف' in entity.dxf.layer or 
+            'wal' in entity.dxf.layer.lower() or
+            'دیوار' in entity.dxf.layer or 
+            'stair' in entity.dxf.layer.lower() or
+            'پله' in entity.dxf.layer):
 
             if entity.dxftype() == 'LINE':
                 line = dxf_to_pyvista_line(entity)
@@ -263,7 +259,7 @@ def extrude_as_gable(msp, max_height, Translation_Vector, LayerName=None):
 
     ##################################################################
 
-    densified_points = interpolate_AllLines(all_lines,21)
+    densified_points = interpolate_AllLines(all_lines,PPU=31)
     outline_points = get_outline(densified_points)
     outline_points = np.array(outline_points)
     outline_points = np.unique(outline_points, axis=0)

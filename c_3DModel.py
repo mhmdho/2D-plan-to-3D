@@ -34,7 +34,6 @@ Roof_Texture = pv.Texture('Textures/roof.jpg')
 Stair_Texture = pv.Texture('Textures/stair.jpg')
 
 Layers = ['Door', 'Wall', 'Roof', 'Stair', 'Window']         # Order of Layers 
-Layer_Roof = ['FP-Door', 'FP-Proposed Wall', 'FP-Roof', 'FP-Stair', 'FP-Window']      # list of Layers related to the roof 
 
 # lightred = (.7, .4, .4)
 # Colors = [lightred, 'lightgrey'   , 'lightbrown', 'lightgreen', 'lightblue']
@@ -73,48 +72,60 @@ def extract_window(mesh):
     return lower_wall, window, upper_wall
 
 
-def update_layers(mesh, Layer_name):
-    if 'door' in Layer_name.lower() or 'در' in Layer_name:
-        Mesh_Doors.append(mesh)
-    elif 'wal' in Layer_name.lower() or 'دیوار' in Layer_name:
-        Mesh_Walls.append(mesh)
-    elif 'stair' in Layer_name.lower() or 'پله' in Layer_name:
-        Mesh_Stairs.append(mesh)
-    elif 'win' in Layer_name.lower() or 'پنجره' in Layer_name:
-        lower_wall, window, upper_wall = extract_window(mesh)        
-        Mesh_Walls.append(lower_wall)
-        Mesh_Windows.append(window)
-        Mesh_Walls.append(upper_wall)
+def entity_to_mesh(entity, translation_vector):
+
+    mesh = pv.MultiBlock()
+    height = WallHeight/2 if 'stair' in entity.dxf.layer.lower() or 'پله' in entity.dxf.layer else WallHeight
+
+    if entity.dxftype() == 'LINE':
+        line = dxf_to_pyvista_line(entity)
+        line.translate(translation_vector, inplace=True)
+        mesh = line.extrude([0, 0, height], capping=False)
         
-        outline_window = window.outline()
-        Mesh_Outline_window.append(outline_window)
+    elif entity.dxftype() in ['POLYLINE', 'LWPOLYLINE']:
+        polyline = dxf_to_pyvista_polyline2(entity)
+        polyline.translate(translation_vector, inplace=True)
+        mesh = polyline.extrude([0, 0, height], capping=False)
+                    
+    elif entity.dxftype() == 'HATCH':
+        all_hatch = dxf_to_pyvista_hatch(entity)
+        for hatch in all_hatch:
+            hatch.translate(translation_vector, inplace=True)
+            mesh = hatch.extrude([0, 0, height], capping=False)
+            mesh.append(mesh)
+            
+    if isinstance(mesh, pv.MultiBlock):
+        mesh = mesh.combine().extract_surface()
+    
+    return mesh
 
 
-def entity_to_mesh(msp, translation_vector):
+def update_layers(msp, translation_vector):
     
     for entity in msp:
-
-        # if entity.dxf.layer in Layers:
-            height = WallHeight/2 if 'stair' in entity.dxf.layer.lower() or 'پله' in entity.dxf.layer else WallHeight
-
-            if entity.dxftype() == 'LINE':
-                line = dxf_to_pyvista_line(entity)
-                line.translate(translation_vector, inplace=True)
-                mesh = line.extrude([0, 0, height], capping=False)
-                update_layers(mesh, entity.dxf.layer)
                 
-            elif entity.dxftype() in ['POLYLINE', 'LWPOLYLINE']:
-                polyline = dxf_to_pyvista_polyline2(entity)
-                polyline.translate(translation_vector, inplace=True)
-                mesh = polyline.extrude([0, 0, height], capping=False)
-                update_layers(mesh, entity.dxf.layer)
-                            
-            elif entity.dxftype() == 'HATCH':
-                all_hatch = dxf_to_pyvista_hatch(entity)
-                for hatch in all_hatch:
-                    hatch.translate(translation_vector, inplace=True)
-                    mesh = hatch.extrude([0, 0, height], capping=False)
-                    update_layers(mesh, entity.dxf.layer)
+        if 'door' in entity.dxf.layer.lower() or 'در' in entity.dxf.layer:
+            mesh = entity_to_mesh(entity, translation_vector)
+            Mesh_Doors.append(mesh)
+            
+        elif 'wal' in entity.dxf.layer.lower() or 'دیوار' in entity.dxf.layer:
+            mesh = entity_to_mesh(entity, translation_vector)
+            Mesh_Walls.append(mesh)
+            
+        elif 'stair' in entity.dxf.layer.lower() or 'پله' in entity.dxf.layer:
+            mesh = entity_to_mesh(entity, translation_vector)
+            Mesh_Stairs.append(mesh)
+            
+        elif 'win' in entity.dxf.layer.lower() or 'پنجره' in entity.dxf.layer:
+            mesh = entity_to_mesh(entity, translation_vector)
+            lower_wall, window, upper_wall = extract_window(mesh)        
+            Mesh_Walls.append(lower_wall)
+            Mesh_Windows.append(window)
+            Mesh_Walls.append(upper_wall)
+            
+            outline_window = window.outline()
+            Mesh_Outline_window.append(outline_window)
+
 
 
 def shell_delaunay_2d(mesh):
@@ -224,10 +235,10 @@ for i, msp in enumerate(MSP):
     Translation_Vector = [x_translate[i], y_translate[i], z_translate[i]]
     
     if i < len(MSP)-1:
-        entity_to_mesh(msp, Translation_Vector)
+        update_layers(msp, Translation_Vector)
         print(f'Floor {i} completed')
     else:
-        Mesh_Roof = extrude_as_gable(msp, max_height=WallHeight, Translation_Vector=Translation_Vector, LayerName=Layer_Roof)
+        Mesh_Roof = extrude_as_gable(msp, max_height=WallHeight, Translation_Vector=Translation_Vector)
         print('Roof completed')
 
 All_mesh = pv.MultiBlock()
