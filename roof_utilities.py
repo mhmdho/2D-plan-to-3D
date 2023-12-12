@@ -257,7 +257,8 @@ def triangulate_volume_new(points):
     return mesh
 
 
-def extrude_as_gable(msp, max_height, Translation_Vector):
+def get_all_lines(msp, Translation_Vector):
+
     all_lines = None
 
     # Function to process a line entity
@@ -286,9 +287,12 @@ def extrude_as_gable(msp, max_height, Translation_Vector):
                 for line in lines:
                     add_lines(line, Translation_Vector)
 
+    return all_lines
 
-    ##################################################################
 
+def extrude_as_gable(msp, max_height, Translation_Vector):
+
+    all_lines = get_all_lines(msp, Translation_Vector)
     densified_points = interpolate_AllLines(all_lines,PPU=30)
     outline_points = get_outline(densified_points)
     outline_points = np.array(outline_points)
