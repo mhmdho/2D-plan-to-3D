@@ -121,6 +121,44 @@ def sort_points_by_distance(points):
     return np.array(sorted_points)
 
 
+def sort_points_by_polar_angle(points):
+    # Calculate the centroid of the x and y coordinates only
+    centroid = np.mean(points[:, :2], axis=0)
+
+    # Function to calculate the angle between each point's x and y coordinates and the centroid
+    def angle_with_centroid(point):
+        return np.arctan2(point[1] - centroid[1], point[0] - centroid[0])
+
+    # Sort the points by angle with centroid using only their x and y coordinates
+    sorted_points = sorted(points, key=angle_with_centroid)
+
+    return np.array(sorted_points)
+
+
+def sort_neighbor_points_by_distance(points, num_neighbors=30):
+    sorted_points = points.copy()
+
+    def distance(point1, point2):
+        return np.linalg.norm(np.array(point1) - np.array(point2))
+
+    for i in range(len(sorted_points)):
+        start = max(0, i - num_neighbors // 2)
+        end = min(len(sorted_points), i + num_neighbors // 2)
+        neighbors = sorted_points[start:end].tolist()
+
+        sorted_neighbors = []
+        current_origin = neighbors[0]
+        while neighbors:
+            nearest_point = min(neighbors, key=lambda p: distance(p, current_origin))
+            sorted_neighbors.append(nearest_point)
+            neighbors.remove(nearest_point)
+            current_origin = nearest_point
+
+        sorted_points[start:end] = sorted_neighbors
+
+    return sorted_points
+
+
 def produce_gable_height(points, max_height):
     # Determine the center and width of the gable
     min_x = min(points, key=lambda p: p[0])[0]
