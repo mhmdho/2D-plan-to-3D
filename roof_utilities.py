@@ -342,8 +342,8 @@ def extrude_as_gable(msp, max_height, Translation_Vector):
     # Find the indices of the two points with the maximum z-values and Sort
     max_z_indices = find_max_z_indices(outline_points3D)
 
-    outline_points3D = np.roll(outline_points3D, -max_z_indices[0], axis=0)
-    outline_points = np.roll(outline_points, -max_z_indices[0], axis=0)
+    outline_points3D = np.roll(outline_points3D, -max_z_indices[1], axis=0)
+    outline_points = np.roll(outline_points, -max_z_indices[1], axis=0)
 
     max_z_indices = find_max_z_indices(outline_points3D)
 
