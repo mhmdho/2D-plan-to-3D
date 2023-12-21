@@ -32,28 +32,30 @@ Window_Texture = pv.Texture('Textures/window2.jpg')
 Door_Texture = pv.Texture('Textures/door.png')
 Roof_Texture = pv.Texture('Textures/roof.jpg')
 Stair_Texture = pv.Texture('Textures/stair.jpg')
+Balcony_Texture = pv.Texture('Textures/wall.jpg')
 
-Layers = ['Door', 'Wall', 'Roof', 'Stair', 'Window']         # Order of Layers 
+Layers = ['Door', 'Wall', 'Roof', 'Stair', 'Window', 'Balcony']         # Order of Layers 
 
 # lightred = (.7, .4, .4)
-# Colors = [lightred, 'lightgrey'   , 'lightbrown', 'lightgreen', 'lightblue']
-Colors = ['#694b29', '#FFFFFF'   , '#787878', '#FFFFFF', '#357EC7']
-Textures = [None, None, None, None, None]
+# Colors = [lightred, 'lightgrey'   , 'lightbrown', 'lightgreen', 'lightblue', '#FFFFFF']
+Colors = ['#694b29', '#FFFFFF'   , '#787878', '#FFFFFF', '#357EC7', '#FFFFFF']
+Textures = [None, None, None, None, None, None]
 
-# Colors = ['#694b29', None, None, None, '#357EC7']
-# Textures = [None, Wall_Texture, Roof_Texture, Wall_Texture, None]
+# Colors = ['#694b29', None, None, None, '#357EC7', '#FFFFFF']
+# Textures = [None, Wall_Texture, Roof_Texture, Wall_Texture, None, Balcony_Texture]
 
-# Colors = [None, None, None, None, None]
-# Textures = [Door_Texture, Wall_Texture, Roof_Texture, Wall_Texture, Window_Texture]
+# Colors = [None, None, None, None, None, None]
+# Textures = [Door_Texture, Wall_Texture, Roof_Texture, Wall_Texture, Window_Texture, Balcony_Texture]
 
-Opacities = [1., 1., 1., 1., 1.]
-Texture_Scales = [2, 2, 2, 2, 2]
+Opacities = [1., 1., 1., 1., 1., 1.]
+Texture_Scales = [2, 2, 2, 2, 2, 2]
 
 Mesh_Doors = pv.MultiBlock()
 Mesh_Walls = pv.MultiBlock()
 Mesh_Stairs = pv.MultiBlock()
 Mesh_Windows = pv.MultiBlock() 
 Mesh_Outline_window = pv.MultiBlock()
+Mesh_Balcony = pv.MultiBlock()
 
 ##########################################################################################################
 
@@ -75,8 +77,16 @@ def extract_window(mesh):
 def entity_to_mesh(entity, translation_vector):
 
     mesh = pv.MultiBlock()
-    height = WallHeight/2 if 'stair' in entity.dxf.layer.lower() or 'پله' in entity.dxf.layer else WallHeight
 
+    # height = WallHeight/4 if 'stair' in entity.dxf.layer.lower() or 'پله' in entity.dxf.layer else WallHeight
+    
+    if 'stair' in entity.dxf.layer.lower() or 'پله' in entity.dxf.layer:
+        height = WallHeight/4
+    elif 'balcony' in entity.dxf.layer.lower() or 'بالکن' in entity.dxf.layer:
+        height = WallHeight/2
+    else:
+        height = WallHeight
+        
     if entity.dxftype() == 'LINE':
         line = dxf_to_pyvista_line(entity)
         line.translate(translation_vector, inplace=True)
@@ -115,6 +125,10 @@ def update_layers(msp, translation_vector):
         elif 'stair' in entity.dxf.layer.lower() or 'پله' in entity.dxf.layer:
             mesh = entity_to_mesh(entity, translation_vector)
             Mesh_Stairs.append(mesh)
+            
+        elif 'balcony' in entity.dxf.layer.lower() or 'بالکن' in entity.dxf.layer:
+            mesh = entity_to_mesh(entity, translation_vector)
+            Mesh_Balcony.append(mesh)
             
         elif 'win' in entity.dxf.layer.lower() or 'پنجره' in entity.dxf.layer:
             mesh = entity_to_mesh(entity, translation_vector)
@@ -241,7 +255,7 @@ for i, msp in enumerate(MSP):
         print('Roof completed')
 
 All_mesh = pv.MultiBlock()
-meshes = [Mesh_Doors, Mesh_Walls, Mesh_Roof, Mesh_Stairs, Mesh_Windows]
+meshes = [Mesh_Doors, Mesh_Walls, Mesh_Roof, Mesh_Stairs, Mesh_Windows, Mesh_Balcony]
 for mesh in meshes:
     All_mesh.append(mesh)
 
