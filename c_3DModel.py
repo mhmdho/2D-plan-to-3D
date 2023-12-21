@@ -59,19 +59,20 @@ Mesh_Balcony = pv.MultiBlock()
 
 ##########################################################################################################
 
-def extract_window(mesh):
+def extract_door_and_window(mesh,fraction_wall1,fraction_wall2):
     bounds = mesh.bounds
     z_min, z_max = bounds[4], bounds[5]
     total_height = z_max - z_min
-    h_window = total_height/2
-    h_walls = (total_height - h_window)/2
-    z1_window = z_min + h_walls
-    z2_window = z_max - h_walls
-    lower_wall = mesh.clip(normal=[0, 0, 1], origin=(0, 0, z1_window)) #Clip total mesh from z1_window upwards
-    window = mesh.clip(normal=[0, 0, 1], origin=(0, 0, z2_window)) #Clip total mesh from z2_window upwards
-    window = window.clip(normal=[0, 0, -1], origin=(0, 0, z1_window)) #Clip total mesh from z1_window downwards
-    upper_wall = mesh.clip(normal=[0, 0, -1], origin=(0, 0, z2_window)) #Clip total mesh from z2_window downwards
-    return lower_wall, window, upper_wall
+    h_wall1 = fraction_wall1 * total_height
+    h_wall2 = fraction_wall2 * total_height
+    h_door_or_window = total_height - (h_wall1 + h_wall2)
+    z1_door_or_window = z_min + h_wall1
+    z2_door_or_window = z_max - h_wall2
+    lower_wall = mesh.clip(normal=[0, 0, 1], origin=(0, 0, z1_door_or_window)) #Clip total mesh from z1_door_or_window upwards
+    door_or_window = mesh.clip(normal=[0, 0, 1], origin=(0, 0, z2_door_or_window)) #Clip total mesh from z2_door_or_window upwards
+    door_or_window = door_or_window.clip(normal=[0, 0, -1], origin=(0, 0, z1_door_or_window)) #Clip total mesh from z1_door_or_window downwards
+    upper_wall = mesh.clip(normal=[0, 0, -1], origin=(0, 0, z2_door_or_window)) #Clip total mesh from z2_door_or_window downwards
+    return lower_wall, door_or_window, upper_wall
 
 
 def entity_to_mesh(entity, translation_vector):
@@ -132,7 +133,7 @@ def update_layers(msp, translation_vector):
             
         elif 'win' in entity.dxf.layer.lower() or 'پنجره' in entity.dxf.layer:
             mesh = entity_to_mesh(entity, translation_vector)
-            lower_wall, window, upper_wall = extract_window(mesh)        
+            lower_wall, window, upper_wall = extract_door_and_window(mesh, 1/8 , 1/8)        
             Mesh_Walls.append(lower_wall)
             Mesh_Windows.append(window)
             Mesh_Walls.append(upper_wall)
