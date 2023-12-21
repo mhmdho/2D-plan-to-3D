@@ -114,12 +114,8 @@ def entity_to_mesh(entity, translation_vector):
 def update_layers(msp, translation_vector):
     
     for entity in msp:
-                
-        if 'door' in entity.dxf.layer.lower() or 'در' in entity.dxf.layer:
-            mesh = entity_to_mesh(entity, translation_vector)
-            Mesh_Doors.append(mesh)
             
-        elif 'wal' in entity.dxf.layer.lower() or 'دیوار' in entity.dxf.layer:
+        if 'wal' in entity.dxf.layer.lower() or 'دیوار' in entity.dxf.layer:
             mesh = entity_to_mesh(entity, translation_vector)
             Mesh_Walls.append(mesh)
             
@@ -130,6 +126,13 @@ def update_layers(msp, translation_vector):
         elif 'balcony' in entity.dxf.layer.lower() or 'بالکن' in entity.dxf.layer:
             mesh = entity_to_mesh(entity, translation_vector)
             Mesh_Balcony.append(mesh)
+            
+        elif 'door' in entity.dxf.layer.lower() or 'در' in entity.dxf.layer:
+            mesh = entity_to_mesh(entity, translation_vector)
+            lower_wall, door, upper_wall = extract_door_and_window(mesh, 1/25 , 1/8)        
+            # Mesh_Walls.append(lower_wall)
+            Mesh_Doors.append(door)
+            Mesh_Walls.append(upper_wall)
             
         elif 'win' in entity.dxf.layer.lower() or 'پنجره' in entity.dxf.layer:
             mesh = entity_to_mesh(entity, translation_vector)

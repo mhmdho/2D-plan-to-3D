@@ -314,8 +314,10 @@ def get_all_lines(msp, Translation_Vector):
             'wal' in entity.dxf.layer.lower() or
             'دیوار' in entity.dxf.layer or 
             'stair' in entity.dxf.layer.lower() or
-            'پله' in entity.dxf.layer):
-
+            'پله' in entity.dxf.layer or
+            'win' in entity.dxf.layer.lower() or
+            'پنجره' in entity.dxf.layer):
+                
             if entity.dxftype() == 'LINE':
                 line = dxf_to_pyvista_line(entity)
                 add_lines(line, Translation_Vector)
