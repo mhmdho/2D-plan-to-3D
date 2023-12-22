@@ -1,10 +1,6 @@
 import ezdxf
 
 
-doc = ezdxf.readfile('inputDXF/1.dxf')
-msp = doc.modelspace()
-
-
 def entity_range(msp, x=False):
     LinePoints = []
     for entity in msp:
@@ -41,38 +37,43 @@ def clustering_by_line(points_list):
     return clusters
 
 
-LinePointsY = entity_range(msp)
-clustersY = clustering_by_line(LinePointsY)
+def clustering_global(input_path, output_path):
+    doc = ezdxf.readfile(input_path)
+    msp = doc.modelspace()
+
+    LinePointsY = entity_range(msp)
+    clustersY = clustering_by_line(LinePointsY)
+
+    clustersX = []
+    for item in clustersY:
+        if len(item[2]) > 50:
+            LinePointsX = entity_range(item[2], x=True)
+            clustersX += clustering_by_line(LinePointsX)
+
+    clustersY = []
+    for item in clustersX:
+        if len(item[2]) > 50:
+            LinePointsY = entity_range(item[2])
+            clustersY += clustering_by_line(LinePointsY)
+
+    clustersX = []
+    for item in clustersY:
+        if len(item[2]) > 50:
+            LinePointsX = entity_range(item[2], x=True)
+            clustersX += clustering_by_line(LinePointsX)
+
+    j = 0
+    for item in clustersX:
+        if len(item[2]) > 50:
+            j += 1
+
+            doc_new = ezdxf.new()
+            msp_new = doc_new.modelspace()
+            for e in item[2]:
+                msp_new.add_foreign_entity(e)
+            doc_new.saveas(f'{output_path}/{j}{j}.dxf')
 
 
-clustersX = []
-for item in clustersY:
-    if len(item[2]) > 50:
-        LinePointsX = entity_range(item[2], x=True)
-        clustersX += clustering_by_line(LinePointsX)
-
-
-clustersY = []
-for item in clustersX:
-    if len(item[2]) > 50:
-        LinePointsY = entity_range(item[2])
-        clustersY += clustering_by_line(LinePointsY)
-
-
-clustersX = []
-for item in clustersY:
-    if len(item[2]) > 50:
-        LinePointsX = entity_range(item[2], x=True)
-        clustersX += clustering_by_line(LinePointsX)
-
-
-j = 0
-for item in clustersX:
-    if len(item[2]) > 50:
-        j += 1
-
-        doc_new = ezdxf.new()
-        msp_new = doc_new.modelspace()
-        for e in item[2]:
-            msp_new.add_foreign_entity(e)
-        doc_new.saveas(f"decomposed/{j}{j}.dxf")
+input_path = 'inputDXF/1.dxf'
+output_path = "decomposed"
+clustering_global(input_path, output_path)
