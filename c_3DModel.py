@@ -8,7 +8,7 @@ from roof_utilities import extrude_as_gable
 ##########################################################################################################
 
 folder_path = "decomposed"                     # Path to the decomposed folder
-WallHeight = 200                               # Height of each floor
+WallHeight = 155                               # Height of each floor
 
 dxf_files = [file for file in os.listdir(folder_path) if file.endswith('.dxf') and file.startswith('plan')]  # List all plan files in the folder
 dxf_files.sort(reverse=False)
@@ -82,9 +82,9 @@ def entity_to_mesh(entity, translation_vector):
     # height = WallHeight/4 if 'stair' in entity.dxf.layer.lower() or 'پله' in entity.dxf.layer else WallHeight
     
     if 'stair' in entity.dxf.layer.lower() or 'پله' in entity.dxf.layer:
-        height = WallHeight/4
+        height = WallHeight/8
     elif 'balcony' in entity.dxf.layer.lower() or 'بالکن' in entity.dxf.layer:
-        height = WallHeight/2
+        height = WallHeight/4
     else:
         height = WallHeight
         
@@ -129,14 +129,14 @@ def update_layers(msp, translation_vector):
             
         elif 'door' in entity.dxf.layer.lower() or 'در' in entity.dxf.layer:
             mesh = entity_to_mesh(entity, translation_vector)
-            lower_wall, door, upper_wall = extract_door_and_window(mesh, 1/25 , 1/8)        
+            lower_wall, door, upper_wall = extract_door_and_window(mesh, 1/12 , 1/4)        
             # Mesh_Walls.append(lower_wall)
             Mesh_Doors.append(door)
             Mesh_Walls.append(upper_wall)
             
         elif 'win' in entity.dxf.layer.lower() or 'پنجره' in entity.dxf.layer:
             mesh = entity_to_mesh(entity, translation_vector)
-            lower_wall, window, upper_wall = extract_door_and_window(mesh, 1/8 , 1/8)        
+            lower_wall, window, upper_wall = extract_door_and_window(mesh, 1/12 , 1/4)        
             Mesh_Walls.append(lower_wall)
             Mesh_Windows.append(window)
             Mesh_Walls.append(upper_wall)
@@ -216,10 +216,10 @@ def prepare_for_3DViewers(mesh, center, scale_factor):
                                             #    transformed_mesh.points[:, 1])) # Y
     
     transformed_mesh.points[:, [1, 2]] = transformed_mesh.points[:, [2, 1]]   #Alternatively use this line to swap Y and Z
+    transformed_mesh = transformed_mesh.point_data_to_cell_data()
+    transformed_mesh = transformed_mesh.compute_normals()
+    transformed_mesh = transformed_mesh.texture_map_to_plane()
     transformed_mesh = transformed_mesh.triangulate()
-    transformed_mesh.point_data_to_cell_data()
-    transformed_mesh.texture_map_to_plane(inplace=True)
-    transformed_mesh.compute_normals()
 
     return transformed_mesh
 

@@ -1,4 +1,5 @@
 import pyvista as pv
+import sys
 from pyvista import wrap
 import numpy as np
 from concave_hull import concave_hull, concave_hull_indexes
@@ -50,14 +51,15 @@ def interpolate_AllLines(all_lines,PPU=30):
     return densified_points
 
 
-def get_outline(points, L_threshold=.5):
+def get_outline(points, L_threshold=20, con=1):
 
     idxes = concave_hull_indexes(
         points[:, :2],
+        concavity=con,
         length_threshold=L_threshold
     )
     # you can get coordinates by `points[idxes]`
-    assert np.all(points[idxes] == concave_hull(points, length_threshold=L_threshold))
+    assert np.all(points[idxes] == concave_hull(points, concavity=con, length_threshold=L_threshold))
 
     outline_points = []
     for f, t in zip(idxes[:-1], idxes[1:]):  # noqa 
@@ -79,7 +81,8 @@ def find_max_z_indices(outline_points3D):
     # Step 3: Find the next highest point that is not adjacent to the previous points in the sequence
     temp_index = max_z_index
     for index in sorted_indices:
-        if abs(index - temp_index) > 1:  # Check if the point is not adjacent in the sequence
+        # if abs(index - temp_index) > 1:  # Check if the point is not adjacent in the sequence
+        if np.sqrt(np.sum((outline_points3D[index,:] - outline_points3D[temp_index,:]) ** 2)) > 20:  # Check if the point is not adjacent in the sequence
             second_max_z_index = index
             break
         temp_index = index  # Update temp_index to the current index
@@ -106,6 +109,8 @@ def sort_points_by_distance(points):
     # Remove the first point from the remaining_points
     remaining_points = np.delete(remaining_points, 0, axis=0)
     
+    old_distances = []
+    unsorted_points = []
     # Iterate until we've gone through all points
     while len(remaining_points) > 0:
         last_point = sorted_points[-1]
@@ -114,10 +119,32 @@ def sort_points_by_distance(points):
         # Find the index of the closest point
         closest_point_idx = np.argmin(distances)
         # Add the closest point to the sorted list
-        sorted_points.append(remaining_points[closest_point_idx])
+        # print(np.mean(old_distances, axis=0))
+        if len(old_distances) < 2 or distances[closest_point_idx] < 40 * np.mean(old_distances, axis=0):
+            sorted_points.append(remaining_points[closest_point_idx])
+            old_distances.append(distances[closest_point_idx])
+        else:
+            unsorted_points.append(remaining_points[closest_point_idx])
+                           
         # Remove the closest point from the list of points to visit
         remaining_points = np.delete(remaining_points, closest_point_idx, axis=0)
     
+    # Adding unsorted points instead of removing them
+    for point in unsorted_points:
+        distances = np.linalg.norm(sorted_points - point, axis=1)
+        closest_points_idx = np.argsort(distances)[:2]  # Get indices of two nearest points
+
+        # Determine the correct index to insert the unsorted point
+        if abs(closest_points_idx[0] - closest_points_idx[1]) == 1:
+            # If the closest points are adjacent, insert after the first closest point
+            insert_idx = max(closest_points_idx) 
+        else:
+            # If not adjacent, insert after the closest point
+            insert_idx = closest_points_idx[0]
+
+        # Insert the point. Note: insert_idx + 1 because we want to insert after the closest point
+        sorted_points = np.insert(sorted_points, insert_idx + 1, point, axis=0)
+
     return np.array(sorted_points)
 
 
@@ -135,28 +162,74 @@ def sort_points_by_polar_angle(points):
     return np.array(sorted_points)
 
 
-def sort_neighbor_points_by_distance(points, num_neighbors=30):
-    sorted_points = points.copy()
+def group_neighbors(points, gap_threshold=1):
+    groups = []
+    current_group = [points[0]]
 
-    def distance(point1, point2):
-        return np.linalg.norm(np.array(point1) - np.array(point2))
+    for i in range(1, len(points)):
+        if points[i] - points[i-1] <= gap_threshold:
+            current_group.append(points[i])
+        else:
+            groups.append(current_group)
+            current_group = [points[i]]
 
-    for i in range(len(sorted_points)):
-        start = max(0, i - num_neighbors // 2)
-        end = min(len(sorted_points), i + num_neighbors // 2)
-        neighbors = sorted_points[start:end].tolist()
+    groups.append(current_group)  # Add the last group
+    return groups
 
-        sorted_neighbors = []
-        current_origin = neighbors[0]
-        while neighbors:
-            nearest_point = min(neighbors, key=lambda p: distance(p, current_origin))
-            sorted_neighbors.append(nearest_point)
-            neighbors.remove(nearest_point)
-            current_origin = nearest_point
 
-        sorted_points[start:end] = sorted_neighbors
+def find_sharp_edges(points, sharp_angle_threshold=10):
+    
+    def calculate_angle(p1, p2, p3):
+        """
+        Calculate the angle in degrees between the vectors (p2 - p1) and (p3 - p2).
+        """
+        v1 = p2 - p1
+        v2 = p3 - p2
+        dot_product = np.dot(v1, v2)
+        norms_product = np.linalg.norm(v1) * np.linalg.norm(v2)
+        
+        # Ensure the division is safe from floating-point errors.
+        cos_theta = np.clip(dot_product / norms_product, -1, 1)
+        angle_rad = np.arccos(cos_theta)
+        angle_deg = np.degrees(angle_rad)
+        return angle_deg
 
-    return sorted_points
+    # Calculate angles and detect sharp edges using modular arithmetic 
+    sharp_points = []
+    num_points = len(points)
+
+    for i in range(num_points):
+        prev_idx = (i - 1) % num_points  # Wraps to last point if i is 0
+        next_idx = (i + 1) % num_points  # Wraps to first point if i is at the last index
+
+        angle = calculate_angle(points[prev_idx], points[i], points[next_idx])
+
+        if angle > 180 - sharp_angle_threshold:
+            sharp_points.append(i)
+    
+    return sharp_points
+
+
+def repair_sharp_edges(points, sharp_points):
+    
+    # Attempt to fix sharp edges
+    for index in sharp_points:
+        min_dist = float('inf')
+        min_index = index
+        # Check for a better position for the sharp point
+        for i in range(len(points)):
+            if i != index - 1 and i != index and i != index + 1:  # Avoid neighbors
+                dist = np.linalg.norm(points[index] - points[i])
+                if dist < min_dist:
+                    min_dist = dist
+                    min_index = i
+        # If a better position is found, move the point there
+        if min_index != index:
+            point = points[index]
+            points = np.delete(points, index, axis=0)  # Remove the point from the current position
+            points = np.insert(points, min_index, point, axis=0)  # Insert the point in the new position
+            
+    return points
 
 
 def produce_gable_height(points, max_height):
@@ -193,7 +266,7 @@ def find_corner_points(points, angle_threshold=10):
         unit_vec_p1p2 = vec_p1p2 / np.linalg.norm(vec_p1p2)
         unit_vec_p2p3 = vec_p2p3 / np.linalg.norm(vec_p2p3)
         dot_product = np.dot(unit_vec_p1p2, unit_vec_p2p3)
-        dot_product = np.clip(dot_product, -1.0, 1.0)
+        dot_product = np.clip(dot_product, -1.0, 1.0)  # Clip to prevent numerical errors
         angle = np.arccos(dot_product)
         return np.degrees(angle)
 
@@ -209,9 +282,7 @@ def find_corner_points(points, angle_threshold=10):
 
         # Calculate the angle at the current point
         angle = angle_between(p1, p2, p3)
-
-        # If the angle is below the threshold, it is considered a corner
-        if angle > angle_threshold:
+        if  angle > angle_threshold:
             corner_indices.append(i)
 
     # Extract the corner points using the found indices
@@ -315,6 +386,8 @@ def get_all_lines(msp, Translation_Vector):
             'دیوار' in entity.dxf.layer or 
             'stair' in entity.dxf.layer.lower() or
             'پله' in entity.dxf.layer or
+            'balcon' in entity.dxf.layer.lower() or
+            'بالکن' in entity.dxf.layer or
             'win' in entity.dxf.layer.lower() or
             'پنجره' in entity.dxf.layer):
                 
@@ -333,6 +406,8 @@ def get_all_lines(msp, Translation_Vector):
 def extrude_as_gable(msp, max_height, Translation_Vector):
 
     all_lines = get_all_lines(msp, Translation_Vector)
+    if all_lines is None:
+        sys.exit("Error: No lines to work on. Please modify Layer names")
     densified_points = interpolate_AllLines(all_lines,PPU=30)
     outline_points = get_outline(densified_points)
     outline_points = np.array(outline_points)
@@ -350,7 +425,7 @@ def extrude_as_gable(msp, max_height, Translation_Vector):
     max_z_indices = find_max_z_indices(outline_points3D)
 
     # Split the list of points into two parts
-    outline_points3D_1 = outline_points3D[:max_z_indices[0] + 1]
+    outline_points3D_1 = outline_points3D[max_z_indices[1] + 1 : max_z_indices[0]]
     outline_points3D_2 = outline_points3D[max_z_indices[0] + 1:]
 
     #####################################################################
@@ -372,13 +447,17 @@ def extrude_as_gable(msp, max_height, Translation_Vector):
     surface3D_1 = produce_2Dsurface(outline_lines3D_1)
     surface3D_2 = produce_2Dsurface(outline_lines3D_2)
 
-    points = np.array([outline_points3D[max_z_indices[0]], outline_points3D[max_z_indices[0]+1], 
-                    outline_points3D[max_z_indices[1]-1], outline_points3D[max_z_indices[1]]])
-
     faces = np.hstack([[4], np.arange(4)])  # 4 points, followed by the indices 0, 1, 2, 3
-    surface3D_3 = pv.PolyData(points, faces)
 
-    surface3D = surface3D_1 + surface3D_2 + surface3D_3
+    temp_points = np.array([outline_points3D[max_z_indices[1]], outline_points3D[max_z_indices[1]+1], 
+                    outline_points3D[max_z_indices[0]-1], outline_points3D[max_z_indices[0]]])
+    surface3D_3 = pv.PolyData(temp_points, faces)
+
+    temp_points = np.array([outline_points3D[max_z_indices[0]], outline_points3D[max_z_indices[0]+1], 
+                    outline_points3D[max_z_indices[1]-1], outline_points3D[max_z_indices[1]]])
+    surface3D_4 = pv.PolyData(temp_points, faces)
+
+    surface3D = surface3D_1 + surface3D_2 + surface3D_3 + surface3D_4
 
     ##################################################################
     # plotting side surfaces of the gable
