@@ -340,6 +340,8 @@ def get_all_lines(msp, Translation_Vector):
             'پله' in entity.dxf.layer or
             'balcon' in entity.dxf.layer.lower() or
             'بالکن' in entity.dxf.layer or
+            'door' in entity.dxf.layer.lower() or
+            'در' in entity.dxf.layer.lower() or
             'win' in entity.dxf.layer.lower() or
             'پنجره' in entity.dxf.layer):
                 
