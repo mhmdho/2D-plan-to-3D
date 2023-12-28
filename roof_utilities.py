@@ -210,28 +210,6 @@ def find_sharp_edges(points, sharp_angle_threshold=10):
     return sharp_points
 
 
-def repair_sharp_edges(points, sharp_points):
-    
-    # Attempt to fix sharp edges
-    for index in sharp_points:
-        min_dist = float('inf')
-        min_index = index
-        # Check for a better position for the sharp point
-        for i in range(len(points)):
-            if i != index - 1 and i != index and i != index + 1:  # Avoid neighbors
-                dist = np.linalg.norm(points[index] - points[i])
-                if dist < min_dist:
-                    min_dist = dist
-                    min_index = i
-        # If a better position is found, move the point there
-        if min_index != index:
-            point = points[index]
-            points = np.delete(points, index, axis=0)  # Remove the point from the current position
-            points = np.insert(points, min_index, point, axis=0)  # Insert the point in the new position
-            
-    return points
-
-
 def produce_gable_height(points, max_height):
     # Determine the center and width of the gable
     min_x = min(points, key=lambda p: p[0])[0]
@@ -340,32 +318,6 @@ def produce_2Dsurface(Lines, height=None):
         return surface
 
 
-def triangulate_volume_new(points):
-    # Determine if the points lie in a plane or a cloud
-    is_2d_surface = np.allclose(np.std(points[..., 2]), 0.0)
-
-    # Convert the NumPy array to a VTK Points object
-    vtk_points = vtk.vtkPoints()
-    for pt in points.reshape(-1, 3):
-        vtk_points.InsertNextPoint(pt)
-
-    # Create a VTK PolyData object and set the points
-    polydata = vtk.vtkPolyData()
-    polydata.SetPoints(vtk_points)
-
-    # Triangulate the points using Delaunay triangulation
-    delaunay = vtk.vtkDelaunay3D() if not is_2d_surface else vtk.vtkDelaunay2D()
-    delaunay.SetInputData(polydata)
-    delaunay.Update()
-
-    # Get the output PolyData with triangulated polygons
-    triangulated_result = delaunay.GetOutput()
-
-    # Convert the VTK PolyData to a PyVista mesh
-    mesh = pv.wrap(triangulated_result)
-    return mesh
-
-
 def get_all_lines(msp, Translation_Vector):
 
     all_lines = None
@@ -403,6 +355,45 @@ def get_all_lines(msp, Translation_Vector):
     return all_lines
 
 
+def sort_outline(outline_points, sorting_algorithm='by_distance', resort_sharpness=False, remove_sharpness=True, sharp_angle_thr=10, extend_idx=30):
+    
+    if sorting_algorithm == 'by_distance':
+        outline_points = sort_points_by_distance(outline_points)
+    elif sorting_algorithm == 'by_angle':
+        outline_points = sort_points_by_polar_angle(outline_points)
+        
+    sharp_points = find_sharp_edges(outline_points, sharp_angle_threshold = sharp_angle_thr)
+
+    
+    if resort_sharpness and len(sharp_points) > 0:
+        
+        sharp_groups= group_neighbors(sharp_points, gap_threshold=1)
+    
+        for group in sharp_groups:
+
+            start_idx = max(group[0] - extend_idx, 0)  # Ensure start index is not less than 0
+            end_idx = min(group[-1] + extend_idx, len(outline_points) - 1)  # Ensure end index is not more than the last index
+
+            # Create an extended group of indices
+            extended_group = list(range(start_idx, group[0])) + list(group) + list(range(group[-1] + 1, end_idx + 1))
+            # Select and sort the points in the extended group
+            extended_group_points = outline_points[extended_group]
+            sorted_extended_group_points = sort_points_by_distance(extended_group_points)
+            
+            # Update the outline_points with the sorted extended group
+            outline_points[extended_group] = sorted_extended_group_points
+
+    all_sharp_points = list(sharp_points.copy())
+    while remove_sharpness and len(sharp_points) > 0:
+        outline_points = np.delete(outline_points, sharp_points, axis=0)
+        sharp_points = find_sharp_edges(outline_points, sharp_angle_threshold = sharp_angle_thr)
+        all_sharp_points.append(sharp_points)
+
+    # print(f'number of total sharp points (more than {sharp_angle_thr} degrees): {len(all_sharp_points)}')
+        
+    return outline_points
+
+
 def extrude_as_gable(msp, max_height, Translation_Vector):
 
     all_lines = get_all_lines(msp, Translation_Vector)
@@ -412,7 +403,7 @@ def extrude_as_gable(msp, max_height, Translation_Vector):
     outline_points = get_outline(densified_points)
     outline_points = np.array(outline_points)
     outline_points = np.unique(outline_points, axis=0)
-    outline_points = sort_points_by_distance(outline_points)
+    outline_points = sort_outline(outline_points, sorting_algorithm='by_distance', resort_sharpness=False, remove_sharpness=True, sharp_angle_thr=10, extend_idx=30)
     outline_points3D = produce_gable_height(outline_points, max_height)
 
     ###################################################################
