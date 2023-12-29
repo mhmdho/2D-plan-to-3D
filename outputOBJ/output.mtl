@@ -14,28 +14,35 @@ Ks 0 0 0
 Ns 100
 d 1.0
 illum 3
-newmtl mtl28135
+newmtl mtl29885
 Ka 0 0 0
 Kd 0.47058823529411764 0.47058823529411764 0.47058823529411764
 Ks 0 0 0
 Ns 100
 d 1.0
 illum 3
-newmtl mtl35311
+newmtl mtl38825
 Ka 0 0 0
 Kd 1 1 1
 Ks 0 0 0
 Ns 100
 d 1.0
 illum 3
-newmtl mtl36679
+newmtl mtl40377
 Ka 0 0 0
 Kd 0.20784313725490197 0.49411764705882355 0.7803921568627451
 Ks 0 0 0
 Ns 100
 d 1.0
 illum 3
-newmtl mtl49205
+newmtl mtl52903
+Ka 0 0 0
+Kd 1 1 1
+Ks 0 0 0
+Ns 100
+d 1.0
+illum 3
+newmtl mtl53095
 Ka 0 0 0
 Kd 1 1 1
 Ks 0 0 0

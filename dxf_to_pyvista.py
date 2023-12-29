@@ -12,7 +12,7 @@ def dxf_to_pyvista_line(line):
 
 def dxf_to_pyvista_polyline(polyline):
     """Convert DXF POLYLINE or LWPOLYLINE to pyvista PolyData."""
-    vertices = [vertex+(0,) for vertex in polyline.vertices()]
+    vertices = [vertex[:2] + (0,) for vertex in polyline.vertices()]
     lines = []
     for i in range(len(vertices) - 1):
         line = pv.Line(vertices[i], vertices[i+1])
@@ -65,6 +65,7 @@ def dxf_to_pyvista_hatch(hatch):
                     z = 0
                 else:
                     x, y, z = vertex
+                    z = 0
                 vertices.append((x, y, z))
 
             if path.is_closed:

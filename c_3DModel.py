@@ -2,8 +2,8 @@ import os
 import ezdxf
 import numpy as np
 import pyvista as pv
-from dxf_to_pyvista import dxf_to_pyvista_line, dxf_to_pyvista_polyline2, dxf_to_pyvista_hatch
-from roof_utilities import extrude_as_gable
+from dxf_to_pyvista import dxf_to_pyvista_line, dxf_to_pyvista_polyline, dxf_to_pyvista_hatch
+from roof_utilities import extrude_as_gable, create_floor_surface
 
 ##########################################################################################################
 
@@ -33,22 +33,23 @@ Door_Texture = pv.Texture('Textures/door.png')
 Roof_Texture = pv.Texture('Textures/roof.jpg')
 Stair_Texture = pv.Texture('Textures/stair.jpg')
 Balcony_Texture = pv.Texture('Textures/wall.jpg')
+Floor_Texture = pv.Texture('Textures/stair.jpg')
 
-Layers = ['Door', 'Wall', 'Roof', 'Stair', 'Window', 'Balcony']         # Order of Layers 
+Layers = ['Door', 'Wall', 'Roof', 'Stair', 'Window', 'Balcony', 'Floors']         # Order of Layers 
 
 # lightred = (.7, .4, .4)
-# Colors = [lightred, 'lightgrey'   , 'lightbrown', 'lightgreen', 'lightblue', '#FFFFFF']
-Colors = ['#694b29', '#FFFFFF'   , '#787878', '#FFFFFF', '#357EC7', '#FFFFFF']
-Textures = [None, None, None, None, None, None]
+# Colors = [lightred, 'lightgrey'   , 'lightbrown', 'lightgreen', 'lightblue', '#FFFFFF', '#FFFFFF']
+Colors = ['#694b29', '#FFFFFF'   , '#787878', '#FFFFFF', '#357EC7', '#FFFFFF', '#FFFFFF']
+Textures = [None, None, None, None, None, None, None]
 
-# Colors = ['#694b29', None, None, None, '#357EC7', '#FFFFFF']
-# Textures = [None, Wall_Texture, Roof_Texture, Wall_Texture, None, Balcony_Texture]
+# Colors = ['#694b29', None, None, None, '#357EC7', '#FFFFFF', '#FFFFFF']
+# Textures = [None, Wall_Texture, Roof_Texture, Wall_Texture, None, Balcony_Texture, None]
 
-# Colors = [None, None, None, None, None, None]
-# Textures = [Door_Texture, Wall_Texture, Roof_Texture, Wall_Texture, Window_Texture, Balcony_Texture]
+# Colors = [None, None, None, None, None, None, None]
+# Textures = [Door_Texture, Wall_Texture, Roof_Texture, Wall_Texture, Window_Texture, Balcony_Texture, Floor_Texture]
 
-Opacities = [1., 1., 1., 1., 1., 1.]
-Texture_Scales = [2, 2, 2, 2, 2, 2]
+Opacities = [1., 1., 1., 1., 1., 1., 1.]
+Texture_Scales = [2, 2, 2, 2, 2, 2, 2]
 
 Mesh_Doors = pv.MultiBlock()
 Mesh_Walls = pv.MultiBlock()
@@ -56,7 +57,7 @@ Mesh_Stairs = pv.MultiBlock()
 Mesh_Windows = pv.MultiBlock() 
 Mesh_Outline_window = pv.MultiBlock()
 Mesh_Balcony = pv.MultiBlock()
-All_lines = None
+Mesh_Floors = pv.MultiBlock()
 
 ##########################################################################################################
 
@@ -84,7 +85,9 @@ def entity_to_mesh(entity):
         mesh = dxf_to_pyvista_line(entity)
         
     elif entity.dxftype() in ['POLYLINE', 'LWPOLYLINE']:
-        mesh = dxf_to_pyvista_polyline2(entity)
+        lines = dxf_to_pyvista_polyline(entity)
+        for line in lines:
+            mesh.append(line)
                     
     elif entity.dxftype() == 'HATCH':
         all_hatch = dxf_to_pyvista_hatch(entity)
@@ -101,43 +104,45 @@ def update_layers(msp, translation_vector):
     
     def extrude_mesh(mesh, height, Translation_Vector):
         mesh.translate(Translation_Vector, inplace=True)
-        mesh = mesh.extrude([0, 0, height], capping=False)
-        return mesh
+        mesh3D = mesh.extrude([0, 0, height], capping=False)
+        return mesh3D
+    
+    plan_lines = None
     
     for entity in msp:
             
         if 'wal' in entity.dxf.layer.lower() or 'دیوار' in entity.dxf.layer:
             mesh = entity_to_mesh(entity)
-            All_lines = mesh if All_lines is None else All_lines + mesh  # Add every line and polyline to All_lines layer
-            mesh = extrude_mesh(mesh, WallHeight, translation_vector)
-            Mesh_Walls.append(mesh)
+            plan_lines = mesh.copy() if plan_lines is None else plan_lines + mesh  # Add every raw line and polyline to plan_lines layer
+            mesh3D = extrude_mesh(mesh, WallHeight, translation_vector)
+            Mesh_Walls.append(mesh3D)
             
         elif 'stair' in entity.dxf.layer.lower() or 'پله' in entity.dxf.layer:
             mesh = entity_to_mesh(entity)
-            All_lines = mesh if All_lines is None else All_lines + mesh  # Add every raw line and polyline to All_lines layer
-            mesh = extrude_mesh(mesh, WallHeight/8, translation_vector)
-            Mesh_Stairs.append(mesh)
+            plan_lines = mesh.copy() if plan_lines is None else plan_lines + mesh  # Add every raw line and polyline to plan_lines layer
+            mesh3D = extrude_mesh(mesh, WallHeight/8, translation_vector)
+            Mesh_Stairs.append(mesh3D)
             
         elif 'balcony' in entity.dxf.layer.lower() or 'بالکن' in entity.dxf.layer:
             mesh = entity_to_mesh(entity)
-            All_lines = mesh if All_lines is None else All_lines + mesh  # Add every raw line and polyline to All_lines layer
+            plan_lines = mesh.copy() if plan_lines is None else plan_lines + mesh  # Add every raw line and polyline to plan_lines layer
             mesh = extrude_mesh(mesh, WallHeight/4, translation_vector)
             Mesh_Balcony.append(mesh)
             
         elif 'door' in entity.dxf.layer.lower() or 'در' in entity.dxf.layer:
             mesh = entity_to_mesh(entity)
-            All_lines = mesh if All_lines is None else All_lines + mesh  # Add every raw line and polyline to All_lines layer
-            mesh = extrude_mesh(mesh, WallHeight, translation_vector)
-            lower_wall, door, upper_wall = extract_door_and_window(mesh, 1/12 , 1/4)        
+            plan_lines = mesh.copy() if plan_lines is None else plan_lines + mesh  # Add every raw line and polyline to plan_lines layer
+            mesh3D = extrude_mesh(mesh, WallHeight, translation_vector)
+            lower_wall, door, upper_wall = extract_door_and_window(mesh3D, 1/12 , 1/4)        
             # Mesh_Walls.append(lower_wall)
             Mesh_Doors.append(door)
             Mesh_Walls.append(upper_wall)
             
         elif 'win' in entity.dxf.layer.lower() or 'پنجره' in entity.dxf.layer:
             mesh = entity_to_mesh(entity)
-            All_lines = mesh if All_lines is None else All_lines + mesh  # Add every raw line and polyline to All_lines layer
-            mesh = extrude_mesh(mesh, WallHeight, translation_vector)
-            lower_wall, window, upper_wall = extract_door_and_window(mesh, 1/12 , 1/4)        
+            plan_lines = mesh.copy() if plan_lines is None else plan_lines + mesh  # Add every raw line and polyline to plan_lines layer
+            mesh3D = extrude_mesh(mesh, WallHeight, translation_vector)
+            lower_wall, window, upper_wall = extract_door_and_window(mesh3D, 1/12 , 1/4)        
             Mesh_Walls.append(lower_wall)
             Mesh_Windows.append(window)
             Mesh_Walls.append(upper_wall)
@@ -146,10 +151,14 @@ def update_layers(msp, translation_vector):
             Mesh_Outline_window.append(outline_window)
             
         elif 'roof' in entity.dxf.layer.lower() or 'سقف' in entity.dxf.layer or 'gable' in entity.dxf.layer or 'شیروانی' in entity.dxf.layer:
-            mesh = entity_to_mesh(entity)
-            All_lines = mesh if All_lines is None else All_lines + mesh  # Add every line and polyline to All_lines layer
+            # mesh = entity_to_mesh(entity)
             # TODO: Add roof extrudion by seperation of each roof id and then extruding it by extrude_as_gable()
-
+            pass
+        
+    plan_lines.translate(translation_vector, inplace=True)        
+    floor_surface = create_floor_surface(plan_lines)
+    Mesh_Floors.append(floor_surface)
+    
 
 def shell_delaunay_2d(mesh):
     copy = mesh.copy()
@@ -259,13 +268,13 @@ for i, msp in enumerate(MSP):
     
     if i < len(MSP)-1:
         update_layers(msp, Translation_Vector)
-        print(f'Floor {i} completed')
+        print(f'Floor {i+1} completed')
     else:
         Mesh_Roof = extrude_as_gable(msp, max_height=WallHeight, Translation_Vector=Translation_Vector)
         print('Roof completed')
 
 All_mesh = pv.MultiBlock()
-meshes = [Mesh_Doors, Mesh_Walls, Mesh_Roof, Mesh_Stairs, Mesh_Windows, Mesh_Balcony]
+meshes = [Mesh_Doors, Mesh_Walls, Mesh_Roof, Mesh_Stairs, Mesh_Windows, Mesh_Balcony, Mesh_Floors]
 for mesh in meshes:
     All_mesh.append(mesh)
 

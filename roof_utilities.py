@@ -51,7 +51,7 @@ def interpolate_AllLines(all_lines,PPU=30):
     return densified_points
 
 
-def get_outline(points, L_threshold=20, con=1):
+def get_outline(points, L_threshold=5, con=1):
 
     idxes = concave_hull_indexes(
         points[:, :2],
@@ -357,7 +357,7 @@ def get_all_lines(msp, Translation_Vector):
     return all_lines
 
 
-def sort_outline(outline_points, sorting_algorithm='by_distance', resort_sharpness=False, remove_sharpness=True, sharp_angle_thr=10, extend_idx=30):
+def sort_outline(outline_points, sorting_algorithm='by_distance', resort_sharpness=False, remove_sharpness=True, sharp_angle_thr=25, extend_idx=30):
     
     if sorting_algorithm == 'by_distance':
         outline_points = sort_points_by_distance(outline_points)
@@ -394,6 +394,21 @@ def sort_outline(outline_points, sorting_algorithm='by_distance', resort_sharpne
     # print(f'number of total sharp points (more than {sharp_angle_thr} degrees): {len(all_sharp_points)}')
         
     return outline_points
+
+
+def create_floor_surface(All_lines):
+    
+    if All_lines is None:
+        sys.exit("Error: No lines to work on. Please modify Layer names")
+    densified_points = interpolate_AllLines(All_lines,PPU=40)
+    outline_points = get_outline(densified_points)
+    outline_points = np.array(outline_points)
+    outline_points = np.unique(outline_points, axis=0)
+    outline_points = sort_outline(outline_points, sorting_algorithm='by_distance', resort_sharpness=False, remove_sharpness=True, sharp_angle_thr=10, extend_idx=30)
+    outline_lines = create_PolyData_Line(outline_points)
+    surface2D = produce_2Dsurface(outline_lines)
+    
+    return surface2D
 
 
 def extrude_as_gable(msp, max_height, Translation_Vector):
