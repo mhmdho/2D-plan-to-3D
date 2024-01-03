@@ -41,20 +41,34 @@ x_translate = np.zeros(N)
 y_translate = np.zeros(N)
 z_translate = [n * WallHeight for n in range(N)]
 
+
 for i, plan in enumerate(plan_files):
     
     doc = ezdxf.readfile(os.path.join(folder_path, plan))
     msp = doc.modelspace()
     Translation_Vector = [x_translate[i], y_translate[i], z_translate[i]]
     
-    if i < N-1:
-        update_layers(msp, Translation_Vector, WallHeight)        
+    #All Floor Plans:
+    if i < N-1: 
+        update_layers(msp, Translation_Vector, WallHeight)
+        
+        # Extruding lower roofs on lower plans: 
+        roof_path = f"decomposed/{os.path.splitext(plan)[0]}/roof"
+        for file in os.listdir(roof_path):
+            if file.lower().endswith('.dxf') and file.lower().startswith('roof'):
+                roof_msp = ezdxf.readfile(os.path.join(roof_path, file)).modelspace()
+                roof_translation = [x_translate[i], y_translate[i], z_translate[i+1]]
+                roof = extrude_as_gable(roof_msp, max_height=WallHeight, Translation_Vector=roof_translation)
+                Mesh_Roof.append(roof)
+          
         print(f'Floor {i+1} completed')
         
+    #Top Roof Plan:  
     else:
         top_Roof = extrude_as_gable(msp, max_height=WallHeight, Translation_Vector=Translation_Vector)
         Mesh_Roof.append(top_Roof)
         print('Roof completed')
+        
 
 All_mesh = pv.MultiBlock()
 meshes = [Mesh_Doors, Mesh_Walls, Mesh_Roof, Mesh_Stairs, Mesh_Windows, Mesh_Balcony, Mesh_Floors]
