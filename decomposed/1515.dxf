@@ -493,7 +493,7 @@ $SKPOLY
   9
 $TDCREATE
  40
-2460299.9960648147
+2460312.674525463
   9
 $TDUCREATE
  40
@@ -501,7 +501,7 @@ $TDUCREATE
   9
 $TDUPDATE
  40
-2460299.9960648147
+2460312.674525463
   9
 $TDUUPDATE
  40
@@ -933,11 +933,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{969EDBD5-E298-4650-8D7B-9A0BBBF978BD}
+{687DB2BF-F597-42FC-B6FD-38A7F6A60B38}
   9
 $VERSIONGUID
   2
-{F3894D5F-3B6F-47A3-8F4B-21257CC253E6}
+{3A5360F5-4CA8-4A9B-A466-966D7E55A114}
   9
 $EXTNAMES
 290
@@ -2083,7 +2083,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbPolyline
  90
@@ -2117,7 +2117,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbPolyline
  90
@@ -2143,7 +2143,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbLine
  10
@@ -2217,7 +2217,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbPolyline
  90
@@ -2273,7 +2273,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbPolyline
  90
@@ -2305,7 +2305,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbPolyline
  90
@@ -2329,7 +2329,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbLine
  10
@@ -2755,7 +2755,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -2779,7 +2779,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -2803,7 +2803,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbPolyline
  90
@@ -2827,7 +2827,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbPolyline
  90
@@ -3173,7 +3173,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -3245,7 +3245,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbPolyline
  90
@@ -3345,7 +3345,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbPolyline
  90
@@ -3477,7 +3477,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -3525,7 +3525,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -3699,7 +3699,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -3723,7 +3723,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -3747,7 +3747,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -3771,7 +3771,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -3795,7 +3795,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -3819,7 +3819,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -3843,7 +3843,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -3867,7 +3867,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -3891,7 +3891,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -3915,7 +3915,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -4051,7 +4051,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -4075,7 +4075,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -4099,7 +4099,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbPolyline
  90
@@ -4123,7 +4123,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -4181,7 +4181,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbPolyline
  90
@@ -4247,7 +4247,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbPolyline
  90
@@ -4487,7 +4487,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -4511,7 +4511,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -4535,7 +4535,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -4559,7 +4559,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -4583,7 +4583,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -4607,7 +4607,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -4631,7 +4631,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -4655,7 +4655,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -4679,7 +4679,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -4931,7 +4931,7 @@ A0
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -4955,7 +4955,7 @@ A1
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbPolyline
  90
@@ -4987,7 +4987,7 @@ A2
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbPolyline
  90
@@ -5011,7 +5011,7 @@ A3
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5035,7 +5035,7 @@ A4
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
  62
 1
 100
@@ -5181,7 +5181,7 @@ AA
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
  62
 1
 100
@@ -5231,7 +5231,7 @@ AC
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5255,7 +5255,7 @@ AD
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5279,7 +5279,7 @@ AE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5303,7 +5303,7 @@ AF
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5327,7 +5327,7 @@ B0
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5351,7 +5351,7 @@ B1
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5597,7 +5597,7 @@ BB
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5645,7 +5645,7 @@ BD
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5669,7 +5669,7 @@ BE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5693,7 +5693,7 @@ BF
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5717,7 +5717,7 @@ C0
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5741,7 +5741,7 @@ C1
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5765,7 +5765,7 @@ C2
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5789,7 +5789,7 @@ C3
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5813,7 +5813,7 @@ C4
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5837,7 +5837,7 @@ C5
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Balcony
 100
 AcDbLine
  10
@@ -5861,7 +5861,7 @@ C6
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5885,7 +5885,7 @@ C7
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5909,7 +5909,7 @@ C8
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Balcony
 100
 AcDbLine
  10
@@ -5933,7 +5933,7 @@ C9
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5957,7 +5957,7 @@ CA
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -5981,7 +5981,7 @@ CB
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6005,7 +6005,7 @@ CC
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6029,7 +6029,7 @@ CD
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6053,7 +6053,7 @@ CE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6077,7 +6077,7 @@ CF
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6101,7 +6101,7 @@ D0
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6125,7 +6125,7 @@ D1
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6149,7 +6149,7 @@ D2
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6173,7 +6173,7 @@ D3
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6197,7 +6197,7 @@ D4
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6221,7 +6221,7 @@ D5
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6245,7 +6245,7 @@ D6
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6269,7 +6269,7 @@ D7
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6293,7 +6293,7 @@ D8
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6317,7 +6317,7 @@ D9
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6341,7 +6341,7 @@ DA
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6365,7 +6365,7 @@ DB
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6389,7 +6389,7 @@ DC
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6413,7 +6413,7 @@ DD
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6437,7 +6437,7 @@ DE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6461,7 +6461,7 @@ DF
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6485,7 +6485,7 @@ E0
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6509,7 +6509,7 @@ E1
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6533,7 +6533,7 @@ E2
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6557,7 +6557,7 @@ E3
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6581,7 +6581,7 @@ E4
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6605,7 +6605,7 @@ E5
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6629,7 +6629,7 @@ E6
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6653,7 +6653,7 @@ E7
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6677,7 +6677,7 @@ E8
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6701,7 +6701,7 @@ E9
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6725,7 +6725,7 @@ EA
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6749,7 +6749,7 @@ EB
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6773,7 +6773,7 @@ EC
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6797,7 +6797,7 @@ ED
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6821,7 +6821,7 @@ EE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6845,7 +6845,7 @@ EF
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6869,7 +6869,7 @@ F0
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6893,7 +6893,7 @@ F1
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6917,7 +6917,7 @@ F2
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6941,7 +6941,7 @@ F3
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6965,7 +6965,7 @@ F4
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -6989,7 +6989,7 @@ F5
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7013,7 +7013,7 @@ F6
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7037,7 +7037,7 @@ F7
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7061,7 +7061,7 @@ F8
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7085,7 +7085,7 @@ F9
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7109,7 +7109,7 @@ FA
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7133,7 +7133,7 @@ FB
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7157,7 +7157,7 @@ FC
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7181,7 +7181,7 @@ FD
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7205,7 +7205,7 @@ FE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7229,7 +7229,7 @@ FF
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7253,7 +7253,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7277,7 +7277,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7301,7 +7301,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7325,7 +7325,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7349,7 +7349,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7373,7 +7373,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7397,7 +7397,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7421,7 +7421,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7445,7 +7445,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7469,7 +7469,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7493,7 +7493,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7517,7 +7517,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7541,7 +7541,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7565,7 +7565,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7589,7 +7589,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7613,7 +7613,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7637,7 +7637,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7661,7 +7661,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7685,7 +7685,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7709,7 +7709,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7733,7 +7733,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7757,7 +7757,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7781,7 +7781,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7805,7 +7805,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7829,7 +7829,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7853,7 +7853,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7877,7 +7877,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7901,7 +7901,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7925,7 +7925,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7949,7 +7949,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7973,7 +7973,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -7997,7 +7997,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8021,7 +8021,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8045,7 +8045,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8069,7 +8069,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8093,7 +8093,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8117,7 +8117,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8141,7 +8141,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8165,7 +8165,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8189,7 +8189,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8213,7 +8213,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8237,7 +8237,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8261,7 +8261,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8285,7 +8285,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8309,7 +8309,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8333,7 +8333,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8357,7 +8357,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8381,7 +8381,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8405,7 +8405,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8429,7 +8429,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8453,7 +8453,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8477,7 +8477,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8501,7 +8501,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8525,7 +8525,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8549,7 +8549,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8573,7 +8573,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8597,7 +8597,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8621,7 +8621,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8645,7 +8645,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8669,7 +8669,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8693,7 +8693,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8717,7 +8717,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8741,7 +8741,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8765,7 +8765,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8789,7 +8789,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8813,7 +8813,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8837,7 +8837,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8861,7 +8861,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8885,7 +8885,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8909,7 +8909,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8933,7 +8933,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8957,7 +8957,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -8981,7 +8981,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9005,7 +9005,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9029,7 +9029,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9053,7 +9053,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9077,7 +9077,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9101,7 +9101,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9125,7 +9125,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9149,7 +9149,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9173,7 +9173,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9197,7 +9197,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9221,7 +9221,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9245,7 +9245,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9269,7 +9269,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9293,7 +9293,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9317,7 +9317,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9341,7 +9341,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9365,7 +9365,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9389,7 +9389,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9413,7 +9413,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9437,7 +9437,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9461,7 +9461,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9485,7 +9485,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9509,7 +9509,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9533,7 +9533,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9557,7 +9557,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9581,7 +9581,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9605,7 +9605,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9629,7 +9629,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9653,7 +9653,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9677,7 +9677,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9701,7 +9701,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9725,7 +9725,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9749,7 +9749,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9773,7 +9773,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9797,7 +9797,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9821,7 +9821,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9845,7 +9845,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9869,7 +9869,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9893,7 +9893,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9917,7 +9917,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9941,7 +9941,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9965,7 +9965,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -9989,7 +9989,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10013,7 +10013,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10037,7 +10037,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10061,7 +10061,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10085,7 +10085,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10109,7 +10109,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10133,7 +10133,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10157,7 +10157,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10181,7 +10181,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10205,7 +10205,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10229,7 +10229,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10253,7 +10253,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10277,7 +10277,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10301,7 +10301,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10325,7 +10325,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10349,7 +10349,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10373,7 +10373,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10397,7 +10397,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10421,7 +10421,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10445,7 +10445,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10469,7 +10469,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10493,7 +10493,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10517,7 +10517,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10541,7 +10541,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10565,7 +10565,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10589,7 +10589,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10613,7 +10613,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10637,7 +10637,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10661,7 +10661,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10685,7 +10685,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10709,7 +10709,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10733,7 +10733,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10757,7 +10757,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10781,7 +10781,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10805,7 +10805,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10829,7 +10829,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10853,7 +10853,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10877,7 +10877,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10901,7 +10901,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10925,7 +10925,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10949,7 +10949,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10973,7 +10973,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -10997,7 +10997,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11021,7 +11021,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11045,7 +11045,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11069,7 +11069,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11093,7 +11093,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11117,7 +11117,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11141,7 +11141,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11165,7 +11165,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11189,7 +11189,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11213,7 +11213,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11237,7 +11237,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11261,7 +11261,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11285,7 +11285,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11333,7 +11333,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -11391,7 +11391,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11415,7 +11415,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11439,7 +11439,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11463,7 +11463,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11487,7 +11487,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -11513,7 +11513,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11537,7 +11537,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11561,7 +11561,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11585,7 +11585,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11609,7 +11609,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11683,7 +11683,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11707,7 +11707,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11731,7 +11731,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11755,7 +11755,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -11779,7 +11779,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -12205,7 +12205,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Roof
 100
 AcDbLine
  10
@@ -12229,7 +12229,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Roof
 100
 AcDbPolyline
  90
@@ -12253,7 +12253,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -12279,7 +12279,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -12305,7 +12305,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -12331,7 +12331,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -12357,7 +12357,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -12381,7 +12381,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -12587,7 +12587,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -12611,7 +12611,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -12687,7 +12687,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -12711,7 +12711,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -12735,7 +12735,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -12759,7 +12759,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -12783,7 +12783,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -12807,7 +12807,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -12831,7 +12831,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -12855,7 +12855,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -12879,7 +12879,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -12903,7 +12903,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -12927,7 +12927,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -12951,7 +12951,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -12975,7 +12975,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -12999,7 +12999,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -13023,7 +13023,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -13047,7 +13047,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -13071,7 +13071,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -13095,7 +13095,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -13119,7 +13119,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -13143,7 +13143,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -13167,7 +13167,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -13269,7 +13269,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -13293,7 +13293,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -13317,7 +13317,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Balcony
 100
 AcDbLine
  10
@@ -15969,7 +15969,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -15995,7 +15995,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -16047,7 +16047,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -16073,7 +16073,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -16099,7 +16099,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -16125,7 +16125,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -16151,7 +16151,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -18551,7 +18551,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -18577,7 +18577,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -18603,7 +18603,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -18677,7 +18677,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -18823,7 +18823,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -18849,7 +18849,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -18875,7 +18875,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -18901,7 +18901,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -18927,7 +18927,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -20441,7 +20441,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbPolyline
  90
@@ -20497,7 +20497,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Trim
+EL-Roof
  62
 8
 100
@@ -20523,7 +20523,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbPolyline
  90
@@ -20547,7 +20547,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Trim
+EL-Roof
  62
 8
 100
@@ -20573,7 +20573,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbPolyline
  90
@@ -20597,7 +20597,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Trim
+EL-Roof
  62
 8
 100
@@ -20623,7 +20623,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -23143,7 +23143,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -23167,7 +23167,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Trim
+EL-Roof
  62
 8
 100
@@ -23193,7 +23193,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -23217,7 +23217,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -23241,7 +23241,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -23265,7 +23265,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -23289,7 +23289,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -23313,7 +23313,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Trim
+EL-Roof
  62
 8
 100
@@ -23339,7 +23339,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbPolyline
  90
@@ -23395,7 +23395,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Trim
+EL-Roof
  62
 8
 100
@@ -23421,7 +23421,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbPolyline
  90
@@ -23445,7 +23445,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbPolyline
  90
@@ -23469,7 +23469,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbPolyline
  90
@@ -23493,7 +23493,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Trim
+EL-Roof
  62
 8
 100
@@ -25203,7 +25203,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbPolyline
  90
@@ -25239,7 +25239,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbPolyline
  90
@@ -25765,7 +25765,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbPolyline
  90
@@ -25789,7 +25789,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbPolyline
  90
@@ -25825,7 +25825,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbPolyline
  90
@@ -27047,7 +27047,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbPolyline
  90
@@ -27079,7 +27079,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbPolyline
  90
@@ -27151,7 +27151,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -27251,7 +27251,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -27275,7 +27275,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Trim
+EL-Roof
  62
 8
 100
@@ -27533,7 +27533,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -27749,7 +27749,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -27773,7 +27773,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -27797,7 +27797,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -27821,7 +27821,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -27845,7 +27845,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Trim
+EL-Roof
  62
 8
 100
@@ -28169,7 +28169,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Door
  62
 1
 100
@@ -28203,7 +28203,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Door
  62
 1
 100
@@ -28471,7 +28471,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbPolyline
  90
@@ -28495,7 +28495,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbPolyline
  90
@@ -28655,7 +28655,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -28705,7 +28705,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -28731,7 +28731,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -28757,7 +28757,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -28807,7 +28807,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -28833,7 +28833,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbPolyline
  90
@@ -28865,7 +28865,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbPolyline
  90
@@ -28889,7 +28889,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Window
  62
 1
 100
@@ -28919,7 +28919,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Window
  62
 1
 100
@@ -28945,7 +28945,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbPolyline
  90
@@ -28969,7 +28969,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbPolyline
  90
@@ -29001,7 +29001,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbLine
  10
@@ -29025,7 +29025,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbLine
  10
@@ -29049,7 +29049,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbLine
  10
@@ -29073,7 +29073,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbLine
  10
@@ -29097,7 +29097,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbLine
  10
@@ -29121,7 +29121,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbLine
  10
@@ -29145,7 +29145,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Window
  62
 8
 100
@@ -29179,7 +29179,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Window
 100
 AcDbLine
  10
@@ -29203,7 +29203,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Window
 100
 AcDbLine
  10
@@ -29227,7 +29227,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Window
 100
 AcDbLine
  10
@@ -29251,7 +29251,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Window
 100
 AcDbLine
  10
@@ -29275,7 +29275,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Window
 100
 AcDbLine
  10
@@ -29299,7 +29299,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbLine
  10
@@ -29323,7 +29323,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Window
 100
 AcDbLine
  10
@@ -29635,7 +29635,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbPolyline
  90
@@ -29755,7 +29755,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbPolyline
  90
@@ -29779,7 +29779,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-01 Wall
+EL-Door
  62
 8
  48
@@ -29813,7 +29813,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-01 Wall
+EL-Door
  62
 8
  48
@@ -29847,7 +29847,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-01 Wall
+EL-Door
  62
 8
  48
@@ -29881,7 +29881,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-01 Wall
+EL-Door
  62
 8
  48
@@ -30227,7 +30227,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-01 Wall
+EL-Door
  62
 8
  48
@@ -30267,7 +30267,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-01 Wall
+EL-Door
  62
 8
  48
@@ -31093,7 +31093,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Window
  62
 1
 100
@@ -31335,7 +31335,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbPolyline
  90
@@ -31359,7 +31359,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Trim
+EL-Roof
  62
 8
 100
@@ -31385,7 +31385,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Trim
+EL-Roof
  62
 8
 100
@@ -31411,7 +31411,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbPolyline
  90
@@ -31719,7 +31719,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Door
  62
 1
 100
@@ -31749,7 +31749,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Door
  62
 1
 100
@@ -32503,7 +32503,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Trim
+EL-Roof
  62
 8
 100
@@ -32945,7 +32945,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbPolyline
  90
@@ -32977,7 +32977,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbPolyline
  90
@@ -33153,7 +33153,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-01 Wall
+EL-Door
  62
 8
  48
@@ -33193,7 +33193,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-01 Wall
+EL-Door
  62
 8
  48
@@ -33235,7 +33235,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Window
  62
 8
 100
@@ -33269,7 +33269,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Window
 100
 AcDbLine
  10
@@ -33293,7 +33293,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Window
 100
 AcDbLine
  10
@@ -33317,7 +33317,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Window
 100
 AcDbLine
  10
@@ -33341,7 +33341,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Window
 100
 AcDbLine
  10
@@ -33365,7 +33365,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Window
 100
 AcDbLine
  10
@@ -33533,7 +33533,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-01 Wall
+EL-Door
  62
 8
  48
@@ -33567,7 +33567,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-01 Wall
+EL-Door
  62
 8
  48
@@ -33601,7 +33601,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-01 Wall
+EL-Door
  62
 8
  48
@@ -33635,7 +33635,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-01 Wall
+EL-Door
  62
 8
  48
@@ -33669,7 +33669,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbPolyline
  90
@@ -33701,7 +33701,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbPolyline
  90
@@ -33725,7 +33725,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbPolyline
  90
@@ -33749,7 +33749,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbPolyline
  90
@@ -33781,7 +33781,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbLine
  10
@@ -33805,7 +33805,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbPolyline
  90
@@ -33829,7 +33829,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbLine
  10
@@ -33853,7 +33853,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbLine
  10
@@ -33877,7 +33877,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbLine
  10
@@ -33901,7 +33901,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbLine
  10
@@ -33925,7 +33925,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbLine
  10
@@ -33949,7 +33949,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbPolyline
  90
@@ -34141,7 +34141,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -34165,7 +34165,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbPolyline
  90
@@ -34189,7 +34189,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -34213,7 +34213,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -34237,7 +34237,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -34261,7 +34261,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Window
 100
 AcDbLine
  10
@@ -34285,7 +34285,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Hatch
+EL-Door
 100
 AcDbLine
  10
@@ -34309,7 +34309,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -34335,7 +34335,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -34361,7 +34361,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -34387,7 +34387,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -35035,7 +35035,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -35059,7 +35059,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbPolyline
  90
@@ -35375,7 +35375,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -35399,7 +35399,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -35423,7 +35423,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -36827,7 +36827,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbPolyline
  90
@@ -37517,7 +37517,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -37905,7 +37905,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -37931,7 +37931,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -38109,7 +38109,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -38427,7 +38427,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbPolyline
  90
@@ -38451,7 +38451,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -38477,7 +38477,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -38503,7 +38503,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -38529,7 +38529,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbPolyline
  90
@@ -40785,7 +40785,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbPolyline
  90
@@ -40935,7 +40935,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Door
  62
 1
 100
@@ -40969,7 +40969,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -41005,7 +41005,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Hidden
+EL-Door
  62
 8
 100
@@ -41031,7 +41031,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Hidden
+EL-Door
  62
 8
 100
@@ -41057,7 +41057,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Hidden
+EL-Door
  62
 8
 100
@@ -41083,7 +41083,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -41119,7 +41119,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -41155,7 +41155,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -41191,7 +41191,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -41227,7 +41227,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -41263,7 +41263,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -41299,7 +41299,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -41335,7 +41335,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -41371,7 +41371,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -41767,7 +41767,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -41817,7 +41817,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -41843,7 +41843,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -41869,7 +41869,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -41895,7 +41895,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -41921,7 +41921,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -44043,7 +44043,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -44069,7 +44069,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -44105,7 +44105,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -44293,7 +44293,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -44329,7 +44329,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -44509,7 +44509,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -44535,7 +44535,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -44561,7 +44561,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -44587,7 +44587,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -44613,7 +44613,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -44639,7 +44639,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -44833,7 +44833,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -44869,7 +44869,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -44905,7 +44905,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -44941,7 +44941,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -46079,7 +46079,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Door
  62
 1
 100
@@ -46113,7 +46113,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -46149,7 +46149,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Hidden
+EL-Door
  62
 8
 100
@@ -46175,7 +46175,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Hidden
+EL-Door
  62
 8
 100
@@ -46201,7 +46201,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Hidden
+EL-Door
  62
 8
 100
@@ -46227,7 +46227,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -46263,7 +46263,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -46299,7 +46299,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -46335,7 +46335,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -46371,7 +46371,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -46407,7 +46407,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -46443,7 +46443,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -46479,7 +46479,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -46515,7 +46515,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -46911,7 +46911,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -46961,7 +46961,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -46987,7 +46987,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -47013,7 +47013,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -47039,7 +47039,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -47065,7 +47065,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -49187,7 +49187,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -49223,7 +49223,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -49411,7 +49411,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -49447,7 +49447,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -49627,7 +49627,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -49653,7 +49653,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -49679,7 +49679,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -49705,7 +49705,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -49731,7 +49731,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -49757,7 +49757,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -49951,7 +49951,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -49987,7 +49987,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -50023,7 +50023,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -50059,7 +50059,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -50121,7 +50121,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -50147,7 +50147,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -50173,7 +50173,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -50199,7 +50199,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -50225,7 +50225,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -51327,7 +51327,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Door
  62
 1
 100
@@ -51361,7 +51361,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -51397,7 +51397,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Hidden
+EL-Door
  62
 8
 100
@@ -51423,7 +51423,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Hidden
+EL-Door
  62
 8
 100
@@ -51449,7 +51449,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Hidden
+EL-Door
  62
 8
 100
@@ -51475,7 +51475,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -51511,7 +51511,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -51547,7 +51547,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -51583,7 +51583,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -51619,7 +51619,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -51655,7 +51655,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -51681,7 +51681,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -51707,7 +51707,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -51733,7 +51733,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -51793,7 +51793,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -51829,7 +51829,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -51865,7 +51865,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -51901,7 +51901,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -51937,7 +51937,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -51963,7 +51963,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -51989,7 +51989,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -52015,7 +52015,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -52401,7 +52401,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -52451,7 +52451,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -52477,7 +52477,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -52503,7 +52503,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -52529,7 +52529,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -52555,7 +52555,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -54705,7 +54705,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -54741,7 +54741,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -54929,7 +54929,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbPolyline
  90
@@ -54953,7 +54953,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -54977,7 +54977,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -55013,7 +55013,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -55075,7 +55075,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -55099,7 +55099,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -55123,7 +55123,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -55197,7 +55197,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -55395,7 +55395,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -55447,7 +55447,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -55473,7 +55473,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -55499,7 +55499,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -55525,7 +55525,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -55551,7 +55551,7 @@ LINE
 100
 AcDbEntity
   8
-A-EL-N-Window
+EL-Door
  62
 8
 100
@@ -56039,7 +56039,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -56117,7 +56117,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -56143,7 +56143,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -56169,7 +56169,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -56221,7 +56221,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -56459,7 +56459,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-EL-Trim
+EL-Roof
  62
 8
 100
@@ -56485,7 +56485,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -56537,7 +56537,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-EL-Trim
+EL-Roof
  62
 8
 100
@@ -56669,7 +56669,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-EL-Trim
+EL-Roof
  62
 8
 100
@@ -56695,7 +56695,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -56721,7 +56721,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -56805,7 +56805,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -56829,7 +56829,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -56865,7 +56865,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -56901,7 +56901,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -56937,7 +56937,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-A-DOOR
+EL-Door
  62
 8
 440
@@ -56973,7 +56973,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Trim
+EL-Roof
  62
 8
 100
@@ -56999,7 +56999,7 @@ LINE
 100
 AcDbEntity
   8
-EL-Trim
+EL-Roof
  62
 8
 100
@@ -57025,7 +57025,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -57049,7 +57049,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -57301,7 +57301,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbPolyline
  90
@@ -57325,7 +57325,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -57349,7 +57349,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -57373,7 +57373,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -57397,7 +57397,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -58177,7 +58177,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -58385,7 +58385,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -58489,7 +58489,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -58515,7 +58515,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 8
 100
@@ -58541,7 +58541,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -59035,7 +59035,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -60323,7 +60323,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -60349,7 +60349,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -60375,7 +60375,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -60401,7 +60401,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -60427,7 +60427,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -61601,7 +61601,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbPolyline
  90
@@ -61713,7 +61713,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbPolyline
  90
@@ -61927,7 +61927,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbPolyline
  90
@@ -62011,7 +62011,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbPolyline
  90
@@ -62611,7 +62611,7 @@ LINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbLine
  10
@@ -63133,7 +63133,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
 100
 AcDbPolyline
  90
@@ -65319,7 +65319,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Roof
  62
 1
 100
@@ -65401,7 +65401,7 @@ LWPOLYLINE
 100
 AcDbEntity
   8
-FP-Proposed Wall
+EL-Stair
 100
 AcDbPolyline
  90
@@ -66471,7 +66471,7 @@ DictionaryVariables
 280
 0
   1
-1.0.3 @ 2023-12-20T20:24:20.582852+00:00
+1.0.3 @ 2024-01-02T12:41:19.502587+00:00
   0
 DICTIONARYVAR
   5
@@ -66483,7 +66483,7 @@ DictionaryVariables
 280
 0
   1
-1.0.3 @ 2023-12-20T20:24:20.685451+00:00
+1.0.3 @ 2024-01-02T12:41:19.614704+00:00
   0
 ENDSEC
   0
