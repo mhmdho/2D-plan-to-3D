@@ -105,17 +105,6 @@ def update_layers(msp, translation_vector, WallHeight):
     plan_lines.translate(translation_vector, inplace=True)        
     floor_surface = create_floor_surface(plan_lines)
     Mesh_Floors.append(floor_surface)
-    
-
-def shell_delaunay_2d(mesh):
-    copy = mesh.copy()
-    copy.points[:,1] = 0.0 # Smash shell down to a plane
-    # Exagerate x and z
-    copy.points[:,0] *= 10
-    copy.points[:,2] *= 10
-    tri = copy.delaunay_2d()
-    # Put connectivity on plane to the original mesh
-    return pv.PolyData(mesh.points, tri.faces)
 
 
 def TextureScale(surface, scale_factor):
