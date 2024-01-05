@@ -160,11 +160,12 @@ def prepare_for_3DViewers(mesh, center, scale_factor):
     transformed_mesh = mesh_centered.scale([scale_factor, scale_factor, scale_factor], inplace=False)
     
     # Swap Y and Z axes
-    # transformed_mesh.points = np.column_stack((transformed_mesh.points[:, 0],  # X
-                                            #    transformed_mesh.points[:, 2],  # Z
-                                            #    transformed_mesh.points[:, 1])) # Y
+    transformed_mesh.points = np.column_stack((transformed_mesh.points[:, 0],  # X
+                                               transformed_mesh.points[:, 2],  # Z
+                                               -transformed_mesh.points[:, 1])) # Y
     
-    transformed_mesh.points[:, [1, 2]] = transformed_mesh.points[:, [2, 1]]   #Alternatively use this line to swap Y and Z
+    # transformed_mesh.points[:, [1, 2]] = transformed_mesh.points[:, [2, 1]]   #Alternatively use this line to swap Y and Z
+    
     transformed_mesh = transformed_mesh.point_data_to_cell_data()
     transformed_mesh = transformed_mesh.compute_normals()
     transformed_mesh = transformed_mesh.texture_map_to_plane()

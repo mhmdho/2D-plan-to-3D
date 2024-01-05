@@ -96,6 +96,7 @@ for i,mesh in enumerate(meshes):
 plotter.enable_depth_peeling()
 plotter.export_obj('outputOBJ/output.obj')
 plotter.add_axes()
+plotter.show_grid()
 plotter.show()
 plotter.close()
 
