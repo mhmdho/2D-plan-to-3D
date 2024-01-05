@@ -54,12 +54,13 @@ for i, plan in enumerate(plan_files):
         
         # Extruding lower roofs on lower plans: 
         roof_path = f"decomposed/{os.path.splitext(plan)[0]}/roof"
-        for file in os.listdir(roof_path):
-            if file.lower().endswith('.dxf') and file.lower().startswith('roof'):
-                roof_msp = ezdxf.readfile(os.path.join(roof_path, file)).modelspace()
-                roof_translation = [x_translate[i], y_translate[i], z_translate[i+1]]
-                roof = extrude_as_gable(roof_msp, max_height=WallHeight, Translation_Vector=roof_translation)
-                Mesh_Roof.append(roof)
+        if os.path.exists(roof_path):
+            for file in os.listdir(roof_path):
+                if file.lower().endswith('.dxf') and file.lower().startswith('roof'):
+                    roof_msp = ezdxf.readfile(os.path.join(roof_path, file)).modelspace()
+                    roof_translation = [x_translate[i], y_translate[i], z_translate[i+1]]
+                    roof = extrude_as_gable(roof_msp, max_height=WallHeight, Translation_Vector=roof_translation)
+                    Mesh_Roof.append(roof)
           
         print(f'Floor {i+1} completed')
         
