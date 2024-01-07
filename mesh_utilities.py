@@ -1,7 +1,6 @@
 import numpy as np
 import pyvista as pv
-from dxf_to_pyvista import dxf_to_pyvista_line, dxf_to_pyvista_polyline, dxf_to_pyvista_hatch
-from roof_utilities import create_floor_surface
+from roof_utilities import create_floor_surface, entity_to_mesh
 
 
 Mesh_Doors = pv.MultiBlock()
@@ -28,29 +27,6 @@ def extract_door_and_window(mesh,fraction_wall1,fraction_wall2):
     door_or_window = door_or_window.clip(normal=[0, 0, -1], origin=(0, 0, z1_door_or_window)) #Clip total mesh from z1_door_or_window downwards
     upper_wall = mesh.clip(normal=[0, 0, -1], origin=(0, 0, z2_door_or_window)) #Clip total mesh from z2_door_or_window downwards
     return lower_wall, door_or_window, upper_wall
-
-
-def entity_to_mesh(entity):
-
-    mesh = pv.MultiBlock()
-        
-    if entity.dxftype() == 'LINE':
-        mesh = dxf_to_pyvista_line(entity)
-        
-    elif entity.dxftype() in ['POLYLINE', 'LWPOLYLINE']:
-        lines = dxf_to_pyvista_polyline(entity)
-        for line in lines:
-            mesh.append(line)
-                    
-    elif entity.dxftype() == 'HATCH':
-        all_hatch = dxf_to_pyvista_hatch(entity)
-        for hatch in all_hatch:
-            mesh.append(hatch)
-            
-    if isinstance(mesh, pv.MultiBlock):
-        mesh = mesh.combine().extract_surface()
-    
-    return mesh
 
 
 def update_layers(msp, translation_vector, WallHeight):

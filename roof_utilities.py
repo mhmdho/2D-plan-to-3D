@@ -2,9 +2,61 @@ import pyvista as pv
 import sys
 from pyvista import wrap
 import numpy as np
-from concave_hull import concave_hull, concave_hull_indexes
 import vtkmodules.all as vtk
-from dxf_to_pyvista import dxf_to_pyvista_line, dxf_to_pyvista_polyline
+from concave_hull import concave_hull, concave_hull_indexes
+from dxf_to_pyvista import dxf_to_pyvista_line, dxf_to_pyvista_polyline, dxf_to_pyvista_hatch
+
+
+def entity_to_mesh(entity):
+
+    mesh = pv.MultiBlock()
+        
+    if entity.dxftype() == 'LINE':
+        mesh = dxf_to_pyvista_line(entity)
+        
+    elif entity.dxftype() in ['POLYLINE', 'LWPOLYLINE']:
+        lines = dxf_to_pyvista_polyline(entity)
+        for line in lines:
+            mesh.append(line)
+                    
+    elif entity.dxftype() == 'HATCH':
+        all_hatch = dxf_to_pyvista_hatch(entity)
+        for hatch in all_hatch:
+            mesh.append(hatch)
+            
+    if isinstance(mesh, pv.MultiBlock):
+        mesh = mesh.combine().extract_surface()
+    
+    return mesh
+
+
+def get_all_lines(msp, Translation_Vector):
+
+    all_lines = None
+
+    # Function to process a line entity
+    for entity in msp:
+
+        if ('roof' in entity.dxf.layer.lower() or
+            'gable' in entity.dxf.layer.lower() or
+            'شیروانی' in entity.dxf.layer or
+            'سقف' in entity.dxf.layer or 
+            'wal' in entity.dxf.layer.lower() or
+            'دیوار' in entity.dxf.layer or 
+            'stair' in entity.dxf.layer.lower() or
+            'پله' in entity.dxf.layer or
+            'balcon' in entity.dxf.layer.lower() or
+            'بالکن' in entity.dxf.layer or
+            'door' in entity.dxf.layer.lower() or
+            'در' in entity.dxf.layer.lower() or
+            'win' in entity.dxf.layer.lower() or
+            'پنجره' in entity.dxf.layer):
+
+            line = entity_to_mesh(entity)
+            line.translate(Translation_Vector, inplace=True)
+            all_lines = line if all_lines is None else all_lines + line
+
+    return all_lines
 
 
 def create_PolyData_Line(vertices):
@@ -316,45 +368,6 @@ def produce_2Dsurface(Lines, height=None):
         # If no height is provided, just return the 2D surface
         surface = wrap(triangulator.GetOutput())
         return surface
-
-
-def get_all_lines(msp, Translation_Vector):
-
-    all_lines = None
-
-    # Function to process a line entity
-    def add_lines(line, Translation_Vector):
-        nonlocal all_lines
-        line.translate(Translation_Vector, inplace=True)
-        all_lines = line if all_lines is None else all_lines + line
-
-    for entity in msp:
-
-        if ('roof' in entity.dxf.layer.lower() or
-            'gable' in entity.dxf.layer.lower() or
-            'شیروانی' in entity.dxf.layer or
-            'سقف' in entity.dxf.layer or 
-            'wal' in entity.dxf.layer.lower() or
-            'دیوار' in entity.dxf.layer or 
-            'stair' in entity.dxf.layer.lower() or
-            'پله' in entity.dxf.layer or
-            'balcon' in entity.dxf.layer.lower() or
-            'بالکن' in entity.dxf.layer or
-            'door' in entity.dxf.layer.lower() or
-            'در' in entity.dxf.layer.lower() or
-            'win' in entity.dxf.layer.lower() or
-            'پنجره' in entity.dxf.layer):
-                
-            if entity.dxftype() == 'LINE':
-                line = dxf_to_pyvista_line(entity)
-                add_lines(line, Translation_Vector)
-
-            elif entity.dxftype() in ['POLYLINE', 'LWPOLYLINE']:
-                lines = dxf_to_pyvista_polyline(entity)
-                for line in lines:
-                    add_lines(line, Translation_Vector)
-
-    return all_lines
 
 
 def sort_outline(outline_points, sorting_algorithm='by_distance', resort_sharpness=False, remove_sharpness=True, sharp_angle_thr=25, extend_idx=30):
