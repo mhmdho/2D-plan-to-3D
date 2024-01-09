@@ -40,10 +40,8 @@ plan_files.sort(reverse=False)
 N = len(plan_files)                    # Number of total plan files (floors + roof)
 
 heights = [WallHeight for n in range(N)]
-
 if 'plan_0.dxf' in plan_files:
     heights[0] = BaseHeight
-
 if 'plan_roof.dxf' in plan_files:
     heights[-1] = RoofHeight
 
