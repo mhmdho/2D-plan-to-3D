@@ -1,6 +1,6 @@
-import ezdxf
-from ezdxf.addons.drawing.matplotlib import qsave
 import os
+import ezdxf
+from b2_DXF_decomposition_newAlgorithm import dxf2svg
 
 
 def entity_range(msp, x=False, keyword=''):
@@ -90,30 +90,6 @@ def clustering_global(input_path, output_path, keyword='', thr = 1):
             n = n + 1
 
 
-def s2_dxf2svg(path):
-    
-    if not os.path.exists(path):
-        os.makedirs(path)
-        
-    files = os.listdir(path)
-    files_dxf = [file for file in files if file.endswith('.dxf')]
-    outputs = []
-    for file in files_dxf:
-        msp = ezdxf.readfile(os.path.join(path, file)).modelspace()
-        new_filename = file.replace(".dxf",".svg")
-
-        try:
-            qsave(msp, os.path.join(path, new_filename))
-        except Exception as e:
-            print(e)
-            pass
-            
-        outputs.append(os.path.join(path, new_filename))
-        
-    return outputs
-
-
-
 path = "decomposed"
 files = os.listdir(path)
 layers = ['balcony', 'roof', 'stair']
@@ -128,4 +104,4 @@ for file in files:
             input_path = f"{path}/{file}.dxf"
             output_path = f"{path}/{file}/{layer}"
             clustering_global(input_path, output_path, keyword=layer, thr=1)
-            s2_dxf2svg(path=output_path)
+            dxf2svg(path=output_path)
