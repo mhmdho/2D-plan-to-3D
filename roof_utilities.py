@@ -30,30 +30,17 @@ def entity_to_mesh(entity):
     return mesh
 
 
-def get_all_lines(msp, Translation_Vector):
-
+def get_all_lines(msp, translation_vector, layer_names):
     all_lines = None
 
     # Function to process a line entity
     for entity in msp:
+        entity_layer = entity.dxf.layer.lower()
 
-        if ('roof' in entity.dxf.layer.lower() or
-            'gable' in entity.dxf.layer.lower() or
-            'شیروانی' in entity.dxf.layer or
-            'سقف' in entity.dxf.layer or 
-            'wal' in entity.dxf.layer.lower() or
-            'دیوار' in entity.dxf.layer or 
-            'stair' in entity.dxf.layer.lower() or
-            'پله' in entity.dxf.layer or
-            'balcon' in entity.dxf.layer.lower() or
-            'بالکن' in entity.dxf.layer or
-            'door' in entity.dxf.layer.lower() or
-            'در' in entity.dxf.layer.lower() or
-            'win' in entity.dxf.layer.lower() or
-            'پنجره' in entity.dxf.layer):
-
+        # Check if entity layer matches any of the provided layer names
+        if any(layer_name.lower() in entity_layer for layer_name in layer_names):
             line = entity_to_mesh(entity)
-            line.translate(Translation_Vector, inplace=True)
+            line.translate(translation_vector, inplace=True)
             all_lines = line if all_lines is None else all_lines + line
 
     return all_lines
@@ -426,7 +413,9 @@ def create_floor_surface(All_lines):
 
 def extrude_as_gable(msp, max_height, Translation_Vector):
 
-    all_lines = get_all_lines(msp, Translation_Vector)
+    layer_names = ['roof', 'gable', 'شیروانی', 'سقف', 'wal', 'دیوار', 'stair', 'پله', 'balcon', 'بالکن', 'door', 'در', 'win', 'پنجره']
+    all_lines = get_all_lines(msp, Translation_Vector, layer_names)
+
     if all_lines is None:
         sys.exit("Error: No lines to work on. Please modify Layer names")
     densified_points = interpolate_AllLines(all_lines,PPU=30)
