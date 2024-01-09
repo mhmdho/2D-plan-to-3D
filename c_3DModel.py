@@ -2,13 +2,15 @@ import os
 import ezdxf
 import numpy as np
 import pyvista as pv
-from roof_utilities import extrude_as_gable
+from roof_utilities import extrude_as_gable, get_all_lines, create_floor_surface
 from mesh_utilities import update_layers, get_ScaleFactor_and_Translation, prepare_for_3DViewers, convert_tr_to_d
 from mesh_utilities import Mesh_Doors, Mesh_Walls, Mesh_Roof, Mesh_Stairs, Mesh_Windows, Mesh_Outline_window, Mesh_Balcony, Mesh_Floors
 
 
 folder_path = "decomposed"                     # Path to the decomposed folder
-WallHeight = 155                               # Height of each floor
+BaseHeight = 137                               # Height of the base floor
+WallHeight = 155                               # Height of the other floors
+RoofHeight = 205                               # Height of each roof
 
 Wall_Texture = pv.Texture('Textures/wall.jpg')
 Window_Texture = pv.Texture('Textures/window2.jpg')
@@ -37,44 +39,64 @@ plan_files = [file for file in os.listdir(folder_path) if file.endswith('.dxf') 
 plan_files.sort(reverse=False)
 N = len(plan_files)                    # Number of total plan files (floors + roof)
 
+heights = [WallHeight for n in range(N)]
+
+if 'plan_0.dxf' in plan_files:
+    heights[0] = BaseHeight
+
+if 'plan_roof.dxf' in plan_files:
+    heights[-1] = RoofHeight
+
 x_translate = np.zeros(N)
 y_translate = np.zeros(N)
-z_translate = [n * WallHeight for n in range(N)]
-
+z_translate = [sum(heights[:n]) for n in range(len(heights))]
 
 for i, plan in enumerate(plan_files):
     
     doc = ezdxf.readfile(os.path.join(folder_path, plan))
     msp = doc.modelspace()
     Translation_Vector = [x_translate[i], y_translate[i], z_translate[i]]
+    height = heights[i]
     
-    #All Floor Plans:
+    #All Plans except last one:
     if i < N-1: 
-        update_layers(msp, Translation_Vector, WallHeight)
+        update_layers(msp, Translation_Vector, height)
         
         # Extruding lower roofs on lower plans: 
-        roof_path = f"decomposed/{os.path.splitext(plan)[0]}/roof"
+        roof_path = f"{folder_path}/{os.path.splitext(plan)[0]}/roof"
         if os.path.exists(roof_path):
             for file in os.listdir(roof_path):
                 if file.lower().endswith('.dxf') and file.lower().startswith('roof'):
                     roof_msp = ezdxf.readfile(os.path.join(roof_path, file)).modelspace()
                     roof_translation = [x_translate[i], y_translate[i], z_translate[i+1]]
-                    roof = extrude_as_gable(roof_msp, max_height=WallHeight, Translation_Vector=roof_translation)
+                    roof = extrude_as_gable(roof_msp, max_height=RoofHeight, Translation_Vector=roof_translation)
                     Mesh_Roof.append(roof)
           
-        print(f'Floor {i+1} completed')
+        print(f'{os.path.splitext(plan)[0]} completed')
         
-    #Top Roof Plan:  
-    else:
-        top_Roof = extrude_as_gable(msp, max_height=WallHeight, Translation_Vector=Translation_Vector)
+    #last plan or plan_roof:  
+    elif i == N-1:
+        if 'plan_roof.dxf' not in plan_files: 
+            update_layers(msp, Translation_Vector, height)
+            print(f'{os.path.splitext(plan)[0]} completed')
+
+            # Draw a flat roof when plan_roof is absent:
+            layer_names = ['roof', 'gable', 'شیروانی', 'سقف', 'wal', 'دیوار', 'stair', 'پله', 'door', 'در', 'win', 'پنجره']
+            all_top_lines = get_all_lines(msp, Translation_Vector, layer_names)
+            roof_surface = create_floor_surface(all_top_lines)
+            top_Roof = roof_surface.translate([0, 0, heights[-1]], inplace=False)
+        else:
+            top_Roof = extrude_as_gable(msp, max_height=RoofHeight, Translation_Vector=Translation_Vector)
+
         Mesh_Roof.append(top_Roof)
-        print('Roof completed')
+        print(f'roof completed')
         
 
 All_mesh = pv.MultiBlock()
 meshes = [Mesh_Doors, Mesh_Walls, Mesh_Roof, Mesh_Stairs, Mesh_Windows, Mesh_Balcony, Mesh_Floors]
 for mesh in meshes:
-    All_mesh.append(mesh)
+    if mesh is not None and len(mesh) > 0:
+        All_mesh.append(mesh)
     
 ##########################################################################################################
 
