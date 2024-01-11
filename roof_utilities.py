@@ -418,6 +418,7 @@ def extrude_as_gable(msp, max_height, Translation_Vector):
 
     if all_lines is None:
         sys.exit("Error: No lines to work on. Please modify Layer names")
+        
     densified_points = interpolate_AllLines(all_lines,PPU=30)
     outline_points = get_outline(densified_points)
     outline_points = np.array(outline_points)

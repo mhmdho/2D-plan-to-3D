@@ -8,9 +8,13 @@ from mesh_utilities import Mesh_Doors, Mesh_Walls, Mesh_Roof, Mesh_Stairs, Mesh_
 
 
 folder_path = "decomposed"                     # Path to the decomposed folder
-BaseHeight = 137                               # Height of the base floor
-WallHeight = 155                               # Height of the other floors
-RoofHeight = 205                               # Height of each roof
+BaseHeight = 125.5                             # Height of base floor
+WallHeight = 157.25                            # Height of other floors
+RoofHeight = 174.4                             # Height of each roof
+heights = []
+# heights = [125.5, 164.5, 150, 174.4]         # in the case where heights are different for every floor
+win_down_perc = .16                            # down height percentage of the windows and doors where there is wall  
+win_up_perc = .18                              # up height percentage of the windows and doors where there is wall  
 
 Wall_Texture = pv.Texture('Textures/wall.jpg')
 Window_Texture = pv.Texture('Textures/window2.jpg')
@@ -39,11 +43,12 @@ plan_files = [file for file in os.listdir(folder_path) if file.endswith('.dxf') 
 plan_files.sort(reverse=False)
 N = len(plan_files)                    # Number of total plan files (floors + roof)
 
-heights = [WallHeight for n in range(N)]
-if 'plan_0.dxf' in plan_files:
-    heights[0] = BaseHeight
-if 'plan_roof.dxf' in plan_files:
-    heights[-1] = RoofHeight
+if len(heights)==0:
+    heights = [WallHeight for n in range(N)]
+    if 'plan_0.dxf' in plan_files:
+        heights[0] = BaseHeight
+    if 'plan_roof.dxf' in plan_files:
+        heights[-1] = RoofHeight
 
 x_translate = np.zeros(N)
 y_translate = np.zeros(N)
@@ -58,7 +63,7 @@ for i, plan in enumerate(plan_files):
     
     #All Plans except last one:
     if i < N-1: 
-        update_layers(msp, Translation_Vector, height)
+        update_layers(msp, Translation_Vector, height, win_down_perc, win_up_perc)
         
         # Extruding lower roofs on lower plans: 
         roof_path = f"{folder_path}/{os.path.splitext(plan)[0]}/roof"
@@ -75,7 +80,7 @@ for i, plan in enumerate(plan_files):
     #last plan or plan_roof:  
     elif i == N-1:
         if 'plan_roof.dxf' not in plan_files: 
-            update_layers(msp, Translation_Vector, height)
+            update_layers(msp, Translation_Vector, height, win_down_perc, win_up_perc)
             print(f'{os.path.splitext(plan)[0]} completed')
 
             # Draw a flat roof when plan_roof is absent:

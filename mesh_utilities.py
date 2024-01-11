@@ -29,7 +29,7 @@ def extract_door_and_window(mesh,fraction_wall1,fraction_wall2):
     return lower_wall, door_or_window, upper_wall
 
 
-def update_layers(msp, translation_vector, WallHeight):
+def update_layers(msp, translation_vector, WallHeight, down_perc, up_perc):
     
     def extrude_mesh(mesh, height, Translation_Vector):
         mesh.translate(Translation_Vector, inplace=True)
@@ -62,7 +62,7 @@ def update_layers(msp, translation_vector, WallHeight):
             mesh = entity_to_mesh(entity)
             plan_lines = mesh.copy() if plan_lines is None else plan_lines + mesh  # Add every raw line and polyline to plan_lines layer
             mesh3D = extrude_mesh(mesh, WallHeight, translation_vector)
-            lower_wall, door, upper_wall = extract_door_and_window(mesh3D, 1/12 , 1/4)        
+            lower_wall, door, upper_wall = extract_door_and_window(mesh3D, down_perc, up_perc)
             Mesh_Walls.append(lower_wall)
             Mesh_Doors.append(door)
             Mesh_Walls.append(upper_wall)
@@ -71,7 +71,7 @@ def update_layers(msp, translation_vector, WallHeight):
             mesh = entity_to_mesh(entity)
             plan_lines = mesh.copy() if plan_lines is None else plan_lines + mesh  # Add every raw line and polyline to plan_lines layer
             mesh3D = extrude_mesh(mesh, WallHeight, translation_vector)
-            lower_wall, window, upper_wall = extract_door_and_window(mesh3D, 1/12 , 1/4)        
+            lower_wall, window, upper_wall = extract_door_and_window(mesh3D, down_perc, up_perc)
             Mesh_Walls.append(lower_wall)
             Mesh_Windows.append(window)
             Mesh_Walls.append(upper_wall)
