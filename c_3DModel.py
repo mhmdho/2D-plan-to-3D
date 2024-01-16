@@ -2,7 +2,7 @@ import os
 import ezdxf
 import numpy as np
 import pyvista as pv
-from roof_utilities import extrude_as_gable, get_all_lines, create_floor_surface
+from roof_utilities import extrude_as_gable, extrude_as_gable2, get_all_lines, create_floor_surface
 from mesh_utilities import update_layers, get_ScaleFactor_and_Translation, prepare_for_3DViewers, convert_tr_to_d
 from mesh_utilities import Mesh_Doors, Mesh_Walls, Mesh_Roof, Mesh_Stairs, Mesh_Windows, Mesh_Outline_window, Mesh_Balcony, Mesh_Floors
 
@@ -72,7 +72,8 @@ for i, plan in enumerate(plan_files):
                 if file.lower().endswith('.dxf') and file.lower().startswith('roof'):
                     roof_msp = ezdxf.readfile(os.path.join(roof_path, file)).modelspace()
                     roof_translation = [x_translate[i], y_translate[i], z_translate[i+1]]
-                    roof = extrude_as_gable(roof_msp, max_height=RoofHeight, Translation_Vector=roof_translation)
+                    # roof = extrude_as_gable(roof_msp, max_height=RoofHeight, Translation_Vector=roof_translation)
+                    roof = extrude_as_gable2(roof_msp, RoofHeight, Translation_Vector=roof_translation, Alpha=65, Betha=65, A=.7, B=.8)
                     Mesh_Roof.append(roof)
           
         print(f'{os.path.splitext(plan)[0]} completed')
@@ -89,7 +90,8 @@ for i, plan in enumerate(plan_files):
             roof_surface = create_floor_surface(all_top_lines)
             top_Roof = roof_surface.translate([0, 0, heights[-1]], inplace=False)
         else:
-            top_Roof = extrude_as_gable(msp, max_height=RoofHeight, Translation_Vector=Translation_Vector)
+            # top_Roof = extrude_as_gable(msp, max_height=RoofHeight, Translation_Vector=Translation_Vector)
+            top_Roof = extrude_as_gable2(msp, RoofHeight, Translation_Vector, Alpha=65, Betha=65, A=.7, B=.8)
 
         Mesh_Roof.append(top_Roof)
         print(f'roof completed')

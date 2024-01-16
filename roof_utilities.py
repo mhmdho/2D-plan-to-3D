@@ -275,6 +275,45 @@ def produce_gable_height(points, max_height):
     return outline_points3D
 
 
+def produce_gable_height2(points, max_height, alpha=75, betha=75, a=.7, b=.8):
+
+    center_x = np.mean(points[:,0])
+    center_y = np.mean(points[:,1])
+
+    outline_points3D1 = points.copy()
+    for point in outline_points3D1:
+
+        point[0] = a * (point[0] - center_x) + center_x
+        point[1] = b * (point[1] - center_y) + center_y
+        point[2] += max_height
+
+
+    outline_points3D2 = points.copy()
+    for point in outline_points3D2:
+
+        if point[0] < center_x:
+            point[0] += max_height / np.tan(np.radians(alpha))
+            if point[0] > center_x:
+                point[0] = center_x.copy()
+        else:
+            point[0] -= max_height / np.tan(np.radians(alpha))
+            if point[0] < center_x:
+                point[0] = center_x.copy()
+
+        if point[1] < center_y:
+            point[1] += max_height / np.tan(np.radians(betha)) 
+            if point[1] > center_y:
+                point[1] = center_y.copy()
+        else:
+            point[1] -= max_height / np.tan(np.radians(betha)) 
+            if point[1] < center_y:
+                point[1] = center_y.copy()
+
+        point[2] += max_height
+
+    return outline_points3D2
+
+
 def find_corner_points(points, angle_threshold=10):
     # Placeholder function to calculate the angle between three points
     def angle_between(p1, p2, p3):
@@ -495,3 +534,59 @@ def extrude_as_gable(msp, max_height, Translation_Vector):
         Gable.append(poly)
     
     return Gable        
+
+
+def extrude_as_gable2(msp, RoofHeight, Translation_Vector, Alpha=75, Betha=75, A=.7, B=.8):
+
+    layer_names = ['roof', 'gable', 'شیروانی', 'سقف', 'wal', 'دیوار', 'stair', 'پله', 'balcon', 'بالکن', 'door', 'در', 'win', 'پنجره']
+    all_lines = get_all_lines(msp, Translation_Vector, layer_names)
+
+    if all_lines is None:
+        sys.exit("Error: No lines to work on. Please modify Layer names")
+
+    densified_points = interpolate_AllLines(all_lines,PPU=30)
+    outline_points = get_outline(densified_points)
+    outline_points = np.array(outline_points)
+    outline_points = np.unique(outline_points, axis=0)
+    outline_points = sort_outline(outline_points, sorting_algorithm='by_distance', resort_sharpness=False, remove_sharpness=True, sharp_angle_thr=10, extend_idx=30)
+    outline_points3D = produce_gable_height2(outline_points, RoofHeight, alpha=Alpha, betha=Betha, a=A , b=B)
+
+    #####################################################################
+    outline_lines = create_PolyData_Line(outline_points)
+    outline_lines3D = create_PolyData_Line(outline_points3D)
+
+    # Creating Outline Lines with corner_points instead of all outline_points
+    corner_points = find_corner_points(outline_points, angle_threshold=10)  # Threshold angle in degrees
+    corner_points3D = produce_gable_height2(corner_points, RoofHeight, alpha=Alpha, betha=Betha, a=A , b=B)
+
+    corner_lines = create_PolyData_Line(corner_points)
+    corner_lines3D = create_PolyData_Line(corner_points3D)
+
+    surface2D = produce_2Dsurface(outline_lines)
+    surface3D = produce_2Dsurface(outline_lines3D)
+
+    ##################################################################
+    # plotting side surfaces of the gable
+
+    side_surface = pv.MultiBlock()
+
+    for i in range(len(outline_points) - 1):
+        p1, p2, p3, p4 = outline_points[i], outline_points[i + 1], outline_points3D[i + 1], outline_points3D[i]
+        points = np.array((p1, p2, p3, p4)).astype(np.float32)  # Explicitly cast to float32
+        faces = np.hstack([[4], np.arange(4)])  # 4 points, followed by the indices 0, 1, 2, 3
+        plane = pv.PolyData(points, faces)
+        side_surface.append(plane)
+
+    #plotting the last plane:
+    p1, p2, p3, p4 = outline_points[-1], outline_points[0], outline_points3D[0], outline_points3D[-1]
+    points = np.array((p1, p2, p3, p4)).astype(np.float32)  # Explicitly cast to float32
+    faces = np.hstack([[4], np.arange(4)])  # 4 points, followed by the indices 0, 1, 2, 3
+    plane = pv.PolyData(points, faces)
+    side_surface.append(plane)
+
+    Gable = pv.MultiBlock()
+    Gable_Surface = [surface2D, side_surface, surface3D]
+    for poly in Gable_Surface:
+        Gable.append(poly)
+
+    return Gable
