@@ -68,3 +68,39 @@ def rotate_arc(arc, insert):
     end_angle = angle_points + arc.dxf.end_angle + insert.dxf.rotation
 
     return start_angle, end_angle
+
+
+def entity_range_xy(msp, xy, reverse=False):
+    LinePoints = []
+    for entity in msp:
+        if entity.dxftype() == 'LINE':
+            list_line = [entity.dxf.start, entity.dxf.end]
+            list_line.sort(key= lambda a: a[xy]) # y:1
+            if len(list_line[0]) == 2:
+                list_line[0].append(0)
+            if len(list_line[1]) == 2:
+                list_line[1].append(0)
+            LinePoints.append([list_line[0], list_line[1], [entity]])
+        elif entity.dxftype() in ['LWPOLYLINE', 'POLYLINE']:
+            points = [vertex for vertex in entity.vertices()]
+            coord0 = points[0]
+            for coord in points[1:]:
+                list_coord = [list(coord0), list(coord)]
+                list_coord.sort(key= lambda a: a[xy]) # y:1
+                if len(list_coord[0]) == 2:
+                    list_coord[0].append(0)
+                if len(list_coord[1]) == 2:
+                    list_coord[1].append(0)
+                LinePoints.append([list_coord[0], list_coord[1], [entity]])
+                coord0 = coord
+
+    LinePoints.sort(reverse=reverse, key=lambda e: e[0][1])
+    LinePoints.sort(key=lambda e: e[0][0])
+
+    return LinePoints
+
+
+def line_equation(line, x):
+    m = (line[1][1] - line[0][1]) / (line[1][0] - line[0][0])
+    y = m * x - m * line[0][0] + line[0][1]
+    return y
