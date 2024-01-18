@@ -1,9 +1,13 @@
 import ezdxf
 
 
-path = "decomposed_cr/1c/"
-file_e = "1212front.dxf"
-file_p = "2323plan.dxf"
+# path = "decomposed_cr/1c/"
+# file_e = "1212front.dxf"
+# file_p = "2323plan.dxf"
+
+path = "decomposed/"
+file_e = "elevation_1front.dxf"
+file_p = "plan_0.dxf"
 
 
 doc_e = ezdxf.readfile(f'{path}{file_e}')
@@ -124,8 +128,8 @@ for entity in msp_e:
     # msp.add_line(start=item_plan[0], end=item_plan[1])
     # msp.add_foreign_entity(entity)
 
-doc.saveas(f"{path}mapping_{file_e}{file_p}")
-
+# doc.saveas(f"{path}mapping_{file_e}{file_p}")
+doc.saveas(f"{path}{file_e}")
 
 doc2 = ezdxf.new()
 msp2 = doc2.modelspace()

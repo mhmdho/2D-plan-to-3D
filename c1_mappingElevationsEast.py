@@ -1,9 +1,13 @@
 import ezdxf
 
 
-path = "decomposed_cr/1c/"
-file_e = "1313east.dxf"
-file_p = "2323plan.dxf"
+# path = "decomposed_cr/1c/"
+# file_e = "1313east.dxf"
+# file_p = "2323plan.dxf"
+
+path = "decomposed/"
+file_e = "elevation_4left.dxf"
+file_p = "plan_0.dxf"
 
 
 doc_e = ezdxf.readfile(f'{path}{file_e}')
@@ -176,8 +180,8 @@ for entity in msp_e:
         msp.add_line(start=entity.dxf.start, end=entity.dxf.end, dxfattribs={"layer": entity.dxf.layer})
 
 
-doc.saveas(f"{path}mapping_elevation{file_e}{file_p}")
-
+# doc.saveas(f"{path}mapping_elevation{file_e}{file_p}")
+doc.saveas(f"{path}{file_e}")
 
 
 
