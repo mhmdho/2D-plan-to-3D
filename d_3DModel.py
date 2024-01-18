@@ -30,13 +30,6 @@ Textures = [None, None, None, None, None, None, None]
 Opacities = [1., 1., 1., 1., 1., 1., 1.]
 Texture_Scales = [2, 2, 2, 2, 2, 2, 2]
 
-# lightred = (.7, .4, .4)
-# Colors = [lightred, 'lightgrey'   , 'lightbrown', 'lightgreen', 'lightblue', '#FFFFFF', '#FFFFFF']
-# Colors = ['#694b29', None, None, None, '#357EC7', '#FFFFFF', '#FFFFFF']
-# Textures = [None, Wall_Texture, Roof_Texture, Wall_Texture, None, Balcony_Texture, None]
-# Colors = [None, None, None, None, None, None, None]
-# Textures = [Door_Texture, Wall_Texture, Roof_Texture, Wall_Texture, Window_Texture, Balcony_Texture, Floor_Texture]
-
 ##########################################################################################################
 
 plan_files = [file for file in os.listdir(folder_path) if file.endswith('.dxf') and file.startswith('plan')]  # List all plan files in the folder
@@ -116,14 +109,11 @@ for i,mesh in enumerate(meshes):
         # mesh = TextureScale(mesh, Texture_Scales[i])
         plotter.add_mesh(mesh, color=Colors[i], texture=Textures[i], opacity=Opacities[i], line_width=2, point_size=0)
 
-# if Mesh_Outline_window is not None and len(Mesh_Outline_window) > 0:
-#     Mesh_Outline_window = prepare_for_3DViewers(Mesh_Outline_window, center=center, scale_factor=scale_factor)
-#     plotter.add_mesh(Mesh_Outline_window, color='blue', line_width=4, point_size=0)
 
 plotter.enable_depth_peeling()
 plotter.export_obj('outputOBJ/output.obj')
-plotter.add_axes()
-plotter.show_grid()
+# plotter.add_axes()
+# plotter.show_grid()
 plotter.show()
 plotter.close()
 
