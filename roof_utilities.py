@@ -280,38 +280,49 @@ def produce_gable_height2(points, max_height, alpha=75, betha=75, a=.7, b=.8):
     center_x = np.mean(points[:,0])
     center_y = np.mean(points[:,1])
 
-    outline_points3D1 = points.copy()
-    for point in outline_points3D1:
+    # outline_points3D1 = points.copy()
+    # for point in outline_points3D1:
 
-        point[0] = a * (point[0] - center_x) + center_x
-        point[1] = b * (point[1] - center_y) + center_y
-        point[2] += max_height
+    #     point[0] = a * (point[0] - center_x) + center_x
+    #     point[1] = b * (point[1] - center_y) + center_y
+    #     point[2] += max_height
 
 
     outline_points3D2 = points.copy()
+    outline_points3D_soft = []
+
     for point in outline_points3D2:
+        x_modified = False
+        y_modified = False
 
         if point[0] < center_x:
             point[0] += max_height / np.tan(np.radians(alpha))
             if point[0] > center_x:
                 point[0] = center_x.copy()
+                x_modified = True
         else:
             point[0] -= max_height / np.tan(np.radians(alpha))
             if point[0] < center_x:
                 point[0] = center_x.copy()
+                x_modified = True
 
         if point[1] < center_y:
             point[1] += max_height / np.tan(np.radians(betha)) 
             if point[1] > center_y:
                 point[1] = center_y.copy()
+                y_modified = True
         else:
             point[1] -= max_height / np.tan(np.radians(betha)) 
             if point[1] < center_y:
                 point[1] = center_y.copy()
+                y_modified = True
 
         point[2] += max_height
 
-    return outline_points3D2
+        if not (x_modified or y_modified):
+            outline_points3D_soft.append(point)
+
+    return outline_points3D2, np.array(outline_points3D_soft)
 
 
 def find_corner_points(points, angle_threshold=10):
@@ -485,11 +496,11 @@ def extrude_as_gable(msp, max_height, Translation_Vector):
     outline_lines3D_2 = create_PolyData_Line(outline_points3D_2)
 
     # Creating Outline Lines with corner_points instead of all outline_points
-    corner_points = find_corner_points(outline_points, angle_threshold=10)  # Threshold angle in degrees
-    corner_points3D = produce_gable_height(corner_points, max_height)
+    # corner_points = find_corner_points(outline_points, angle_threshold=10)  # Threshold angle in degrees
+    # corner_points3D = produce_gable_height(corner_points, max_height)
 
-    corner_lines = create_PolyData_Line(corner_points)
-    corner_lines3D = create_PolyData_Line(corner_points3D)
+    # corner_lines = create_PolyData_Line(corner_points)
+    # corner_lines3D = create_PolyData_Line(corner_points3D)
 
     ##################################################################
     surface2D = produce_2Dsurface(outline_lines)
@@ -544,26 +555,36 @@ def extrude_as_gable2(msp, RoofHeight, Translation_Vector, Alpha=75, Betha=75, A
     if all_lines is None:
         sys.exit("Error: No lines to work on. Please modify Layer names")
 
-    densified_points = interpolate_AllLines(all_lines,PPU=30)
+    densified_points = interpolate_AllLines(all_lines, PPU=30)
     outline_points = get_outline(densified_points)
     outline_points = np.array(outline_points)
     outline_points = np.unique(outline_points, axis=0)
     outline_points = sort_outline(outline_points, sorting_algorithm='by_distance', resort_sharpness=False, remove_sharpness=True, sharp_angle_thr=10, extend_idx=30)
-    outline_points3D = produce_gable_height2(outline_points, RoofHeight, alpha=Alpha, betha=Betha, a=A , b=B)
+    outline_points3D, outline_points3D_soft = produce_gable_height2(outline_points, RoofHeight, alpha=Alpha, betha=Betha, a=A , b=B)
 
     #####################################################################
     outline_lines = create_PolyData_Line(outline_points)
-    outline_lines3D = create_PolyData_Line(outline_points3D)
+    surface2D = produce_2Dsurface(outline_lines)
+
+    if len(outline_points3D_soft) > 0 :
+        outline_lines3D = create_PolyData_Line(outline_points3D_soft)
+        surface3D = produce_2Dsurface(outline_lines3D)
+    else:
+        surface3D = pv.PolyData()
+
 
     # Creating Outline Lines with corner_points instead of all outline_points
-    corner_points = find_corner_points(outline_points, angle_threshold=10)  # Threshold angle in degrees
-    corner_points3D = produce_gable_height2(corner_points, RoofHeight, alpha=Alpha, betha=Betha, a=A , b=B)
+    # corner_points = find_corner_points(outline_points, angle_threshold=10)  # Threshold angle in degrees
+    # corner_lines = create_PolyData_Line(corner_points)
+    # surface2D = produce_2Dsurface(corner_lines)
 
-    corner_lines = create_PolyData_Line(corner_points)
-    corner_lines3D = create_PolyData_Line(corner_points3D)
-
-    surface2D = produce_2Dsurface(outline_lines)
-    surface3D = produce_2Dsurface(outline_lines3D)
+    # corner_points3D, corner_points3D_soft = produce_gable_height2(corner_points, RoofHeight, alpha=Alpha, betha=Betha, a=A , b=B)
+    
+    # if len(corner_points3D_soft) > 0 :
+    #     corner_lines3D = create_PolyData_Line(corner_points3D_soft)
+    #     surface3D = produce_2Dsurface(corner_lines3D)
+    # else:
+    #     surface3D = pv.PolyData()
 
     ##################################################################
     # plotting side surfaces of the gable
