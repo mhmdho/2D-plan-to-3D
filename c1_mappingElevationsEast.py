@@ -1,10 +1,6 @@
 import ezdxf
 
 
-# path = "decomposed_cr/1c/"
-# file_e = "1313east.dxf"
-# file_p = "2323plan.dxf"
-
 path = "decomposed/"
 file_e = "elevation_4left.dxf"
 file_p = "plan_0.dxf"
@@ -137,10 +133,6 @@ for entity in msp_e:
     if entity.dxftype() == 'LINE':
         entity.dxf.start = (entity.dxf.start.z, entity.dxf.start.y, entity.dxf.start.x - min_e_x - elev_plan_dif)
         entity.dxf.end = (entity.dxf.end.z, entity.dxf.end.y, entity.dxf.end.x - min_e_x - elev_plan_dif)
-        msp3.add_line(start=entity.dxf.start, end=entity.dxf.end)
-
-doc3.saveas(f"{path}mapping333_planlines_{file_e}{file_p}")
-
 
 
 lines_e = entity_range_xy(msp_e, 0)
@@ -158,8 +150,6 @@ print(right_lines2[-1][1][1], 'eeeeeeeeeend')
 
 for entity in msp_e:
     if entity.dxftype() == 'LINE':
-        # entity.dxf.start = (entity.dxf.start.z, entity.dxf.start.y, entity.dxf.start.x)
-        # entity.dxf.end = (entity.dxf.end.z, entity.dxf.end.y, entity.dxf.end.x)
         for item_plan in right_lines2:
             if entity.dxf.start.z <= right_lines2[0][0][1]:
                 entity.dxf.start = (right_lines2[0][0][0], entity.dxf.start.y, entity.dxf.start.z)
@@ -179,9 +169,7 @@ for entity in msp_e:
             
         msp.add_line(start=entity.dxf.start, end=entity.dxf.end, dxfattribs={"layer": entity.dxf.layer})
 
-
-# doc.saveas(f"{path}mapping_elevation{file_e}{file_p}")
-doc.saveas(f"{path}{file_e}")
+# doc.saveas(f"{path}{file_e}")
 
 
 
@@ -193,12 +181,4 @@ for entity in msp_e:
         entity.dxf.end = (entity.dxf.end.x, entity.dxf.end.y, -1 * entity.dxf.end.z)
         msp4.add_line(start=entity.dxf.start, end=entity.dxf.end)
 
-doc4.saveas(f"{path}mapping444_planlines_{file_e}{file_p}")
-
-
-doc2 = ezdxf.new()
-msp2 = doc2.modelspace()
-
-for item_plan in right_lines2:
-    msp2.add_line(start=item_plan[0], end=item_plan[1])
-doc2.saveas(f"{path}mapping_planlines_{file_e}{file_p}")
+doc4.saveas(f"{path}{file_e}")
