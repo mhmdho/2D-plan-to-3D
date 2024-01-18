@@ -2,8 +2,11 @@ import a_DWG2DXF
 import b1_clustering_preProcessing
 import b2_DXF_decomposition_newAlgorithm
 import b3_translationOfPlans
-
-# Below lines should be applied after renaming the elevation and plan decomposed files:
+import b35_rename_plans_and_elevations
 import b4_matchingPlans
-import c0_layers_preProcessing
-import c_3DModel
+import c1_mappingElevationsFront
+import c1_mappingElevationsBack
+import c1_mappingElevationsEast
+import c1_mappingElevationsWest
+import d0_layers_preProcessing
+import d_3DModel
