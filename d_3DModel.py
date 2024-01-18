@@ -5,6 +5,7 @@ import pyvista as pv
 from roof_utilities import extrude_as_gable, extrude_as_gable2, get_all_lines, create_floor_surface
 from mesh_utilities import update_layers, get_ScaleFactor_and_Translation, prepare_for_3DViewers, convert_tr_to_d
 from mesh_utilities import Mesh_Doors, Mesh_Walls, Mesh_Roof, Mesh_Stairs, Mesh_Windows, Mesh_Outline_window, Mesh_Balcony, Mesh_Floors
+from dxf_to_pyvista_el import dxf_to_pyvista_line_el, dxf_to_pyvista_polyline_el, dxf_to_pyvista_hatch_el
 
 
 folder_path = "decomposed"                     # Path to the decomposed folder
@@ -109,6 +110,91 @@ for i,mesh in enumerate(meshes):
         # mesh = TextureScale(mesh, Texture_Scales[i])
         plotter.add_mesh(mesh, color=Colors[i], texture=Textures[i], opacity=Opacities[i], line_width=2, point_size=0)
 
+
+####################################################################################################
+####################################################################################################
+#3d Elevation mapping:
+        
+Mesh_front = pv.MultiBlock()
+Mesh_back = pv.MultiBlock()
+Mesh_right = pv.MultiBlock()
+Mesh_left = pv.MultiBlock()
+
+Mesh_el = [Mesh_front, Mesh_back, Mesh_right, Mesh_left]
+
+el_files = [file for file in os.listdir(folder_path) if file.endswith('.dxf') and file.startswith('elevation')]  # List all el files in the folder
+el_files.sort(reverse=False)
+N = len(el_files)                    # Number of total plan files (floors + roof)
+
+
+Translation_front = [-center[0], -center[2], center[1] + 20]
+Translation_back = [center[0], -center[2], center[1] - 20]
+Translation_right = [-center[0] - 20, -center[2], center[1]]
+Translation_left = [-center[0] + 20, -center[2], center[1]]
+
+Translation_el = [Translation_front, Translation_back, Translation_right, Translation_left]
+
+
+def entity_to_mesh_el(entity):
+
+    Mesh = pv.MultiBlock()
+        
+    if 'roof' not in entity.dxf.layer.lower():
+
+        if entity.dxftype() == 'LINE':
+            mesh = dxf_to_pyvista_line_el(entity)
+            Mesh.append(mesh)
+            
+        elif entity.dxftype() in ['POLYLINE', 'LWPOLYLINE']:
+            lines = dxf_to_pyvista_polyline_el(entity)
+            for line in lines:
+                Mesh.append(line)
+                        
+        elif entity.dxftype() == 'HATCH':
+            all_hatch = dxf_to_pyvista_hatch_el(entity)
+            for hatch in all_hatch:
+                Mesh.append(hatch)
+    
+    return Mesh
+
+
+def prepare_for_3DViewers_el(mesh, scale_factor, translation_el):
+        
+    if isinstance(mesh, pv.MultiBlock):
+        mesh = mesh.combine().extract_surface()
+
+    # mesh0 = mesh.copy()
+    mesh0 = mesh.tube(radius=.5, n_sides=4, inplace=False, capping=False)
+    mesh_centered = mesh0.translate(translation_el)
+    transformed_mesh = mesh_centered.scale([scale_factor, scale_factor, scale_factor], inplace=False)
+   
+    transformed_mesh = transformed_mesh.point_data_to_cell_data()
+    transformed_mesh = transformed_mesh.compute_normals()
+    transformed_mesh = transformed_mesh.texture_map_to_plane()
+    transformed_mesh = transformed_mesh.triangulate()
+
+    return transformed_mesh
+
+
+for i, el in enumerate(el_files):
+    
+    doc = ezdxf.readfile(os.path.join(folder_path, el))
+    msp = doc.modelspace()
+
+    for entity in msp:
+            mesh = entity_to_mesh_el(entity)
+            if mesh is not None and len(mesh)>0:
+                Mesh_el[i].append(mesh)
+
+    Mesh_el[i] = prepare_for_3DViewers_el(Mesh_el[i], scale_factor, Translation_el[i])
+
+    plotter.add_mesh(Mesh_el[i], color='k', texture=None, opacity=1, line_width=0, point_size=0)
+    
+    print(f'{os.path.splitext(el)[0]} completed')
+
+
+################################################################################################
+################################################################################################
 
 plotter.enable_depth_peeling()
 plotter.export_obj('outputOBJ/output.obj')
