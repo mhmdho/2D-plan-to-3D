@@ -135,25 +135,27 @@ Translation_left = [-center[0] + 20, -center[2], center[1]]
 Translation_el = [Translation_front, Translation_back, Translation_right, Translation_left]
 
 
-def entity_to_mesh_el(entity):
+def msp_to_mesh_el(msp):
 
     Mesh = pv.MultiBlock()
-        
-    if 'roof' not in entity.dxf.layer.lower():
 
-        if entity.dxftype() == 'LINE':
-            mesh = dxf_to_pyvista_line_el(entity)
-            Mesh.append(mesh)
-            
-        elif entity.dxftype() in ['POLYLINE', 'LWPOLYLINE']:
-            lines = dxf_to_pyvista_polyline_el(entity)
-            for line in lines:
-                Mesh.append(line)
-                        
-        elif entity.dxftype() == 'HATCH':
-            all_hatch = dxf_to_pyvista_hatch_el(entity)
-            for hatch in all_hatch:
-                Mesh.append(hatch)
+    for entity in msp:    
+
+        if 'roof' not in entity.dxf.layer.lower():
+
+            if entity.dxftype() == 'LINE':
+                mesh = dxf_to_pyvista_line_el(entity)
+                Mesh.append(mesh)
+                
+            elif entity.dxftype() in ['POLYLINE', 'LWPOLYLINE']:
+                lines = dxf_to_pyvista_polyline_el(entity)
+                for line in lines:
+                    Mesh.append(line)
+                            
+            elif entity.dxftype() == 'HATCH':
+                all_hatch = dxf_to_pyvista_hatch_el(entity)
+                for hatch in all_hatch:
+                    Mesh.append(hatch)
     
     return Mesh
 
@@ -181,10 +183,9 @@ for i, el in enumerate(el_files):
     doc = ezdxf.readfile(os.path.join(folder_path, el))
     msp = doc.modelspace()
 
-    for entity in msp:
-            mesh = entity_to_mesh_el(entity)
-            if mesh is not None and len(mesh)>0:
-                Mesh_el[i].append(mesh)
+    Mesh = msp_to_mesh_el(msp)
+    if Mesh is not None and len(Mesh)>0:
+        Mesh_el[i] = Mesh
 
     Mesh_el[i] = prepare_for_3DViewers_el(Mesh_el[i], scale_factor, Translation_el[i])
 
