@@ -3,7 +3,7 @@ import ezdxf
 from b2_DXF_decomposition_newAlgorithm import dxf2svg
 
 
-def entity_range(msp, x=False, keyword=''):
+def entity_range_keyword(msp, x=False, keyword=''):
     LinePoints = []
     for entity in msp:
         if keyword in entity.dxf.layer.lower():
@@ -27,7 +27,7 @@ def entity_range(msp, x=False, keyword=''):
     return LinePoints
 
 
-def clustering_by_line(points_list):
+def clustering_by_line2(points_list):
     
     if len(points_list) > 0:
         
@@ -46,30 +46,30 @@ def clustering_by_line(points_list):
         return []
 
 
-def clustering_global(input_path, output_path, keyword='', thr = 1):
+def clustering_global_thr(input_path, output_path, keyword='', thr = 1):
     doc = ezdxf.readfile(input_path)
     msp = doc.modelspace()
 
-    LinePointsY = entity_range(msp, keyword=keyword)
-    clustersY = clustering_by_line(LinePointsY)
+    LinePointsY = entity_range_keyword(msp, keyword=keyword)
+    clustersY = clustering_by_line2(LinePointsY)
 
     clustersX = []
     for item in clustersY:
         if len(item[2]) > thr:
-            LinePointsX = entity_range(item[2], x=True, keyword=keyword)
-            clustersX += clustering_by_line(LinePointsX)
+            LinePointsX = entity_range_keyword(item[2], x=True, keyword=keyword)
+            clustersX += clustering_by_line2(LinePointsX)
 
     clustersY = []
     for item in clustersX:
         if len(item[2]) > thr:
-            LinePointsY = entity_range(item[2], keyword=keyword)
-            clustersY += clustering_by_line(LinePointsY)
+            LinePointsY = entity_range_keyword(item[2], keyword=keyword)
+            clustersY += clustering_by_line2(LinePointsY)
 
     clustersX = []
     for item in clustersY:
         if len(item[2]) > thr:
-            LinePointsX = entity_range(item[2], x=True, keyword=keyword)
-            clustersX += clustering_by_line(LinePointsX)
+            LinePointsX = entity_range_keyword(item[2], x=True, keyword=keyword)
+            clustersX += clustering_by_line2(LinePointsX)
 
     n = 1
     j = 0
@@ -103,5 +103,5 @@ for file in files:
         for layer in layers:
             input_path = f"{path}/{file}.dxf"
             output_path = f"{path}/{file}/{layer}"
-            clustering_global(input_path, output_path, keyword=layer, thr=1)
+            clustering_global_thr(input_path, output_path, keyword=layer, thr=1)
             dxf2svg(path=output_path)
