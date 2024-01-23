@@ -3,7 +3,7 @@ import ezdxf
 
 
 path = "decomposed/"
-file_e = "elevation_2back.dxf"
+file_e = "elevation-back.dxf"
 file_p = "plan_0.dxf"
 
 
