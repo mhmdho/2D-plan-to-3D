@@ -114,25 +114,40 @@ for i,mesh in enumerate(meshes):
 ####################################################################################################
 ####################################################################################################
 #3d Elevation mapping:
-        
+
 Mesh_front = pv.MultiBlock()
 Mesh_back = pv.MultiBlock()
-Mesh_right = pv.MultiBlock()
-Mesh_left = pv.MultiBlock()
+Mesh_west = pv.MultiBlock()
+Mesh_east = pv.MultiBlock()
 
-Mesh_el = [Mesh_front, Mesh_back, Mesh_right, Mesh_left]
+Mesh_el = [Mesh_front, Mesh_back, Mesh_west, Mesh_east]
 
-el_files = [file for file in os.listdir(folder_path) if file.endswith('.dxf') and file.startswith('elevation')]  # List all el files in the folder
-el_files.sort(reverse=False)
-N = len(el_files)                    # Number of total plan files (floors + roof)
+elevation_files = ['None', 'None', 'None', 'None']
+elevations = [file for file in os.listdir(folder_path) if file.endswith('.dxf') and file.startswith('elevation')]  # List all elevation files in the folder
 
+for file_name in elevations:
+
+    if file_name == "elevation-front.dxf" :
+        elevation_files[0] = file_name
+    
+    if file_name == "elevation-back.dxf":
+        elevation_files[1] = file_name
+    
+    if file_name == "elevation-west.dxf":
+        elevation_files[2] = file_name
+    
+    if file_name == "elevation-east.dxf":
+        elevation_files[3] = file_name
+
+
+M = len(elevation_files)                    # Number of existing elevation files
 
 Translation_front = [-center[0], -center[2], center[1] + 20]
 Translation_back = [center[0], -center[2], center[1] - 20]
-Translation_right = [-center[0] - 20, -center[2], center[1]]
-Translation_left = [-center[0] + 20, -center[2], center[1]]
+Translation_west = [-center[0] - 20, -center[2], center[1]]
+Translation_east = [-center[0] + 20, -center[2], center[1]]
 
-Translation_el = [Translation_front, Translation_back, Translation_right, Translation_left]
+Translation_el = [Translation_front, Translation_back, Translation_west, Translation_east]
 
 
 def msp_to_mesh_el(msp):
@@ -178,20 +193,23 @@ def prepare_for_3DViewers_el(mesh, scale_factor, translation_el):
     return transformed_mesh
 
 
-for i, el in enumerate(el_files):
+for i, elevation_name in enumerate(elevation_files):
+
+    elevation_path = os.path.join(folder_path, elevation_name)
     
-    doc = ezdxf.readfile(os.path.join(folder_path, el))
-    msp = doc.modelspace()
+    if os.path.exists(elevation_path):
+        doc = ezdxf.readfile(elevation_path)
+        msp = doc.modelspace()
 
-    Mesh = msp_to_mesh_el(msp)
-    if Mesh is not None and len(Mesh)>0:
-        Mesh_el[i] = Mesh
+        Mesh = msp_to_mesh_el(msp)
+        if Mesh is not None and len(Mesh)>0:
+            Mesh_el[i] = Mesh
 
-    Mesh_el[i] = prepare_for_3DViewers_el(Mesh_el[i], scale_factor, Translation_el[i])
+        Mesh_el[i] = prepare_for_3DViewers_el(Mesh_el[i], scale_factor, Translation_el[i])
 
-    plotter.add_mesh(Mesh_el[i], color='k', texture=None, opacity=1, line_width=0, point_size=0)
-    
-    print(f'{os.path.splitext(el)[0]} completed')
+        plotter.add_mesh(Mesh_el[i], color='k', texture=None, opacity=1, line_width=0, point_size=0)
+        
+        print(f'{os.path.splitext(elevation_name)[0]} completed')
 
 
 ################################################################################################
