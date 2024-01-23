@@ -85,23 +85,27 @@ def clustering_global_thr(input_path, output_path, keyword='', thr = 1):
             if not os.path.exists(output_path):
                 os.makedirs(output_path)
             
-            doc_new.saveas(f'{output_path}/{layer}_{n}.dxf')
+            doc_new.saveas(f'{output_path}/{keyword}_{n}.dxf')
             
             n = n + 1
 
 
-path = "decomposed"
-files = os.listdir(path)
-layers = ['balcony', 'roof', 'stair']
-
-
-for file in files:
+def separate_layers(path, layers):
     
-    if file.lower().endswith('.dxf') and file.lower().startswith('plan'):
-        file = os.path.splitext(file)[0]
+    files = os.listdir(path)
         
-        for layer in layers:
-            input_path = f"{path}/{file}.dxf"
-            output_path = f"{path}/{file}/{layer}"
-            clustering_global_thr(input_path, output_path, keyword=layer, thr=1)
-            dxf2svg(path=output_path)
+    for file in files:
+        
+        if file.lower().endswith('.dxf') and file.lower().startswith('plan'):
+            file = os.path.splitext(file)[0]
+            
+            for layer in layers:
+                input_path = f"{path}/{file}.dxf"
+                output_path = f"{path}/{file}/{layer}"
+                clustering_global_thr(input_path, output_path, keyword=layer, thr=1)
+                dxf2svg(path=output_path)
+
+
+path = "decomposed"
+layers = ['balcony', 'roof', 'stair']
+separate_layers(path, layers)
