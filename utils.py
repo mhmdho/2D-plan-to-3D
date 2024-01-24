@@ -104,3 +104,8 @@ def line_equation(line, x):
     m = (line[1][1] - line[0][1]) / (line[1][0] - line[0][0])
     y = m * x - m * line[0][0] + line[0][1]
     return y
+
+
+def oghlidosi(p, q):
+    dist = math.sqrt((p.x-q.x)**2 + (p.y-q.y)**2 + (p.z-q.z)**2)
+    return dist
