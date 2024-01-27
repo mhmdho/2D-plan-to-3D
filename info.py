@@ -1,8 +1,8 @@
 import ezdxf
 
 
-# the_info = 'types'
-the_info = 'layers'
+the_info = 'types'
+# the_info = 'layers'
 
 
 doc = ezdxf.readfile('inputDXF/1.dxf')
@@ -35,6 +35,15 @@ print(f'\nProject {the_info}: ', myList, '\n')
 
 
 print('======================================================')
+
+
+# Query for all LINE entities in modelspace
+for e in msp.query("LINE"):
+    print("Start point: %s\n" % e.dxf.start)
+    print("End point: %s\n" % e.dxf.end)
+
+# Query for LINE entities with specific layer name
+entities_on_layer = msp.query(f'LINE[layer=="FP-Window"]')
 
 
 # Save layers to a new file
