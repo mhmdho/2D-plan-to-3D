@@ -1,6 +1,4 @@
 import ezdxf
-import os
-from ezdxf.addons.drawing.matplotlib import qsave
 
 
 def entity_range(msp, x=False):
@@ -11,6 +9,19 @@ def entity_range(msp, x=False):
                 line = (entity.dxf.start.x, entity.dxf.end.x)
             else:
                 line = (entity.dxf.start.y, entity.dxf.end.y)
+            LinePoints.append([min(line), max(line), [entity]])
+        elif entity.dxftype() in ['ELLIPSE']:
+            radius = (entity.dxf.major_axis.x**2 + entity.dxf.major_axis.y**2)**0.5
+            if x:
+                line = (entity.dxf.center.x - radius, entity.dxf.center.x + radius)
+            else:
+                line = (entity.dxf.center.y - radius, entity.dxf.center.y + radius)
+            LinePoints.append([min(line), max(line), [entity]])
+        elif entity.dxftype() in ['ARC', 'CIRCLE']:
+            if x:
+                line = (entity.dxf.center.x - entity.dxf.radius, entity.dxf.center.x + entity.dxf.radius)
+            else:
+                line = (entity.dxf.center.y - entity.dxf.radius, entity.dxf.center.y + entity.dxf.radius)
             LinePoints.append([min(line), max(line), [entity]])
         elif entity.dxftype() in ['LWPOLYLINE', 'POLYLINE']:
             try:
@@ -74,32 +85,21 @@ def clustering_global(input_path, output_path):
             for e in item[2]:
                 msp_new.add_foreign_entity(e)
             doc_new.saveas(f'{output_path}/{j}{j}.dxf')
+    # for element in LinePointsY:
+    #     for item in element[2]:
+    #         if item.dxftype() == 'ELLIPSE':
+    #             # radius = abs(max(item.dxf.major_axis, key=lambda a: abs(a)))
+    #             radius = (item.dxf.major_axis.x**2 + item.dxf.major_axis.y**2)**0.5
+    #             line = (item.dxf.center.y - radius, item.dxf.center.y + radius)
+    #             msp.add_ellipse(center=item.dxf.center, major_axis=item.dxf.major_axis, ratio=0.1)
+    #             msp.add_ellipse(center=item.dxf.center, major_axis=item.dxf.major_axis)
+    #             msp.add_line(start=[16240, line[0], 0], end=[16240, line[1], 0])
+    #             msp.add_line(start=[16230, item.dxf.center.y, 0], end=[16235, item.dxf.center.y, 0])
+    #             msp.add_line(start=[16230, item.dxf.center.y - radius, 0], end=[16230, item.dxf.center.y + radius, 0])
+    #     msp.add_line(start=[16250, element[0], 0], end=[16250, element[1], 0])
+    # doc.saveas(f'{output_path}/3333.dxf')
 
+input_path = 'inputDXF/1p.dxf'
+output_path = "decomposed_1"
 
-def dxf2svg(path):
-    
-    if not os.path.exists(path):
-        os.makedirs(path)
-        
-    files = os.listdir(path)
-    files_dxf = [file for file in files if file.endswith('.dxf')]
-    outputs = []
-    for file in files_dxf:
-        msp = ezdxf.readfile(os.path.join(path, file)).modelspace()
-        new_filename = file.replace(".dxf",".svg")
-
-        try:
-            qsave(msp, os.path.join(path, new_filename))
-        except Exception as e:
-            print(e)
-            pass
-            
-        outputs.append(os.path.join(path, new_filename))
-        
-    return outputs
-
-
-input_path = 'inputDXF/1.dxf'
-output_path = "decomposed"
 clustering_global(input_path, output_path)
-# dxf2svg(path=output_path)
