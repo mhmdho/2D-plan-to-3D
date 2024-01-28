@@ -50,7 +50,7 @@ def clustering_by_line(points_list):
     return clusters
 
 
-def clustering_global(input_path, output_path):
+def clustering_global(input_path, output_path, threshold):
     doc = ezdxf.readfile(input_path)
     msp = doc.modelspace()
 
@@ -59,26 +59,26 @@ def clustering_global(input_path, output_path):
 
     clustersX = []
     for item in clustersY:
-        if len(item[2]) > 50:
+        if len(item[2]) > threshold:
             LinePointsX = entity_range(item[2], x=True)
             clustersX += clustering_by_line(LinePointsX)
 
     clustersY = []
     for item in clustersX:
-        if len(item[2]) > 50:
+        if len(item[2]) > threshold:
             LinePointsY = entity_range(item[2])
             clustersY += clustering_by_line(LinePointsY)
 
     clustersX = []
     for item in clustersY:
-        if len(item[2]) > 50:
+        if len(item[2]) > threshold:
             LinePointsX = entity_range(item[2], x=True)
             clustersX += clustering_by_line(LinePointsX)
 
     j = 0
     clustersX.sort(key=lambda a: len(a[2]), reverse=True)
     for item in clustersX:
-        if len(item[2]) > 50:
+        if len(item[2]) > threshold:
             j += 1
 
             doc_new = ezdxf.new()
@@ -91,4 +91,4 @@ def clustering_global(input_path, output_path):
 input_path = 'inputDXF/1p.dxf'
 output_path = "decomposed_1"
 
-clustering_global(input_path, output_path)
+clustering_global(input_path, output_path, 50)
