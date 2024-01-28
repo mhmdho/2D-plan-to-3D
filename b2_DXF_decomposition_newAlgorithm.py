@@ -40,7 +40,7 @@ def entity_range(msp, x=False):
 def clustering_by_line(points_list):
     clusters = [points_list[0]]
     for i in range(len(points_list)-1):
-        if clusters[-1][0] <= points_list[i+1][0] <= clusters[-1][1]:
+        if clusters[-1][0] <= points_list[i+1][0] <= clusters[-1][1] + abs(clusters[-1][1] * 0.001):
             clusters[-1][2].append(points_list[i+1][2][0])
             if clusters[-1][1] < points_list[i+1][1]:
                 clusters[-1][1] = points_list[i+1][1]
@@ -76,6 +76,7 @@ def clustering_global(input_path, output_path):
             clustersX += clustering_by_line(LinePointsX)
 
     j = 0
+    clustersX.sort(key=lambda a: len(a[2]), reverse=True)
     for item in clustersX:
         if len(item[2]) > 50:
             j += 1
@@ -85,19 +86,7 @@ def clustering_global(input_path, output_path):
             for e in item[2]:
                 msp_new.add_foreign_entity(e)
             doc_new.saveas(f'{output_path}/{j}{j}.dxf')
-    # for element in LinePointsY:
-    #     for item in element[2]:
-    #         if item.dxftype() == 'ELLIPSE':
-    #             # radius = abs(max(item.dxf.major_axis, key=lambda a: abs(a)))
-    #             radius = (item.dxf.major_axis.x**2 + item.dxf.major_axis.y**2)**0.5
-    #             line = (item.dxf.center.y - radius, item.dxf.center.y + radius)
-    #             msp.add_ellipse(center=item.dxf.center, major_axis=item.dxf.major_axis, ratio=0.1)
-    #             msp.add_ellipse(center=item.dxf.center, major_axis=item.dxf.major_axis)
-    #             msp.add_line(start=[16240, line[0], 0], end=[16240, line[1], 0])
-    #             msp.add_line(start=[16230, item.dxf.center.y, 0], end=[16235, item.dxf.center.y, 0])
-    #             msp.add_line(start=[16230, item.dxf.center.y - radius, 0], end=[16230, item.dxf.center.y + radius, 0])
-    #     msp.add_line(start=[16250, element[0], 0], end=[16250, element[1], 0])
-    # doc.saveas(f'{output_path}/3333.dxf')
+
 
 input_path = 'inputDXF/1p.dxf'
 output_path = "decomposed_1"
