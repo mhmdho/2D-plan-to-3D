@@ -28,17 +28,24 @@ for entity in msp:
                         pass
                 elif e.dxftype() == 'CIRCLE':
                     center = transform_point(e.dxf.center, entity)
-                    radius_x=e.dxf.radius*entity.dxf.xscale
-                    radius_y=e.dxf.radius*entity.dxf.yscale
+                    radius_x = e.dxf.radius * entity.dxf.xscale
+                    radius_y = e.dxf.radius * entity.dxf.yscale
                     msp_new.add_circle(center=center, radius=max(radius_y, radius_x), dxfattribs={"layer": layer})
                 elif e.dxftype() == 'ARC':
                     center = transform_point(e.dxf.center, entity)
-                    radius_x=e.dxf.radius*entity.dxf.xscale
-                    radius_y=e.dxf.radius*entity.dxf.yscale
+                    start_angle = e.dxf.start_angle
+                    end_angle = e.dxf.end_angle
+                    if entity.dxf.xscale < 0:
+                        start_angle = 360 + (- 180 - e.dxf.end_angle)
+                        end_angle = 360 + (- 180 - e.dxf.start_angle)
+                    if entity.dxf.yscale < 0:
+                        start_angle = end_angle * -1
+                        end_angle = start_angle * -1
                     msp_new.add_arc(center=center, radius=radius_scale(e, entity), 
-                                    start_angle=e.dxf.start_angle+entity.dxf.rotation, 
-                                    end_angle=e.dxf.start_angle+entity.dxf.rotation,
-                                    dxfattribs={"layer": layer})
+                                    start_angle = start_angle + entity.dxf.rotation,
+                                    end_angle = end_angle + entity.dxf.rotation,
+                                    dxfattribs={"layer": layer}
+                                    )
     elif entity.dxftype() not in ['MTEXT', 'TEXT', 'DIMENSION', 'WIPEOUT']:
         try:
             msp_new.add_foreign_entity(entity)
