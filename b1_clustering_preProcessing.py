@@ -46,6 +46,17 @@ for entity in msp:
                                     end_angle = end_angle + entity.dxf.rotation,
                                     dxfattribs={"layer": layer}
                                     )
+                elif e.dxftype() in ['ELLIPSE']:
+                    center = transform_point(e.dxf.center, entity)
+                    radius_x = e.dxf.major_axis.x * entity.dxf.xscale
+                    radius_y = e.dxf.major_axis.y * entity.dxf.yscale
+                    msp_new.add_ellipse(center = center, major_axis = (radius_x, radius_y),
+                                    ratio = radius_x / radius_y * -1,
+                                    start_param = e.dxf.start_param,
+                                    end_param = e.dxf.end_param,
+                                    # start_param = start_param + math.radians(entity.dxf.rotation),
+                                    # end_param = end_param + math.radians(entity.dxf.rotation),
+                                    dxfattribs={"layer": layer})
     elif entity.dxftype() not in ['MTEXT', 'TEXT', 'DIMENSION', 'WIPEOUT']:
         try:
             msp_new.add_foreign_entity(entity)
