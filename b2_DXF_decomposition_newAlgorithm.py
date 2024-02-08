@@ -88,7 +88,7 @@ def clustering_global(input_path, output_path, threshold):
             doc_new.saveas(f'{output_path}/{j}{j}.dxf')
 
 
-input_path = 'inputDXF/1p.dxf'
-output_path = "decomposed_1"
+input_path = 'inputDXF/1.dxf'
+output_path = "decomposed"
 
 clustering_global(input_path, output_path, 50)
