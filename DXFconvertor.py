@@ -2,19 +2,20 @@ import aspose.cad as cad
 import os
 
 
+def convertor(path, format):
+    for file in os.listdir(path):
+        if file.split('.')[1] == 'dxf':
+            cadImage = cad.Image.load(f"{path}{file}")
+
+            if format == 'pdf':
+                options = cad.imageoptions.PdfOptions()
+            elif format == 'png':
+                options = cad.imageoptions.PngOptions()
+            elif format == 'svg':
+                options = cad.imageoptions.SvgOptions()
+
+            cadImage.save(f"{path}{file.split('.')[0]}.{format}", options)
+
+
 path = "decomposed/"
-
-for file in os.listdir(path):
-    if file.split('.')[1] == 'dxf':
-        cadImage = cad.Image.load(f"{path}{file}")
-
-        rasterizationOptions = cad.imageoptions.CadRasterizationOptions()
-
-        pdfOptions = cad.imageoptions.PdfOptions()
-        cadImage.save(f"{path}{file.split('.')[0]}.pdf", pdfOptions)
-
-        # pngOptions = cad.imageoptions.PngOptions()
-        # cadImage.save("f"{path}{file.split('.')[0]}.png", pngOptions)
-
-        # dxfOptions = cad.imageoptions.DxfOptions()
-        # cadImage.save("f"{path}{file.split('.')[0]}.dxf", dxfOptions)
+convertor(path, 'svg')
