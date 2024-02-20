@@ -130,6 +130,13 @@ for file in files[1:]:
                 entity.set_points(new_points)
             except:
                 pass
+        elif entity.dxftype() == 'CIRCLE':
+            entity.dxf.center = (entity.dxf.center.x - x_coordinate, entity.dxf.center.y - y_coordinate, entity.dxf.center.z)
+        elif entity.dxftype() == 'ARC':
+            entity.dxf.center = (entity.dxf.center.x - x_coordinate, entity.dxf.center.y - y_coordinate, entity.dxf.center.z)
+        elif entity.dxftype() in ['ELLIPSE']:
+            entity.dxf.center = (entity.dxf.center.x - x_coordinate, entity.dxf.center.y - y_coordinate, entity.dxf.center.z)
+
         msp.add_foreign_entity(entity)
 
     doc1.saveas(f"{path}{file1}")

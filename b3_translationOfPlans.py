@@ -35,5 +35,11 @@ for file in os.listdir(path):
                     entity.set_points(new_points)
                 except:
                     pass
+            elif entity.dxftype() == 'CIRCLE':
+                entity.dxf.center = (entity.dxf.center.x-shift_x, entity.dxf.center.y-shift_y, entity.dxf.center.z)
+            elif entity.dxftype() == 'ARC':
+                entity.dxf.center = (entity.dxf.center.x-shift_x, entity.dxf.center.y-shift_y, entity.dxf.center.z)
+            elif entity.dxftype() in ['ELLIPSE']:
+                entity.dxf.center = (entity.dxf.center.x-shift_x, entity.dxf.center.y-shift_y, entity.dxf.center.z)
 
         doc.saveas(f"{path}{file}")
